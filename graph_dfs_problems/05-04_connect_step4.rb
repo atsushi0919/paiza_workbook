@@ -1,98 +1,100 @@
-=begin
-連結成分の大きさ (paizaランク B 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# 連結成分の大きさ (paizaランク B 相当)
+# https://paiza.jp/works/mondai/graph_dfs_problems/graph_dfs__connect_step4
 
-シェア用URL:
-https://paiza.jp/works/mondai/graph_dfs_problems/graph_dfs__connect_step4
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-1, ..., n の番号がついた n 個の頂点とそれらをつなぐ枝からなる無向グラフを考えます。ただし、自己ループと多重辺は考えません。
+INPUT1 = <<~"EOS"
+  3 2
+  2
+  2 3
+  2
+  1 3
+  2
+  1 2
+EOS
+OUTPUT1 = <<~"EOS"
+  No
+EOS
 
-隣接リストと自然数 k が与えられます。このとき、グラフの各連結成分の頂点数が k 以下なら Yes を出力し、そうでなければ No を出力してください。
+INPUT2 = <<~"EOS"
+  5 3
+  1
+  2
+  1
+  1
+  2
+  4 5
+  2
+  3 5
+  2
+  3 4
+EOS
+OUTPUT2 = <<~"EOS"
+  Yes
+EOS
 
-▼　下記解答欄にコードを記入してみよう
+INPUT3 = <<~"EOS"
+  8 2
+  1
+  2
+  1
+  1
+  1
+  4
+  1
+  3
+  1
+  6
+  1
+  5
+  1
+  8
+  1
+  7
+EOS
+OUTPUT3 = <<~"EOS"
+  Yes
+EOS
 
-入力される値
-n k
-v_1
-a_{1,1} a_{1,2} ... a_{1,v_1}
-v_2
-a_{2,1} ... a_{2,v_2}
-...
-v_n
-a_{n,1} ... a_{n,v_n}
+require "set"
 
-・ 1 行目に、頂点の個数を表す整数 n と頂点数の上限を表す自然数 k が与えられます。
+# 頂点 s が属する連結成分が k 以下かを調べる
+def connected_components(s, k, ad_list)
+  vertices = Set.new
+  routes = [[s]]
+  while routes.length > 0
+    route = routes.pop
+    cv = route.last
+    vertices.add(cv)
+    return false if vertices.length > k
 
-・ 2i 行目には頂点 i に隣接している頂点の個数が与えられ、 2i+1 行目には頂点 i に隣接している頂点の番号が半角スペース区切りで与えられます。(1 ≦ i ≦ n)
+    ad_list[cv].each do |nv|
+      next if route.include?(nv)
+      routes << route + [nv]
+    end
+  end
+  [true, vertices]
+end
 
-入力値最終行の末尾に改行が１つ入ります。
-文字列は標準入力から渡されます。 標準入力からの値取得方法はこちらをご確認ください
-期待する出力
-グラフの各連結成分の要素数が k 以下なら Yes 、そうでなければ No をそれぞれ 1 行で出力してください。
+def main(input_str)
+  input_lines = input_str.split("\n")
+  # n: 頂点数, 連結成分数閾値
+  n, k = input_lines.shift.split.map(&:to_i)
+  # 隣接リスト
+  ad_list = {}
+  input_lines.each.with_index(1) do |line, idx|
+    next if idx.odd?
+    ad_list[idx / 2] = line.split.map(&:to_i)
+  end
 
-条件
-すべてのテストケースにおいて、以下の条件をみたします。
+  # 全頂点の接続状態を調べる
+  le_k = true
+  vertices = Set.new(1..n)
+  while vertices.length > 0
+    cv = vertices.to_a.first
+    le_k, component = connected_components(cv, k, ad_list)
+    le_k ? vertices -= component : break
+  end
+  # 全ての連結成分数が k 以下かを出力
+  le_k ? "Yes" : "No"
+end
 
-・ 3 ≦ n ≦ 20
-
-・ 2 ≦ k ≦ n-1
-
-・ 1 ≦ v_i ≦ n-1 (1 ≦ i ≦ n)
-
-・ 1 ≦ i ≦ n について
-
- ・ v_i = 1 のとき : 1 ≦ a_{i,1} ≦ n
-
- ・ v_i > 1 のとき : 1 ≦ a_{i,j} < a_{i,j+1} ≦ n (1 ≦ j ≦ (v_i)-1)
-
-入力例1
-3 2
-2
-2 3
-2
-1 3
-2
-1 2
-
-出力例1
-No
-
-入力例2
-5 3
-1
-2
-1
-1
-2
-4 5
-2
-3 5
-2
-3 4
-
-出力例2
-Yes
-
-入力例3
-8 2
-1
-2
-1
-1
-1
-4
-1
-3
-1
-6
-1
-5
-1
-8
-1
-7
-
-出力例3
-Yes
-=end
+puts main(STDIN.read)
