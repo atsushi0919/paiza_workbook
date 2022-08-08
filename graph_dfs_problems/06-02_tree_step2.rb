@@ -38,7 +38,21 @@ OUTPUT2 = <<~"EOS"
   4 5
 EOS
 
-# s から全ての頂点を回る経路
+INPUT3 = <<~"EOS"
+  4
+  2
+  2 3
+  1
+  1
+  2
+  1 4
+  1
+  3
+EOS
+OUTPUT3 = <<~"EOS"
+EOS
+
+# 全域木の経路を返す
 def spanning_tree_path(s, ad_list)
   n = ad_list.length
   paths = [[s]]
@@ -46,12 +60,15 @@ def spanning_tree_path(s, ad_list)
     path = paths.pop
     return path if path.length == n
 
+    # 隣接頂点を調べる
     cn = path.last
     ad_list[cn].each do |nn|
+      # 同じ頂点は使わない
       next if path.include?(nn)
       paths << path + [nn]
     end
   end
+  []
 end
 
 def main(input_str)
@@ -65,14 +82,18 @@ def main(input_str)
     ad_list[idx / 2] = line.split.map(&:to_i)
   end
 
-  # 1を始点として全ての頂点を回る経路を一つ選択
-  path = spanning_tree_path(1, ad_list)
+  # 全域木の経路を選択する
+  path = []
+  1.upto(n) do |s|
+    path = spanning_tree_path(s, ad_list)
+    break if path.length == n
+  end
 
-  # n-1 の全域木を出力
+  # 全域木の構成を返す
   path.each_cons(2).map { |v| v.join(" ") }.join("\n")
 end
 
-p main(INPUT2)
+puts main(STDIN.read)
 
 =begin
 

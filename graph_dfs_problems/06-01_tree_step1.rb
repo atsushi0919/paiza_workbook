@@ -64,33 +64,37 @@ OUTPUT3 = <<~"EOS"
   No
 EOS
 
-# s から全て連結出来るか？
-def connect_all?(s, ad_list)
-  n = ad_list.length
-  conn = {false}
-  1.upto(n) { |v| conn[v] = false }
-  edges = Array.new(n + 1) { Array.new(n + 1, false) }
+Path = Struct.new(:history, :edges)
 
-  paths = [[s]]
+# 全域木か？
+def spanning_tree?(s, ad_list)
+  spanning_tree = false
+  n = ad_list.length
+
+  edges = Array.new(n + 1) { Array.new(n + 1, false) }
+  s = Path.new([s], edges)
+  paths = [s]
+  connected = 1
   while paths.length > 0
+    spanning_tree = true if connected == n
     path = paths.pop
-    conn[]
-    if path.length == n
-      return true
-    end
 
     # 隣接頂点を調べる
-    cn = path.last
+    cn = path.history.last
     ad_list[cn].each do |nn|
       # 同じ経路は使わない
-      next if edges[cn][nn]
+      next if path.edges[cn][nn]
       # 通過済みの頂点なら閉路
-      return false if path.include?(nn)
-      edges[cn][nn] = edges[nn][cn] = true
-      paths << path + [nn]
+      return false if path.history.include?(nn)
+      # path を複製して情報更新
+      new_path = Marshal.load(Marshal.dump(path))
+      new_path.edges[cn][nn] = new_path.edges[nn][cn] = true
+      new_path.history << nn
+      paths << new_path
+      connected += 1
     end
   end
-  false
+  spanning_tree
 end
 
 def main(input_str)
@@ -104,20 +108,11 @@ def main(input_str)
     ad_list[idx / 2] = line.split.map(&:to_i)
   end
 
-  # 各頂点を始点として全域木になるか
-  spanning_tree = false
-  1.upto(n) do |s|
-    spanning_tree = connect_all?(s, ad_list)
-    break if spanning_tree
-  end
-
-  # 出力
-  spanning_tree ? "Yes" : "No"
+  # 全域木か判定し出力
+  spanning_tree?(1, ad_list) ? "Yes" : "No"
 end
 
-require "byebug"
-byebug
-puts main(INPUT1)
+puts main(STDIN.read)
 
 =begin
 問題文のURLをコピーする
