@@ -70,21 +70,35 @@ OUTPUT3 = <<~"EOS"
   2 10
 EOS
 
-# s から全て連結出来るか？
-def connect_all?(s, ad_list)
+Path = Struct.new(:history, :edges)
+
+# 全域木の経路を返す
+def spanning_tree_path(s, ad_list)
   n = ad_list.length
-  paths = [[s]]
+  edges = Array.new(n + 1) { Array.new(n + 1, false) }
+  s = Path.new([s], edges)
+  paths = [s]
   while paths.length > 0
     path = paths.pop
-    return [true, path] if path.length == n
+    if path.history.length == n
+      return path.history
+    end
 
-    cn = path.last
+    # 隣接頂点を調べる
+    cn = path.history.last
     ad_list[cn].each do |nn|
-      next if path.include?(nn)
-      paths << path + [nn]
+      # スキップ条件
+      next if path.edges[cn][nn]
+      next if path.history.include?(nn)
+
+      # path を複製して情報更新
+      new_path = Marshal.load(Marshal.dump(path))
+      new_path.edges[cn][nn] = new_path.edges[nn][cn] = true
+      new_path.history << nn
+      paths << new_path
     end
   end
-  false
+  []
 end
 
 def main(input_str)
@@ -98,136 +112,19 @@ def main(input_str)
     ad_list[idx / 2] = line.split.map(&:to_i)
   end
 
-  p ad_list
-
-  # 各頂点を始点として全域木になるか
+  # 次数が 2 以下の全域木の経路を調査する
   path = []
-  spanning_tree = false
   1.upto(n) do |s|
-    spanning_tree, path = connect_all?(s, ad_list)
-    break if spanning_tree
+    path = spanning_tree_path(s, ad_list)
+    break if not path.empty?
   end
 
-  return [spanning_tree, path]
-
-  # 出力
-  spanning_tree ? path.each_cons(2).map { |v| v.join(" ") }.join("\n") : -1
+  # 次数が 2 以下の全域木の構成を生成して出力
+  if not path.empty?
+    path.each_cons(2).map { |v| v.join(" ") }.join("\n")
+  else
+    -1
+  end
 end
 
-p main(INPUT3)
-
-=begin
-
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-1, ..., n の番号がついた n 個の頂点とそれらをつなぐ枝からなる無向グラフを考えます。ただし、自己ループと多重辺は考えません。
-
-隣接リストが与えられます。
-このとき、この隣接リストから枝を n-1 個選び、それぞれの頂点の次数が 2 以下となるような全域木を構成し、出力してください。
-頂点 v の次数とは頂点 v に接続されている枝の数のことを言います。そのような全域木が存在しない場合は -1 と出力してください。
-
-▼　下記解答欄にコードを記入してみよう
-
-入力される値
-n
-v_1
-a_{1,1} a_{1,2} ... a_{1,v_1}
-v_2
-a_{2,1} ... a_{2,v_2}
-...
-v_n
-a_{n,1} ... a_{n,v_n}
-
-・ 1 行目に、頂点の個数を表す整数 n が与えられます。
-
-・ 2i 行目には頂点 i に隣接している頂点の個数が与えられ、 2i+1 行目には頂点 i に隣接している頂点の番号が半角スペース区切りで与えられます。(1 ≦ i ≦ n)
-
-入力値最終行の末尾に改行が１つ入ります。
-文字列は標準入力から渡されます。 標準入力からの値取得方法はこちらをご確認ください
-期待する出力
-各頂点の次数が 2 以下の全域木を構成するために選んだ枝をそれぞれ 1 つずつ改行して出力してください。
-各行は枝の端点である2つの頂点の番号を半角スペースで区切って出力してください。各行の頂点の順番は問いません。
-また、出力する枝の順番も問いません。全域木であるため合計行数は n-1 行となります。そのような全域木が存在しない場合は -1 と出力してください。
-
-条件
-すべてのテストケースにおいて、以下の条件をみたします。
-
-・ 3 ≦ n ≦ 12
-
-・ 1 ≦ v_i ≦ n-1 (1 ≦ i ≦ n)
-
-・ 1 ≦ i ≦ n について
-
- ・ v_i = 1 のとき : 1 ≦ a_{i,1} ≦ n
-
- ・ v_i > 1 のとき : 1 ≦ a_{i,j} < a_{i,j+1} ≦ n (1 ≦ j ≦ (v_i)-1)
-
-
-すべての頂点が連結していることが保証されています。
-
-入力例1
-4
-1
-2
-3
-1 3 4
-2
-2 4
-2
-2 3
-
-出力例1
-1 2
-2 3
-3 4
-
-入力例2
-5
-2
-2 5
-2
-1 5
-1
-5
-1
-5
-4
-1 2 3 4
-
-出力例2
--1
-
-入力例3
-10
-9
-2 3 4 5 6 7 8 9 10
-9
-1 3 4 5 6 7 8 9 10
-8
-1 2 4 5 6 7 8 9
-8
-1 2 3 5 6 7 8 9
-8
-1 2 3 4 6 7 8 9
-8
-1 2 3 4 5 7 8 9
-8
-1 2 3 4 5 6 8 9
-8
-1 2 3 4 5 6 7 9
-8
-1 2 3 4 5 6 7 8
-2
-1 2
-
-出力例3
-1 3
-3 4
-4 5
-5 6
-6 7
-7 8
-8 9
-9 2
-2 10
-=end
+puts main(STDIN.read)
