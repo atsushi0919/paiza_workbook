@@ -20,26 +20,20 @@ def main(input_str)
   # n: 頂点数, s: 起点, k: 回数
   n, s, k = input_str.split.map(&:to_i)
   # 隣接リスト
-  ad_list = Hash.new { [] }
-  1.upto(n) do |i|
-    1.upto(n) do |j|
-      ad_list[i] <<= j if i != j
+  adjacent_list = Array.new(n) { [] }
+  0.upto(n - 1) do |i|
+    0.upto(n - 1) do |j|
+      adjacent_list[i] << j if i != j
     end
   end
 
-  # 起点 s から k 回移動する経路
+  # k 回移動する経路
   walks = [s]
   k.times do
-    # 今いる頂点
-    cv = walks.last
-    # 移動可能な頂点を選択して walk 末尾へ追加
-    walks << ad_list[cv].last
+    # 今いる頂点に隣接している頂点のうち最も番号の大きいもの
+    walks << adjacent_list[walks.last - 1].last + 1
   end
-  # 経路を出力する
   walks.join(" ")
 end
 
-puts main(INPUT1)
-# > 1 3 2
-puts main(INPUT2)
-# > 5 4 5 4
+puts main(STDIN.read)

@@ -35,18 +35,12 @@ def main(input_str)
   input_lines = input_str.split("\n")
   # n: 頂点数, s: 探索対象の頂点
   n, s = input_lines.shift.split.map(&:to_i)
-  # 頂点番号 1 から n までの隣接リスト作成
-  ad_list = {}
-  input_lines.each.with_index(1) do |line, i|
-    next if i.odd?
-    ad_list[i / 2] = line.split.map(&:to_i)
+  edges = input_lines.each_slice(2).map do |lines|
+    lines.last.split.map(&:to_i).sort
   end
 
-  # 頂点 s の隣接頂点のうち最大の番号
-  ad_list[s].max
+  # 頂点 s に隣接している頂点のうち最も番号の大きいもの
+  edges[s - 1].last
 end
 
-puts main(INPUT1)
-# > 3
-puts main(INPUT2)
-# > 4
+puts main(STDIN.read)

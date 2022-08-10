@@ -19,30 +19,31 @@ def main(input_str)
   # n: 頂点数, s: 起点, k: 回数
   n, s, k = input_str.split.map(&:to_i)
   # 隣接リスト
-  adjacent_list = Array.new(n) { [] }
-  0.upto(n - 1) do |i|
-    # 大きい順に参照したいので降順にする
-    (n - 1).downto(0) do |j|
-      adjacent_list[i] << j if i != j
+  ad_list = Hash.new { [] }
+  1.upto(n) do |i|
+    1.upto(n) do |j|
+      ad_list[i] <<= j if i != j
     end
   end
 
-  # 訪問済み
-  visited = Array.new(n, false)
-  # k 回移動
+  # s から k 回移動する経路
   walks = [s]
   k.times do
-    current_node = walks.last - 1
-    visited[current_node] = true
-    # 今いる頂点に隣接している頂点のうち、未訪問かつ最も番号の大きい頂点に移動する
-    adjacent_list[current_node].each do |next_node|
-      next if visited[next_node]
-      visited[next_node] = true
-      walks << next_node + 1
+    # 今いる頂点
+    cv = walks.last
+    # 移動可能な未訪問の頂点を末尾に追加する
+    ad_list[cv].each do |nv|
+      # 訪問済の頂点はスキップ
+      next if walks.include?(nv)
+      walks << nv
+      # 次の頂点をしたらループを抜ける
       break
     end
   end
   walks.join(" ")
 end
 
-puts main(STDIN.read)
+puts main(INPUT1)
+# > 1 2 3
+puts main(INPUT2)
+# > 5 1 2 3
