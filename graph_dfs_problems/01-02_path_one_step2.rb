@@ -28,12 +28,12 @@ def main(input_str)
   end
 
   # 起点 s から k 回移動する経路
-  walks = [s]
+  walk = [s]
   k.times do
     # 今いる頂点
-    cv = walks.last
+    cv = walk.last
     # 移動可能な頂点を選択して walk 末尾へ追加
-    walks << ad_list[cv].last
+    walk << ad_list[cv].last
   end
   # 経路を出力する
   walks.join(" ")

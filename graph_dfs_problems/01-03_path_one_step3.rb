@@ -27,23 +27,22 @@ def main(input_str)
   end
 
   # s から k 回移動する経路
-  walks = [s]
+  path = [s]
   k.times do
     # 今いる頂点
-    cv = walks.last
+    cv = path.last
     # 移動可能な未訪問の頂点を末尾に追加する
-    ad_list[cv].each do |nv|
+    ad_list[cv].reverse.each do |nv|
       # 訪問済の頂点はスキップ
-      next if walks.include?(nv)
-      walks << nv
-      # 次の頂点をしたらループを抜ける
+      next if path.include?(nv)
+      path << nv
       break
     end
   end
-  walks.join(" ")
+  path.join(" ")
 end
 
 puts main(INPUT1)
-# > 1 2 3
+# > 1 3 2
 puts main(INPUT2)
-# > 5 1 2 3
+# > 5 4 3 2
