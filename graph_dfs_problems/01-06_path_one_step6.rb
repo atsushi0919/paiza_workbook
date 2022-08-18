@@ -64,8 +64,20 @@ OUTPUT3 = <<~"EOS"
   1 2 8 4 6 5
 EOS
 
-def dfs(s, t, ad_list, unused_vertices = [])
-  # history の末尾 から t への経路を調べる
+def main(input_str)
+  input_lines = input_str.split("\n")
+  # n: 頂点数, s: 起点, t: 終点
+  n, s, t = input_lines.shift.split.map(&:to_i)
+  # 通らない頂点
+  unused_vertices = input_lines.shift(2).last.split.map(&:to_i)
+  # 隣接リスト
+  ad_list = {}
+  input_lines.each.with_index(1) do |line, i|
+    next if i.odd?
+    ad_list[i / 2] = line.split.map(&:to_i)
+  end
+
+  # 始点 s から終点 t までの経路
   results = []
   paths = [[s]]
   while paths.length > 0
@@ -86,29 +98,11 @@ def dfs(s, t, ad_list, unused_vertices = [])
       paths << path + [nv]
     end
   end
-  results
-end
-
-def main(input_str)
-  input_lines = input_str.split("\n")
-  # n: 頂点数, s: 起点, t: 終点
-  n, s, t = input_lines.shift.split.map(&:to_i)
-  # 通れない頂点
-  unused_vertices = input_lines.shift(2).last.split.map(&:to_i)
-  # 隣接リスト
-  ad_list = {}
-  input_lines.each.with_index(1) do |line, i|
-    next if i.odd?
-    ad_list[i / 2] = line.split.map(&:to_i)
-  end
-
-  # 始点 s から終点 t までの経路
-  results = dfs(s, t, ad_list, unused_vertices)
 
   # 頂点が最も少ない経路または -1 を出力
   if results.length > 0
     # 経路の頂点数で昇順ソート
-    results.sort { |a, b| a.length <=> b.length }
+    results.sort! { |a, b| a.length <=> b.length }
     # 最も頂点数が少ない経路を出力
     results.first.join(" ")
   else
@@ -117,9 +111,4 @@ def main(input_str)
   end
 end
 
-puts main(INPUT1)
-# > -1
-puts main(INPUT2)
-# > 5 3
-puts main(INPUT3)
-# > 1 2 8 4 6 5
+puts main(STDIN.read)

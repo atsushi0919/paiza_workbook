@@ -58,7 +58,46 @@ OUTPUT3 = <<~"EOS"
   -1
 EOS
 
-def dfs(s, t, q, ad_list)
+INPUT4 = <<~"EOS"
+  12 1 7 8
+  4
+  2 4 9 10
+  8
+  1 3 4 6 7 8 9 12
+  5
+  2 4 6 7 8
+  6
+  1 2 3 6 11 12
+  3
+  7 11 12
+  7
+  2 3 4 7 8 11 12
+  7
+  2 3 5 6 8 9 11
+  4
+  2 3 6 7
+  5
+  1 2 7 10 12
+  2
+  1 9
+  4
+  4 5 6 7
+  5
+  2 4 5 6 9
+EOS
+
+def main(input_str)
+  input_lines = input_str.split("\n")
+  # n: 頂点数, s: 起点, t: 終点, q: 中継点
+  n, s, t, q = input_lines.shift.split.map(&:to_i)
+  # 隣接リスト
+  ad_list = {}
+  input_lines.each.with_index(1) do |line, i|
+    next if i.odd?
+    ad_list[i / 2] = line.split.map(&:to_i)
+  end
+
+  # q を経由して s から t へ行ける経路
   results = []
   paths = [[s]]
   while paths.length > 0
@@ -79,27 +118,11 @@ def dfs(s, t, q, ad_list)
       paths << path + [nv]
     end
   end
-  results
-end
-
-def main(input_str)
-  input_lines = input_str.split("\n")
-  # n: 頂点数, s: 起点, t: 終点, q: 中継点
-  n, s, t, q = input_lines.shift.split.map(&:to_i)
-  # 隣接リスト
-  ad_list = {}
-  input_lines.each.with_index(1) do |line, i|
-    next if i.odd?
-    ad_list[i / 2] = line.split.map(&:to_i)
-  end
-
-  # q を経由して s から t へ行ける経路
-  results = dfs(s, t, q, ad_list)
 
   # 頂点が最も少ない経路、または -1 を出力
   if results.length > 0
     # 経路の頂点数で昇順ソート
-    results.sort { |a, b| a.length <=> b.length }
+    results.sort! { |a, b| a.length <=> b.length }
     # 最も頂点数が少ない経路を出力
     results.first.join(" ")
   else
@@ -108,9 +131,9 @@ def main(input_str)
   end
 end
 
-p main(INPUT1)
+puts main(STDIN.read)
 # > 1 5 3 4
-p main(INPUT2)
+# puts main(INPUT2)
 # > 5 1 2 3
-p main(INPUT3)
+# puts main(INPUT3)
 # > -1

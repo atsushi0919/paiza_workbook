@@ -35,11 +35,11 @@ def main(input_str)
     # 移動可能な頂点を選択して walk 末尾へ追加
     walk << ad_list[cv].last
   end
-  # 経路を出力する
-  walks.join(" ")
+  # 経路を出力
+  walk.join(" ")
 end
 
-puts main(INPUT1)
+puts main(STDIN.read)
 # > 1 3 2
 puts main(INPUT2)
 # > 5 4 5 4

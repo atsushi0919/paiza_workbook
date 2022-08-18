@@ -35,14 +35,17 @@ def main(input_str)
     ad_list[cv].reverse.each do |nv|
       # 訪問済の頂点はスキップ
       next if path.include?(nv)
+      # path に追加してループを抜ける
       path << nv
       break
     end
   end
+
+  # 経路を出力
   path.join(" ")
 end
 
-puts main(INPUT1)
+puts main(STDIN.read)
 # > 1 3 2
 puts main(INPUT2)
 # > 5 4 3 2

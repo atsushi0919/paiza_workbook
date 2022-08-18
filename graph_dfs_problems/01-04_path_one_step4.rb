@@ -42,15 +42,18 @@ def main(input_str)
   # 隣接リスト
   ad_list = {}
   input_lines.each.with_index(1) do |line, i|
-    next if i.odd?
-    ad_list[i / 2] = line.split.map(&:to_i)
+    # 経路数 v は使わない
+    if i.even?
+      ad_list[i / 2] = line.split.map(&:to_i)
+    end
   end
 
-  # s から t への経路を調べる
+  # s から t への経路
   results = []
   paths = [[s]]
   while paths.length > 0
     path = paths.pop
+    # t に着いたら経路を記録
     if path.last == t
       results << path
       next
@@ -65,13 +68,14 @@ def main(input_str)
       paths << path + [nv]
     end
   end
+
   # s から t に行ける経路を頂点数で昇順ソート
   results.sort! { |a, b| a.length <=> b.length }
   # 最も頂点数が少ない経路を出力
   results.first.join(" ")
 end
 
-puts main(INPUT1)
+puts main(STDIN.read)
 # > 1 5 4
 puts main(INPUT2)
 # > 5 3
