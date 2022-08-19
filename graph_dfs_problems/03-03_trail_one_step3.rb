@@ -54,40 +54,44 @@ OUTPUT3 = <<~"EOS"
   5 4 6 3 5 1 2 4 3 1 6 2 5 6
 EOS
 
-Walk = Struct.new(:history, :adjacent_list)
+Trail = Struct.new(:nodes, :edges)
 
 def main(input_str)
   input_lines = input_str.split("\n")
   # n: 頂点数, s: 起点, t: 終点
   n, s, t = input_lines.shift.split.map(&:to_i)
   # 隣接リスト
-  adjacent_list = []
-  input_lines.each_with_index do |line, idx|
-    next if idx.even?
-    adjacent_list << line.split.map(&:to_i)
+  ad_list = {}
+  input_lines.each.with_index(1) do |line, i|
+    next if i.odd?
+    ad_list[i / 2] = line.split.map(&:to_i)
   end
 
-  # s から t への経路を調べる
+  # s から t への経路
   results = []
-  walks = [Walk.new([s], Marshal.load(Marshal.dump(adjacent_list)))]
-  while walks.length > 0
-    current_walk = walks.pop
+  trails = [Trail.new([s], [])]
+  while trails.length > 0
+    trail = trails.pop
     # t に着いたら記録して継続
-    results << current_walk.history if current_walk.history.last == t
+    if trail.nodes.last == t
+      results << trail.nodes
+    end
     # 隣接頂点を調べる
-    current_walk.adjacent_list[current_walk.history.last - 1].each do |next_node|
-      # 現在の情報を複製
-      new_walk = Marshal.load(Marshal.dump(current_walk))
-      # 一度通った辺を削除
-      new_walk.adjacent_list[new_walk.history.last - 1].delete(next_node)
-      new_walk.adjacent_list[next_node - 1].delete(new_walk.history.last)
-      new_walk.history << next_node
-      # 新しい経路を追加
-      walks << new_walk
+    cv = trail.nodes.last
+    ad_list[cv].each do |nv|
+      e = [cv, nv].sort
+      # 使ったことのある経路ならスキップ
+      next if trail.edges.include?(e)
+      # trail を複製して情報更新
+      new_trail = Marshal.load(Marshal.dump(trail))
+      new_trail.nodes << nv
+      new_trail.edges << e
+      trails << new_trail
     end
   end
+
   # 頂点数が一番多い多い経路から 1 つを出力
   results.sort { |a, b| a.length <=> b.length }.last.join(" ")
 end
 
-puts main(STDIN.read)
+puts main(INPUT3)

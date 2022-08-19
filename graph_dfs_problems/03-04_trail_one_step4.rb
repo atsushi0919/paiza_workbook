@@ -52,49 +52,53 @@ OUTPUT3 = <<~"EOS"
   5 6 4 5 3 4 2 5 1 3 6
 EOS
 
-Walk = Struct.new(:history, :adjacent_list)
+Trail = Struct.new(:nodes, :edges)
 
 def main(input_str)
   input_lines = input_str.split("\n")
   # n: 頂点数, s: 起点, t: 終点, q: 中継点
   n, s, t, q = input_lines.shift.split.map(&:to_i)
   # 隣接リスト
-  adjacent_list = []
-  input_lines.each_with_index do |line, idx|
-    next if idx.even?
-    adjacent_list << line.split.map(&:to_i)
+  ad_list = {}
+  input_lines.each.with_index(1) do |line, i|
+    next if i.odd?
+    ad_list[i / 2] = line.split.map(&:to_i)
   end
 
   # s から t までの経路を調べる
-  results = { q_count: 0, history: [] }
-  walks = [Walk.new([s], Marshal.load(Marshal.dump(adjacent_list)))]
-  while walks.length > 0
-    current_walk = walks.pop
+  results = { q_count: 0, trails: [] }
+  trails = [Trail.new([s], [])]
+  while trails.length > 0
+    trail = trails.pop
     # t に着いたら結果を記録
-    if current_walk.history.last == t
-      q_count = current_walk.history.count(q)
+    if trail.nodes.last == t
+      # q を訪問した回数をカウント
+      q_count = trail.nodes.count(q)
       if q_count > results[:q_count]
+        # 現在の q_count より多いなら更新
         results[:q_count] = q_count
-        results[:history] = [current_walk.history]
+        results[:trails] = [trail.nodes]
       elsif q_count == results[:q_count] && q_count > 0
-        results[:history] << current_walk.history
+        # 現在の q_count と同じなら経路を追加
+        results[:trails] << trail.nodes
       end
     end
+
     # 隣接頂点を調べる
-    current_walk.adjacent_list[current_walk.history.last - 1].each do |next_node|
-      # 現在の情報を複製
-      new_walk = Marshal.load(Marshal.dump(current_walk))
-      # 一度通った辺を削除
-      new_walk.adjacent_list[new_walk.history.last - 1].delete(next_node)
-      new_walk.adjacent_list[next_node - 1].delete(new_walk.history.last)
-      new_walk.history << next_node
-      # 新しい経路を追加
-      walks << new_walk
+    cv = trail.nodes.last
+    ad_list[cv].each do |nv|
+      e = [cv, nv].sort
+      # 使ったことのある経路ならスキップ
+      next if trail.edges.include?(e)
+      # trail を複製して情報更新
+      new_trail = Marshal.load(Marshal.dump(trail))
+      new_trail.nodes << nv
+      new_trail.edges << e
+      trails << new_trail
     end
   end
   # q を一番多く通過した経路または -1 を出力
-  results[:q_count] > 0 ? results[:history].first.join(" ") : -1
+  results[:q_count] > 0 ? results[:trails].first.join(" ") : -1
 end
 
 puts main(STDIN.read)
-
