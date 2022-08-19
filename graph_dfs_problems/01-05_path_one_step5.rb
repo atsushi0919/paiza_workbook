@@ -93,8 +93,10 @@ def main(input_str)
   # 隣接リスト
   ad_list = {}
   input_lines.each.with_index(1) do |line, i|
-    next if i.odd?
-    ad_list[i / 2] = line.split.map(&:to_i)
+    # 経路数 v は使わない
+    if i.even?
+      ad_list[i / 2] = line.split.map(&:to_i)
+    end
   end
 
   # q を経由して s から t へ行ける経路

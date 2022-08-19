@@ -64,45 +64,37 @@ OUTPUT3 = <<~"EOS"
   0
 EOS
 
-def dfs(adjacent_list, history, t)
-  # history の末尾 から t への経路を調べる
+def main(input_str)
+  input_lines = input_str.split("\n")
+  # n: 頂点数, s: 起点, t: 終点, q: 中継点
+  n, s, t, q = input_lines.shift.split.map(&:to_i)
+  # 隣接リスト
+  ad_list = {}
+  input_lines.each.with_index(1) do |line, i|
+    next if i.odd?
+    ad_list[i / 2] = line.split.map(&:to_i)
+  end
+
+  # s → q → t の経路
   results = []
-  walks = [history]
-  while walks.length > 0
-    current_walk = walks.pop
-    if current_walk.last == t
-      results << current_walk
+  paths = [[s]]
+  while paths.length > 0
+    path = paths.pop
+    # s から q を経由して t に着いたら経路を記録
+    if path.last == t && path.include?(q)
+      results << path
       next
     end
 
-    # 未訪問の隣接頂点に移動する
-    adjacent_list[current_walk.last - 1].each do |next_node|
-      next if current_walk.include?(next_node)
-      walks << current_walk + [next_node]
+    # 隣接頂点に移動する
+    cv = path.last
+    ad_list[cv].each do |nv|
+      # 訪問済の頂点はスキップ
+      next if path.include?(nv)
+      paths << path + [nv]
     end
   end
-  results
-end
 
-def main(input_str)
-  input_lines = input_str.split("\n")
-  # n: 頂点数, s: 起点, t: 終点, p: 中継点
-  n, s, t, p = input_lines.shift.split.map(&:to_i)
-  # 隣接リスト
-  adjacent_list = []
-  input_lines.each_with_index do |line, idx|
-    next if idx.even?
-    adjacent_list << line.split.map(&:to_i)
-  end
-
-  # 始点 s から中継点 p までの経路
-  s_to_p = dfs(adjacent_list, [s], p)
-  # 中継点 p から終点 t までの経路
-  results = []
-  s_to_p.each do |walk|
-    tmp = dfs(adjacent_list, walk, t)
-    results.concat(tmp) if tmp.length > 0
-  end
   # 経路数と経路を全て出力
   [results.length.to_s].concat(results.map { |e| e.join(" ") }).join("\n")
 end

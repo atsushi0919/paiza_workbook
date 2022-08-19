@@ -63,32 +63,27 @@ def main(input_str)
   # n: 頂点数, s: 起点, k: 回数
   n, s, k = input_lines.shift.split.map(&:to_i)
   # 隣接リスト
-  ad_list = {}
-  input_lines.each.with_index(1) do |line, i|
-    next if i.odd?
-    ad_list[i / 2] = line.split.map(&:to_i)
+  adjacent_list = []
+  input_lines.each_with_index do |line, idx|
+    next if idx.even?
+    adjacent_list << line.split.map(&:to_i)
   end
 
   # k 回移動
   results = []
-  paths = [[s]]
-  while paths.length > 0
-    path = paths.shift
-    # k 回移動したら経路を記録
-    if path.length == k + 1
-      results << path
+  walks = [[s]]
+  while walks.length > 0
+    current_walk = walks.shift
+    if current_walk.length == k + 1
+      results << current_walk
       next
     end
-    
     # 隣接頂点に移動する
-    cv = path.last
-    ad_list[cv].each do |nv|
-      # 訪問済の頂点はスキップ
-      next if path.include?(nv)
-      paths << path + [nv]
+    adjacent_list[current_walk.last - 1].each do |next_node|
+      next if current_walk.include?(next_node)
+      walks << current_walk + [next_node]
     end
   end
-  
   # 経路数と経路を全て出力
   [results.length.to_s].concat(results.map { |e| e.join(" ") }).join("\n")
 end

@@ -31,19 +31,20 @@ OUTPUT2 = <<~"EOS"
   1 2 3 4
 EOS
 
-STDIN.readdef main(input_str)
+def main(input_str)
   input_lines = input_str.split("\n")
   # n: 頂点数, s: 探索対象の頂点
   n, s = input_lines.shift.split.map(&:to_i)
-  # 隣接リスト
-  ad_list = {}
-  input_lines.each.with_index(1) do |line, i|
-    next if i.odd?
-    ad_list[i / 2] = line.split.map(&:to_i)
+  edges = input_lines.each_slice(2).map do |lines|
+    lines.last.split.map(&:to_i).sort
   end
 
-  # 頂点 s の隣接頂点を番号順に半角スペース区切りで出力
-  ad_list[s].join(" ")
+  # s の隣接頂点を全て表示
+  if edges[s - 1].length > 0
+    edges[s - 1].join(" ")
+  else
+    -1
+  end
 end
 
 puts main(STDIN.read)
