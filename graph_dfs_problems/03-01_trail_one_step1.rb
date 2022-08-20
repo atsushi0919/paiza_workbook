@@ -34,7 +34,7 @@ def main(input_str)
   end
 
   # k 回移動
-  edges = Array.new(n) { Array.new(n, false) }
+  edges = Array.new(n + 1) { Array.new(n + 1, false) }
   trails = [Trail.new([s], edges)]
   while trails.length > 0
     trail = trails.pop
@@ -47,14 +47,15 @@ def main(input_str)
     cv = trail.nodes.last
     ad_list[cv].each do |nv|
       # 使ったことのある経路ならスキップ
-      next if trail.edges[cv - 1][nv - 1]
-      next if trail.edges[nv - 1][cv - 1]
-      # trail を複製して情報更新
-      new_trail = Marshal.load(Marshal.dump(trail))
-      new_trail.nodes << nv
-      new_trail.edges[cv - 1][nv - 1] = true
-      new_trail.edges[nv - 1][cv - 1] = true
-      trails << new_trail
+      next if trail.edges[cv][nv]
+      next if trail.edges[nv][cv]
+
+      # 新しい trail を trails に追加
+      nodes = trail.nodes + [nv]
+      edges = trail.edges.map(&:dup)
+      edges[cv][nv] = true
+      edges[nv][cv] = true
+      trails << Trail.new(nodes, edges)
     end
   end
 end

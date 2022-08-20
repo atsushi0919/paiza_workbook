@@ -65,9 +65,10 @@ def main(input_str)
     ad_list[i / 2] = line.split.map(&:to_i)
   end
 
-  # s から t までの経路を調べる
+  # s から t への経路
   results = { q_count: 0, trails: [] }
-  trails = [Trail.new([s], [])]
+  edges = Array.new(n + 1) { Array.new(n + 1, false) }
+  trails = [Trail.new([s], edges)]
   while trails.length > 0
     trail = trails.pop
     # t に着いたら結果を記録
@@ -87,18 +88,20 @@ def main(input_str)
     # 隣接頂点を調べる
     cv = trail.nodes.last
     ad_list[cv].each do |nv|
-      e = [cv, nv].sort
       # 使ったことのある経路ならスキップ
-      next if trail.edges.include?(e)
-      # trail を複製して情報更新
-      new_trail = Marshal.load(Marshal.dump(trail))
-      new_trail.nodes << nv
-      new_trail.edges << e
-      trails << new_trail
+      next if trail.edges[cv][nv]
+      next if trail.edges[nv][cv]
+
+      # 新しい trail を trails に追加
+      nodes = trail.nodes + [nv]
+      edges = trail.edges.map(&:dup)
+      edges[cv][nv] = true
+      edges[nv][cv] = true
+      trails << Trail.new(nodes, edges)
     end
   end
   # q を一番多く通過した経路または -1 を出力
   results[:q_count] > 0 ? results[:trails].first.join(" ") : -1
 end
 
-puts main(STDIN.read)
+puts main(INPUT3)

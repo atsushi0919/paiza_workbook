@@ -56,8 +56,6 @@ OUTPUT3 = """\
 6 3 2 5 1 7 2 1 3 5 7 3 4
 """
 
-import copy
-
 
 class Trail:
     def __init__(self, nodes, edges):
@@ -78,7 +76,8 @@ def main(input_str):
 
     # s から t への経路
     results = []
-    trails = [Trail([s], [])]
+    edges = [[False for w in range(n + 1)] for h in range(n + 1)]
+    trails = [Trail([s], edges)]
     while len(trails) > 0:
         trail = trails.pop()
         # t に着いたら経路を記録
@@ -89,15 +88,21 @@ def main(input_str):
         # 隣接頂点に移動する
         cv = trail.nodes[-1]
         for nv in ad_list[cv]:
-            e = sorted([cv, nv])
-            # 使ったことのある経路、または nv が s ならスキップ
-            if e in trail.edges or nv == s:
+            # 使ったことのある経路ならスキップ
+            if trail.edges[cv][nv]:
                 continue
-            # trail を複製して情報更新
-            new_trail = copy.deepcopy(trail)
-            new_trail.nodes.append(nv)
-            new_trail.edges.append(e)
-            trails.append(new_trail)
+            if trail.edges[nv][cv]:
+                continue
+            # s は再訪問しない
+            if nv == s:
+                continue
+
+            # 新しい trail を trails に追加
+            nodes = trail.nodes + [nv]
+            edges = [e.copy() for e in trail.edges]
+            edges[cv][nv] = True
+            edges[nv][cv] = True
+            trails.append(Trail(nodes, edges))
 
     # s から t に行ける経路を頂点数で昇順ソート
     results.sort(key=lambda x: len(x))
@@ -106,7 +111,7 @@ def main(input_str):
 
 
 # print(main(open(0).read()))
-print(main(INPUT3))
+print(main(INPUT1))
 
 '''
 Trail = Struct.new(:nodes, :edges)

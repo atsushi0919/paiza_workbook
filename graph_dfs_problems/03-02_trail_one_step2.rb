@@ -71,7 +71,8 @@ def main(input_str)
 
   # s から t への経路
   results = []
-  trails = [Trail.new([s], [])]
+  edges = Array.new(n + 1) { Array.new(n + 1, false) }
+  trails = [Trail.new([s], edges)]
   while trails.length > 0
     trail = trails.pop
     # t に着いたら経路を記録
@@ -82,17 +83,18 @@ def main(input_str)
     # 隣接頂点を調べる
     cv = trail.nodes.last
     ad_list[cv].each do |nv|
-      e = [cv, nv].sort
       # 使ったことのある経路ならスキップ
-      next if trail.edges.include?(e)
+      next if trail.edges[cv][nv]
+      next if trail.edges[nv][cv]
       # s は再訪問しない
       next if nv == s
 
-      # trail を複製して情報更新
-      new_trail = Marshal.load(Marshal.dump(trail))
-      new_trail.nodes << nv
-      new_trail.edges << e
-      trails << new_trail
+      # 新しい trail を trails に追加
+      nodes = trail.nodes + [nv]
+      edges = trail.edges.map(&:dup)
+      edges[cv][nv] = true
+      edges[nv][cv] = true
+      trails << Trail.new(nodes, edges)
     end
   end
   # 頂点数が最も多い経路から 1 つ出力
