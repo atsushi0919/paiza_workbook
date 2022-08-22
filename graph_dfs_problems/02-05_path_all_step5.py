@@ -81,7 +81,7 @@ def main(input_str):
     paths = [[s]]
     while len(paths) > 0:
         path = paths.pop()
-        # s から q を経由して t に着いたら経路を記録
+        # q を経由して t に着いたら経路を記録
         if path[-1] == t and q in path:
             results.append(path)
             continue

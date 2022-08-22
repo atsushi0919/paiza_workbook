@@ -71,7 +71,7 @@ def dfs(cv, nodes)
     # nv を通る
     nodes << nv
     if nv == $t && nodes.include?($q)
-      # t に着いたら経路を記録
+      # q を経由して t に着いたら経路を記録
       $results << nodes.dup
     else
       # 次の層を探索

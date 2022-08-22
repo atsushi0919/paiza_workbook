@@ -31,7 +31,7 @@ OUTPUT2 = <<~"EOS"
   1 2 3 4
 EOS
 
-STDIN.readdef main(input_str)
+def main(input_str)
   input_lines = input_str.split("\n")
   # n: 頂点数, s: 探索対象の頂点
   n, s = input_lines.shift.split.map(&:to_i)

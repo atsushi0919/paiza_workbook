@@ -73,13 +73,13 @@ def main(input_str)
   results = []
   paths = [[s]]
   while paths.length > 0
-    path = paths.shift
+    path = paths.pop
     # k 回移動したら経路を記録
     if path.length == k + 1
       results << path
       next
     end
-    
+
     # 隣接頂点に移動する
     cv = path.last
     ad_list[cv].each do |nv|
@@ -88,7 +88,7 @@ def main(input_str)
       paths << path + [nv]
     end
   end
-  
+
   # 経路数と経路を全て出力
   [results.length.to_s].concat(results.map { |e| e.join(" ") }).join("\n")
 end

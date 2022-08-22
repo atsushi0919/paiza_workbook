@@ -66,7 +66,7 @@ def main(input_str)
       results << path
       next
     end
-    
+
     # 隣接頂点に移動する
     cv = path.last
     ad_list[cv].each do |nv|
