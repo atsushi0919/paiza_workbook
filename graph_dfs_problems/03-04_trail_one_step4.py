@@ -1,8 +1,8 @@
-# グラフの s,t トレイル (paizaランク B 相当)
-# https://paiza.jp/works/mondai/graph_dfs_problems/graph_dfs__trail_one_step2
+# トレイルの経由地 (paizaランク B 相当)
+# https://paiza.jp/works/mondai/graph_dfs_problems/graph_dfs__trail_one_step4
 
 INPUT1 = """\
-5 1 4
+5 1 4 5
 2
 2 5
 3
@@ -15,45 +15,41 @@ INPUT1 = """\
 1 2 3 4
 """
 OUTPUT1 = """\
-1 5 3 2 5 4
+1 5 2 3 5 4
 """
 
 INPUT2 = """\
-5 5 3
+4 3 4 1
+1
 2
-2 5
 3
-1 3 5
-3
-2 4 5
+1 3 4
 2
-3 5
-4
-1 2 3 4
+2 4
+2
+2 3
 """
 OUTPUT2 = """\
-5 1 2 3
+-1
 """
 
 INPUT3 = """\
-7 6 4
-6
-2 3 4 5 6 7
-6
-1 3 4 5 6 7
-6
-1 2 4 5 6 7
-6
-1 2 3 5 6 7
-6
-1 2 3 4 6 7
-6
-1 2 3 4 5 7
-6
-1 2 3 4 5 6
+6 5 6 3
+5
+2 3 4 5 6
+5
+1 3 4 5 6
+5
+1 2 4 5 6
+5
+1 2 3 5 6
+5
+1 2 3 4 6
+5
+1 2 3 4 5
 """
 OUTPUT3 = """\
-6 3 2 5 1 7 2 1 3 5 7 3 4
+5 6 4 5 3 4 2 5 1 3 6
 """
 
 
@@ -66,7 +62,7 @@ class Trail:
 def main(input_str):
     input_lines = input_str.splitlines()
     # n: 頂点数, s: 起点, t: 終点
-    n, s, t = map(int, input_lines[0].split())
+    n, s, t, q = map(int, input_lines[0].split())
     # 隣接リスト
     ad_list = {}
     for (i, line) in enumerate(input_lines[1:], 1):
@@ -75,15 +71,21 @@ def main(input_str):
         ad_list[i // 2] = list(map(int, line.split()))
 
     # s から t への経路
-    results = []
+    results = {"q_count": 0, "trails": []}
     edges = [[False for w in range(n + 1)] for h in range(n + 1)]
     trails = [Trail([s], edges)]
     while len(trails) > 0:
         trail = trails.pop()
         # t に着いたら経路を記録
         if trail.nodes[-1] == t:
-            results.append(trail.nodes)
-            continue
+            q_count = trail.nodes.count(q)
+            if q_count > results["q_count"]:
+                # 現在の q_count より多いなら更新
+                results["q_count"] = q_count
+                results["trails"] = [trail.nodes]
+            elif q_count == results["q_count"] and q_count > 0:
+                # 現在の q_count と同じなら経路を追加
+                results["trails"].append(trail.nodes)
 
         # 隣接頂点に移動する
         cv = trail.nodes[-1]
@@ -93,9 +95,6 @@ def main(input_str):
                 continue
             if trail.edges[nv][cv]:
                 continue
-            # s は再訪問しない
-            if nv == s:
-                continue
 
             # 新しい trail を trails に追加
             nodes = trail.nodes + [nv]
@@ -104,10 +103,11 @@ def main(input_str):
             edges[nv][cv] = True
             trails.append(Trail(nodes, edges))
 
-    # s から t に行ける経路を頂点数で昇順ソート
-    results.sort(key=lambda x: len(x))
-    # 頂点数が最も多い経路から 1 つ出力
-    return " ".join(map(str, results[-1]))
+    # q を一番多く通過した経路のうち一つ または -1 を出力
+    if results["q_count"] > 0:
+        return " ".join(map(str, results["trails"][0]))
+    else:
+        return -1
 
 
 print(main(open(0).read()))

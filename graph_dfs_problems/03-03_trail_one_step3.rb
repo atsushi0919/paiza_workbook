@@ -97,4 +97,4 @@ def main(input_str)
   results.sort { |a, b| a.length <=> b.length }.last.join(" ")
 end
 
-puts main(INPUT3)
+puts main(STDIN.read)

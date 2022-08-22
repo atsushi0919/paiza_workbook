@@ -25,7 +25,7 @@ def main(input_str)
   input_lines = input_str.split("\n")
   # n: 頂点数, s: 起点, k: 回数
   n, s, k = input_lines.shift.split.map(&:to_i)
-  # 隣接リスト
+  # 隣接リスト(完全無向グラフ)
   ad_list = Hash.new { [] }
   1.upto(n) do |i|
     1.upto(n) do |j|
@@ -60,4 +60,4 @@ def main(input_str)
   end
 end
 
-puts main(INPUT3)
+puts main(STDIN.read)

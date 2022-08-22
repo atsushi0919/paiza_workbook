@@ -30,7 +30,7 @@ def main(input_str):
     input_lines = input_str.splitlines()
     # n: 頂点数, s: 起点, k: 回数
     n, s, k = map(int, input_lines[0].split())
-    # 隣接リスト
+    # 隣接リスト（完全無向グラフ）
     ad_list = {}
     for i in range(1, n + 1):
         ad_list[i] = [j for j in range(1, n + 1) if j != i]
@@ -61,5 +61,4 @@ def main(input_str):
             trails.append(Trail(nodes, edges))
 
 
-# print(main(open(0).read()))
-print(main(INPUT3))
+print(main(open(0).read()))

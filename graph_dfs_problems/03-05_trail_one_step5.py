@@ -1,8 +1,10 @@
-# グラフの s,t トレイル (paizaランク B 相当)
-# https://paiza.jp/works/mondai/graph_dfs_problems/graph_dfs__trail_one_step2
+# トレイルの通れない頂点 (paizaランク B 相当)
+# https://paiza.jp/works/mondai/graph_dfs_problems/graph_dfs__trail_one_step5
 
 INPUT1 = """\
 5 1 4
+1
+3
 2
 2 5
 3
@@ -15,45 +17,45 @@ INPUT1 = """\
 1 2 3 4
 """
 OUTPUT1 = """\
-1 5 3 2 5 4
+1 2 5 4
 """
 
 INPUT2 = """\
-5 5 3
+4 1 4
+1
 2
-2 5
-3
-1 3 5
-3
-2 4 5
+1
 2
-3 5
-4
-1 2 3 4
+3
+1 3 4
+2
+2 4
+2
+2 3
 """
 OUTPUT2 = """\
-5 1 2 3
+-1
 """
 
 INPUT3 = """\
-7 6 4
-6
-2 3 4 5 6 7
-6
-1 3 4 5 6 7
-6
-1 2 4 5 6 7
-6
-1 2 3 5 6 7
-6
-1 2 3 4 6 7
-6
-1 2 3 4 5 7
-6
-1 2 3 4 5 6
+6 5 6
+1
+1
+5
+2 3 4 5 6
+5
+1 3 4 5 6
+5
+1 2 4 5 6
+5
+1 2 3 5 6
+5
+1 2 3 4 6
+5
+1 2 3 4 5
 """
 OUTPUT3 = """\
-6 3 2 5 1 7 2 1 3 5 7 3 4
+5 4 6 2 4 3 5 2 3 6
 """
 
 
@@ -67,23 +69,28 @@ def main(input_str):
     input_lines = input_str.splitlines()
     # n: 頂点数, s: 起点, t: 終点
     n, s, t = map(int, input_lines[0].split())
+    # 通らない頂点
+    unused_vertices = list(map(int, input_lines[2].split()))
     # 隣接リスト
     ad_list = {}
-    for (i, line) in enumerate(input_lines[1:], 1):
+    for (i, line) in enumerate(input_lines[3:], 1):
         if i % 2 != 0:
             continue
         ad_list[i // 2] = list(map(int, line.split()))
 
     # s から t への経路
-    results = []
+    results = [[]]
     edges = [[False for w in range(n + 1)] for h in range(n + 1)]
     trails = [Trail([s], edges)]
     while len(trails) > 0:
         trail = trails.pop()
         # t に着いたら経路を記録
         if trail.nodes[-1] == t:
-            results.append(trail.nodes)
-            continue
+            if len(trail.nodes) > len(results[-1]):
+                # resuts の頂点数より多いなら更新
+                results = [trail.nodes]
+            elif len(trail.nodes) == len(results[-1]):
+                results.append(trail.nodes)
 
         # 隣接頂点に移動する
         cv = trail.nodes[-1]
@@ -93,8 +100,8 @@ def main(input_str):
                 continue
             if trail.edges[nv][cv]:
                 continue
-            # s は再訪問しない
-            if nv == s:
+            # 通れない頂点ならスキップ
+            if cv in unused_vertices:
                 continue
 
             # 新しい trail を trails に追加
@@ -104,10 +111,11 @@ def main(input_str):
             edges[nv][cv] = True
             trails.append(Trail(nodes, edges))
 
-    # s から t に行ける経路を頂点数で昇順ソート
-    results.sort(key=lambda x: len(x))
-    # 頂点数が最も多い経路から 1 つ出力
-    return " ".join(map(str, results[-1]))
+    # 頂点数が一番多い経路または -1 を出力
+    if len(results[-1]) > 0:
+        return " ".join(map(str, results[-1]))
+    else:
+        return -1
 
 
 print(main(open(0).read()))

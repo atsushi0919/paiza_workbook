@@ -100,8 +100,8 @@ def main(input_str)
       trails << Trail.new(nodes, edges)
     end
   end
-  # q を一番多く通過した経路または -1 を出力
+  # q を一番多く通過した経路のうち一つ または -1 を出力
   results[:q_count] > 0 ? results[:trails].first.join(" ") : -1
 end
 
-puts main(INPUT3)
+puts main(STDIN.read)
