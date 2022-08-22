@@ -59,6 +59,61 @@ OUTPUT3 = """\
 """
 
 
+def dfs(cv, nodes, edges):
+    for nv in ad_list[cv]:
+        # 通過済み経路はスキップ
+        if edges[cv][nv]:
+            continue
+        if edges[nv][cv]:
+            continue
+        # 通れない頂点ならスキップ
+        if cv in unused_vertices:
+            continue
+
+        # nv を通る
+        nodes.append(nv)
+        edges[cv][nv] = True
+        edges[nv][cv] = True
+        if nv == t:
+            # t に着いたら経路を記録
+            results.append(nodes.copy())
+        else:
+            # 再帰呼び出し
+            dfs(nv, nodes, edges)
+        # nv を通らない
+        nodes.pop()
+        edges[cv][nv] = False
+        edges[nv][cv] = False
+
+
+input_str = INPUT3
+input_lines = input_str.splitlines()
+# n: 頂点数, s: 起点, t: 終点
+n, s, t = map(int, input_lines[0].split())
+# 通らない頂点
+unused_vertices = list(map(int, input_lines[2].split()))
+# 隣接リスト
+ad_list = {}
+for (i, line) in enumerate(input_lines[3:], 1):
+    if i % 2 != 0:
+        continue
+    ad_list[i // 2] = list(map(int, line.split()))
+
+# s から t への経路
+results = [[]]
+edges = [[False for w in range(n + 1)] for h in range(n + 1)]
+dfs(s, [s], edges)
+
+# s から t に行ける経路を頂点数で昇順ソート
+results.sort(key=lambda x: len(x))
+# 頂点数が一番多い経路または -1 を出力
+if len(results[-1]) > 0:
+    print(" ".join(map(str, results[-1])))
+else:
+    print(-1)
+
+
+'''
 class Trail:
     def __init__(self, nodes, edges):
         self.nodes = nodes
@@ -119,4 +174,4 @@ def main(input_str):
 
 
 print(main(open(0).read()))
-# print(main(INPUT3))
+'''

@@ -78,10 +78,10 @@ def main(input_str)
       if q_count > results[:q_count]
         # 現在の q_count より多いなら更新
         results[:q_count] = q_count
-        results[:trails] = [trail.nodes]
+        results[:trails] = [trail.nodes.dup]
       elsif q_count == results[:q_count] && q_count > 0
         # 現在の q_count と同じなら経路を追加
-        results[:trails] << trail.nodes
+        results[:trails] << trail.nodes.dup
       end
     end
 
@@ -104,4 +104,4 @@ def main(input_str)
   results[:q_count] > 0 ? results[:trails].first.join(" ") : -1
 end
 
-puts main(STDIN.read)
+p main(INPUT3)

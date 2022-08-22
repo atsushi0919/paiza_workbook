@@ -61,7 +61,7 @@ class Trail:
 
 def main(input_str):
     input_lines = input_str.splitlines()
-    # n: 頂点数, s: 起点, t: 終点
+    # n: 頂点数, s: 起点, t: 終点, q: 中継点
     n, s, t, q = map(int, input_lines[0].split())
     # 隣接リスト
     ad_list = {}
@@ -82,10 +82,10 @@ def main(input_str):
             if q_count > results["q_count"]:
                 # 現在の q_count より多いなら更新
                 results["q_count"] = q_count
-                results["trails"] = [trail.nodes]
+                results["trails"] = [trail.nodes.copy()]
             elif q_count == results["q_count"] and q_count > 0:
                 # 現在の q_count と同じなら経路を追加
-                results["trails"].append(trail.nodes)
+                results["trails"].append(trail.nodes.copy())
 
         # 隣接頂点に移動する
         cv = trail.nodes[-1]

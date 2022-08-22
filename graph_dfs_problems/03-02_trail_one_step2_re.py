@@ -76,6 +76,7 @@ def dfs(cv, nodes, edges):
             # t に着いたら経路を記録
             results.append(nodes.copy())
         else:
+            # 再帰呼び出し
             dfs(nv, nodes, edges)
         # nv を通らない
         nodes.pop()
