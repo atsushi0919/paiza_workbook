@@ -100,7 +100,7 @@ def main(input_str):
                 continue
             if trail.edges[nv][cv]:
                 continue
-            # 通れない頂点ならスキップ
+            # 通れない頂点はスキップ
             if cv in unused_vertices:
                 continue
 

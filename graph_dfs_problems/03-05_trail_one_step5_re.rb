@@ -58,54 +58,57 @@ OUTPUT3 = <<~"EOS"
   5 4 6 2 4 3 5 2 3 6
 EOS
 
+def dfs(cv, nodes, edges)
+  $ad_list[cv].each do |nv|
+    # 通過済み経路はスキップ
+    next if edges[cv][nv]
+    next if edges[nv][cv]
+    # 通れない頂点ならスキップ
+    next if unused_vertices.include?(nv)
 
-'''
-Trail = Struct.new(:nodes, :edges)
-
-def main(input_str)
-  input_lines = input_str.split("\n")
-  # n: 頂点数, s: 起点, t: 終点
-  n, s, t = input_lines.shift.split.map(&:to_i)
-  # 通らない頂点
-  unused_vertices = input_lines.shift(2).last.split.map(&:to_i)
-  # 隣接リスト
-  ad_list = {}
-  input_lines.each.with_index(1) do |line, i|
-    next if i.odd?
-    ad_list[i / 2] = line.split.map(&:to_i)
-  end
-
-  # s から t までの経路を調べる
-  results = [[]]
-  trails = [Trail.new([s], [])]
-  while trails.length > 0
-    trail = trails.pop
-    # t に着いたら結果を記録
-    if trail.nodes.last == t
-      if trail.nodes.length > results.last.length
-        results = [trail.nodes]
-      elsif trail.nodes.length == results.last.length
-        results << trail.nodes
+    # nv を通る
+    nodes << nv
+    edges[cv][nv] = true
+    edges[nv][cv] = true
+    # t に着いたら経路を記録
+    if nv == $t
+      # q を訪問した回数をカウント
+      q_count = nodes.count($q)
+      if q_count > $results[:q_count]
+        # 現在の q_count より多いなら更新
+        $results[:q_count] = q_count
+        $results[:trails] = [nodes.dup]
+      elsif q_count == $results[:q_count] && q_count > 0
+        # 現在の q_count と同じなら経路を追加
+        $results[:trails] << nodes.dup
       end
     end
-    # 隣接頂点を調べる
-    cv = trail.nodes.last
-    ad_list[cv].each do |nv|
-      e = [cv, nv].sort
-      # 使ったことのある経路ならスキップ
-      next if trail.edges.include?(e)
-      # 通れない頂点
-      next if unused_vertices.include?(nv)
-      # trail を複製して情報更新
-      new_trail = Marshal.load(Marshal.dump(trail))
-      new_trail.nodes << nv
-      new_trail.edges << e
-      trails << new_trail
-    end
+    # 再帰呼び出し
+    dfs(nv, nodes, edges)
+    # nv を通らない
+    nodes.pop
+    edges[cv][nv] = false
+    edges[nv][cv] = false
   end
-  # 頂点数が一番多い経路または -1 を出力
-  results.last.length > 0 ? results.last.join(" ") : -1
 end
 
-puts main(STDIN.read)
-'''
+input_str = INPUT1
+input_lines = input_str.split("\n")
+# n: 頂点数, s: 起点, t: 終点
+n, $s, $t = input_lines.shift.split.map(&:to_i)
+# 通らない頂点
+unused_vertices = input_lines.shift(2).last.split.map(&:to_i)
+# 隣接リスト
+$ad_list = {}
+input_lines.each.with_index(1) do |line, i|
+  next if i.odd?
+  $ad_list[i / 2] = line.split.map(&:to_i)
+end
+
+# s から t への経路
+$results = [[]]
+edges = Array.new(n + 1) { Array.new(n + 1, false) }
+dfs($s, [$s], edges)
+
+# 頂点数が一番多い経路または -1 を出力
+results.last.length > 0 ? results.last.join(" ") : -1
