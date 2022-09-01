@@ -26,11 +26,9 @@ def main(input_str)
   # n: 頂点数, s: 起点, k: 回数
   n, s, k = input_lines.shift.split.map(&:to_i)
   # 隣接リスト(完全無向グラフ)
-  ad_list = Hash.new { [] }
+  ad_list = {}
   1.upto(n) do |i|
-    1.upto(n) do |j|
-      ad_list[i] <<= j if i != j
-    end
+    ad_list[i] = (1..n).select { |j| i != j }
   end
 
   # k 回移動
