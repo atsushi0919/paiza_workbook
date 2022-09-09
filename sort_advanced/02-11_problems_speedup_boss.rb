@@ -1,55 +1,36 @@
 # ソートによる高速化まとめ (paizaランク B 相当)
 # https://paiza.jp/works/mondai/sort_advanced/sort_advanced__problems_speedup_boss
 
-=begin
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-N 要素の数列 A が与えられます。次の 2 つの操作をおこなうプログラムを作成してください。
+INPUT1 = <<~"EOS"
+  6 4
+  6 5 4 3 2 1
+  get 1 0
+  update 6 7
+  get 1 0
+  get 6 0
+EOS
+OUTPUT1 = <<~"EOS"
+  6
+  7
+  2
+EOS
 
-・ update(k, x): 列の先頭から k 番目の値を x に変更する。
-・ get(k): 数列 A の中から大きい順で k 番目の値を出力する。
+input_lines = STDIN.read.split("\n")
+input_lines.shift
+a = input_lines.shift.split.map(&:to_i)
+queries = input_lines.map do |line|
+  q, k, x = line.split
+  [q, k.to_i, x.to_i]
+end
 
-▼　下記解答欄にコードを記入してみよう
+res = []
+queries.each do |q, k, x|
+  case q
+  when "update"
+    a[k - 1] = x
+  when "get"
+    res << a.sort[-k]
+  end
+end
 
-入力される値
-N Q
-A_1 A_2 A_3 ... A_N
-query_1 k_1 x_1
-query_2 k_2 x_2
-...
-query_Q k_Q x_Q
-
-
-・ 1 行目に、数列の要素数 N とクエリの数 Q が与えられます。
-・ 2 行目に数列 A が与えられます。
-・ 続く Q 行にクエリが与えられます。 query_i はクエリの種類を示し、 update または get が与えられます。また、 query_i が get であるときは、 x_i にかならず 0 が入ります。
-
-入力値最終行の末尾に改行が１つ入ります。
-文字列は標準入力から渡されます。 標準入力からの値取得方法はこちらをご確認ください
-期待する出力
-各 get クエリの結果を改行区切りで出力してください。
-
-また、末尾に改行を入れ、余計な文字、空行を含んではいけません。
-
-条件
-すべてのテストケースにおいて、以下の条件をみたします。
-
-・ 1 ≦ N ≦ 1,000
-・ 1 ≦ Q ≦ 1,000
-・ 1 ≦ A_i, x_i ≦ 1,000,000,000
-・ 1 ≦ k_i ≦ N
-・ get クエリが 1 つ以上与えられる
-
-入力例1
-6 4
-6 5 4 3 2 1
-get 1 0
-update 6 7
-get 1 0
-get 6 0
-
-出力例1
-6
-7
-2
-=end
+puts res.join("\n")
