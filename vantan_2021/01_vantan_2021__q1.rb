@@ -17,7 +17,7 @@ OUTPUT2 = <<~"EOS"
   Tarimasen!
 EOS
 
-s, m = INPUT2.split.map(&:to_i)
+s, m = STDIN.read.split.map(&:to_i)
 
 puts s <= m ? m - s : "Tarimasen!"
 

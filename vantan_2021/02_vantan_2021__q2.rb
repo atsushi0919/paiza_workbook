@@ -37,10 +37,28 @@ OUTPUT4 = <<~"EOS"
   incorrect
 EOS
 
-_, s, t = INPUT1.split
+radix = 26
+chr_base = 97
+n, s, t = STDIN.read.split
+n = n.to_i
 
-p s
-p t
+rots = Array.new(n)
+0.upto(n - 1) do |i|
+  rots[i] = (t[i].ord - s[i].ord) % radix
+end
+
+case rots.uniq.length
+when 1
+  puts "correct rot-#{rots[0]}"
+when 2
+  tally = rots.tally.sort_by { |k, v| v }
+  idx = rots.index(tally[0][0])
+  rot = tally[1][0]
+  t[idx] = ((s[idx].ord + rot - chr_base) % radix + chr_base).chr
+  puts "fixed #{t}"
+else
+  puts "incorrect"
+end
 
 =begin
 問題文のURLをコピーする
