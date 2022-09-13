@@ -1,8 +1,105 @@
 # Q5: ペイントソフト (paizaランク S 相当)
 # https://paiza.jp/works/mondai/vantan_2021/vantan_2021__q5_paint_software
 
+INPUT1 = <<~"EOS"
+  10 10 100 100
+  70 50
+  30 80
+  50 40
+  20 90
+  2 10 30
+  3 60 45
+  4 35 95
+  5 10 60
+  6 25 85
+  7 70 95
+  8 10 85
+  9 80 10
+  10 35 20
+  11 15 30
+  1 1
+  1 51
+  7 99
+  31 81
+  90 10
+  95 95
+  35 95
+  25 20
+  40 51
+  51 45
+EOS
+OUTPUT1 = <<~"EOS"
+  11
+  5
+  8
+  1
+  9
+  7
+  4
+  10
+  1
+  3
+EOS
+
+# if (max(x1, x3) < min(x2, x4)) and (max(y1, y3) < min(y2, y4)):
+#     print('Yes Overlap!')
+# else:
+#     print('No')
+
+# require "byebug"
+# byebug
+
+Rectangle = Struct.new(:x1, :y1, :x2, :y2, :color)
+
+input_lines = INPUT1.split("\n")
+n, q, h, w = input_lines.shift.split.map(&:to_i)
+x_y = input_lines.shift(4).map { |line| line.split.map(&:to_i) }
+opes = input_lines.shift(n).map { |line| line.split.map(&:to_i) }
+ques = input_lines.shift(q).map { |line| line.split.map(&:to_i) }
+
+rects = [Rectangle.new(0, 0, x_y[0][0], x_y[0][1], 1),
+         Rectangle.new(0, x_y[1][1], x_y[1][0], h, 1),
+         Rectangle.new(x_y[2][0], x_y[2][1], w, h, 1),
+         Rectangle.new(x_y[3][0], 0, w, x_y[3][1], 1)]
+
+copied_rects = rects.dup
+rects.each do |r1|
+  new_rects = []
+  copied_rects.each do |r2|
+    next if r1 == r2
+    if [r1.x1, r2.x1].max < [r1.x2, r2.x2].min && [r1.y1, r2.y1].max < [r1.y2, r2.y2].min
+      r1, r2 = r2, r1 if r1.x1 > r2.x1
+      if r1.y1 < r2.y1
+        new_rect = Rectangle.new(r2.x1, r2.y1, r1.x2, r1.y2, 1)
+      else
+        new_rect = Rectangle.new(r2.x1, r1.y1, r1.x2, r2.y2, 1)
+      end
+      new_rects.unshift(new_rect) unless copied_rects.include?(new_rect)
+    end
+  end
+  copied_rects = new_rects + copied_rects
+end
+
+pp copied_rects
+
+exit
+
+if rects[0].x2 >= rects[2].x1 && rects[0].y2 >= rects[2].y1
+  rects << Rectangle.new(rects[0].x1, rects[0].y2, rects[2].x1, rects[2].y2, 1)
+  rects << Rectangle.new(rects[0].x2, rects[0].y1, rects[2].x2, rects[2].y1, 1)
+end
+if rects[1].x2 >= rects[3].x1 && rects[0].y1 <= rects[3].y2
+  rects << Rectangle.new(rects[1].x1, rects[3].y1, rects[3].x1, rects[1].y1, 1)
+  rects << Rectangle.new(rects[1].x2, rects[3].y2, rects[3].x2, rects[1].y2, 1)
+end
+rects << [Rectangle.new(0, 0, w, h, 1)]
 
 =begin
+
+if (max(x1, x3) < min(x2, x4)) and (max(y1, y3) < min(y2, y4)):
+    print('Yes Overlap!')
+else:
+    print('No')
 
 問題文のURLをコピーする
  下記の問題をプログラミングしてみよう！
