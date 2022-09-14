@@ -41,15 +41,23 @@ OUTPUT1 = <<~"EOS"
   3
 EOS
 
-# if (max(x1, x3) < min(x2, x4)) and (max(y1, y3) < min(y2, y4)):
-#     print('Yes Overlap!')
-# else:
-#     print('No')
+require "byebug"
 
-# require "byebug"
-# byebug
+Rectangle = Struct.new(:x1, :y1, :x2, :y2, :z, :color)
 
-Rectangle = Struct.new(:x1, :y1, :x2, :y2, :color)
+# def rects_state(r1, r2)
+#   if r1
+# end
+
+def overlap?(r1, r2)
+  if [r1.x1, r2.x1].max < [r1.x2, r2.x2].min && [r1.y1, r2.y1].max < [r1.y2, r2.y2].min
+    2
+  elsif r1.x1 == r2.x2 || r1.x2 == r2.x1 || r1.y1 == r2.y2 || r1.y2 == r2.y1
+    1
+  else
+    0
+  end
+end
 
 input_lines = INPUT1.split("\n")
 n, q, h, w = input_lines.shift.split.map(&:to_i)
@@ -57,11 +65,98 @@ x_y = input_lines.shift(4).map { |line| line.split.map(&:to_i) }
 opes = input_lines.shift(n).map { |line| line.split.map(&:to_i) }
 ques = input_lines.shift(q).map { |line| line.split.map(&:to_i) }
 
-rects = [Rectangle.new(0, 0, x_y[0][0], x_y[0][1], 1),
-         Rectangle.new(0, x_y[1][1], x_y[1][0], h, 1),
-         Rectangle.new(x_y[2][0], x_y[2][1], w, h, 1),
-         Rectangle.new(x_y[3][0], 0, w, x_y[3][1], 1)]
+r0 = Rectangle.new(0, 0, x_y[0][0], x_y[0][1], 1, 1)
+r1 = Rectangle.new(0, x_y[1][1], x_y[1][0], h, 1, 1)
+r2 = Rectangle.new(x_y[2][0], x_y[2][1], w, h, 1, 1)
+r3 = Rectangle.new(x_y[3][0], 0, w, x_y[3][1], 1, 1)
 
+# 対角の長方形とくっついているか
+add_rects = []
+if overlap?(r0, r2) > 0
+  add_rects << Rectangle.new(r0.x1, r0.y2, r2.x1, r2.y2, 1, 1)
+  add_rects << Rectangle.new(r0.x2, r0.y1, r2.x2, r2.y1, 1, 1)
+end
+if overlap?(r1, r3) > 0
+  add_rects << Rectangle.new(r1.x1, r3.y1, r3.x1, r1.y1, 1, 1)
+  add_rects << Rectangle.new(r1.x2, r3.y2, r3.x2, r1.y2, 1, 1)
+end
+if add_rects.empty?
+  add_rects << Rectangle.new(0, 0, w, h, 0, 1)
+end
+
+# 長方形の重なりを調べる
+z = 1
+c = 1
+rects = [Rectangle.new(0, 0, x_y[0][0], x_y[0][1], z, c),
+         Rectangle.new(0, x_y[1][1], x_y[1][0], h, z, c),
+         Rectangle.new(x_y[2][0], x_y[2][1], w, h, z, c),
+         Rectangle.new(x_y[3][0], 0, w, x_y[3][1], z, c)]
+rects.concat(add_rects)
+
+byebug
+
+while true
+  t_rects = rects.select { |r| r.z == z }
+  break if t_rects.empty?
+  len = t_rects.length
+  0.upto(len - 1) do |i|
+    (i + 1).upto(len - 1) do |j|
+      next if i == j
+      r1 = t_rects[i]
+      r2 = t_rects[j]
+      r1, r2 = r2, r1 if r1.x1 > r2.x1
+      if overlap?(r1, r2) == 2
+        if r1.y1 <= r2.y1
+          nr = Rectangle.new(r2.x1, r2.y1, r1.x2, r1.y2, z + 1, 1)
+        else
+          nr = Rectangle.new(r2.x1, r1.y1, r1.x2, r2.y2, z + 1, 1)
+        end
+        next if rects.any? do |r|
+          r.x1 == nr.x1 && r.y1 == nr.y1 && r.x2 == nr.x2 && r.y2 == nr.y2 && r.z == nr.z
+        end
+        rects << nr
+      end
+    end
+  end
+  z += 1
+end
+
+# 色を塗る
+rects.sort_by! { |r| r.z }.reverse!
+opes.each do |c, x, y|
+  rects.each do |r|
+    if r.x1 < x && x < r.x2 && r.y1 < y && y < r.y2
+      r.color = c
+      break
+    end
+  end
+end
+
+# 出力
+ques.each do |x, y|
+  puts "(#{x}, #{y}) #{rects.find { |r| r.x1 < x && x < r.x2 && r.y1 < y && y < r.y2 }.color}"
+end
+
+=begin
+0.upto(2).each_with_index do |i|
+  len = rects.length
+  (i + 1).upto(len - 1) do |j|
+    r1 = rects[i]
+    r2 = rects[j]
+    # r1 と r2 が重なっている場合、重なり部分の長方形を追加する
+    if [r1.x1, r2.x1].max < [r1.x2, r2.x2].min && [r1.y1, r2.y1].max < [r1.y2, r2.y2].min
+      r1, r2 = r2, r1 if r1.x1 > r2.x1
+      if r1.y1 < r2.y1
+        rects << Rectangle.new(r2.x1, r2.y1, r1.x2, r1.y2, r1.z + r2.z, 1)
+      else
+        rects << Rectangle.new(r2.x1, r1.y1, r1.x2, r2.y2, r1.z + r2.z, 1)
+      end
+    end
+  end
+end
+=end
+
+=begin
 copied_rects = rects.dup
 rects.each do |r1|
   new_rects = []
@@ -79,11 +174,9 @@ rects.each do |r1|
   end
   copied_rects = new_rects + copied_rects
 end
+=end
 
-pp copied_rects
-
-exit
-
+=begin
 if rects[0].x2 >= rects[2].x1 && rects[0].y2 >= rects[2].y1
   rects << Rectangle.new(rects[0].x1, rects[0].y2, rects[2].x1, rects[2].y2, 1)
   rects << Rectangle.new(rects[0].x2, rects[0].y1, rects[2].x2, rects[2].y1, 1)
@@ -93,6 +186,7 @@ if rects[1].x2 >= rects[3].x1 && rects[0].y1 <= rects[3].y2
   rects << Rectangle.new(rects[1].x2, rects[3].y2, rects[3].x2, rects[1].y2, 1)
 end
 rects << [Rectangle.new(0, 0, w, h, 1)]
+=end
 
 =begin
 
@@ -108,10 +202,6 @@ else:
 ソフトウェア会社で働いている太郎さんは、自社の 100 色ペイントソフトの塗りつぶし機能についての業務を任されました。
 
 具体的な業務の内容は以下の通りです。
-
-
-
-
 
 1. y 軸方向の長さが H, x 軸方向の長さが W である、上のような座標系の H × W のキャンバスを用意します。
 
