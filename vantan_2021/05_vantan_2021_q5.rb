@@ -41,8 +41,10 @@ OUTPUT1 = <<~"EOS"
   3
 EOS
 
+# 長方形を構造体で定義
 Rectangle = Struct.new(:x1, :y1, :x2, :y2, :z, :c)
 
+# 2 つの長方形の重複範囲を返す
 def ol_area(r1, r2)
   l = [r1.x1, r2.x1].max
   r = [r1.x2, r2.x2].min
@@ -51,16 +53,26 @@ def ol_area(r1, r2)
   l < r && b < t ? [l, b, r, t] : []
 end
 
+# 入力
 input_lines = STDIN.read.split("\n")
+# n: 色塗りの回数, q: 質問の回数, h, w: キャンバス
 n, q, h, w = input_lines.shift.split.map(&:to_i)
+# 四隅の長方形の座標リスト [x, y]
 x_y = input_lines.shift(4).map { |line| line.split.map(&:to_i) }
+# 色塗り指示リスト [c, x, y]
 opes = input_lines.shift(n).map { |line| line.split.map(&:to_i) }
+# 質問リスト [x, y]
 ques = input_lines.shift(q).map { |line| line.split.map(&:to_i) }
 
+# 左下の長方形
 r0 = Rectangle.new(0, 0, x_y[0][0], x_y[0][1], 1, 1)
+# 左上の長方形
 r1 = Rectangle.new(0, x_y[1][1], x_y[1][0], h, 1, 1)
+# 右上の長方形
 r2 = Rectangle.new(x_y[2][0], x_y[2][1], w, h, 1, 1)
+# 右下の長方形
 r3 = Rectangle.new(x_y[3][0], 0, w, x_y[3][1], 1, 1)
+# 長方形リスト
 rects = [r0, r1, r2, r3]
 
 # 左下と右上が繋がっていれば 左上と右下に長方形ができる
@@ -76,11 +88,14 @@ end
 # どちらも繋がっていなければ [0, 0, w, h] のキャンバスを追加
 rects << Rectangle.new(0, 0, w, h, 0, 1) if rects.length == 4
 
-# 長方形の重なりを調べる
+# z = 1 から長方形の重なりを調べる（z は色を塗るときの優先度）
 z = 1
 while true
+  # 同じ z の長方形を抽出してリスト作成
   t_rects = rects.select { |r| r.z == z }
+  # 調査対象の長方形が無くなったら終了
   break if t_rects.empty?
+  # 総当たりで長方形を確認する
   len = t_rects.length
   0.upto(len - 1) do |i|
     (i + 1).upto(len - 1) do |j|
@@ -88,19 +103,21 @@ while true
       r1 = t_rects[i]
       r2 = t_rects[j]
       ol_area = ol_area(r1, r2)
-      if not ol_area.empty?
-        nr = Rectangle.new(*ol_area, z + 1, 1)
-        next if rects.any? do |r|
-          [r.x1, r.y1, r.x2, r.y2, r.z] == [nr.x1, nr.y1, nr.x2, nr.y2, nr.z]
-        end
-        rects << nr
+      # r1 と r2 で重複範囲がないならスキップ
+      next if ol_area.empty?
+      # 重複範囲を現在の z に +1 して新しい長方形とする
+      nr = Rectangle.new(*ol_area, z + 1, 1)
+      next if rects.any? do |r|
+        [r.x1, r.y1, r.x2, r.y2, r.z] == [nr.x1, nr.y1, nr.x2, nr.y2, nr.z]
       end
+      # 同じ長方形が長方形リストに無いなら追加する
+      rects << nr
     end
   end
   z += 1
 end
 
-# 色を塗る
+# z 降順でソートして優先度の高い正方形に色を塗る
 rects.sort_by! { |r| r.z }.reverse!
 opes.each do |c, x, y|
   rects.each do |r|
@@ -111,9 +128,7 @@ opes.each do |c, x, y|
   end
 end
 
-# 出力
+# 指定された座標の色を出力する
 puts ques.map { |x, y|
-  rects.find { |r|
-    r.x1 < x && x < r.x2 && r.y1 < y && y < r.y2
-  }.c
+  rects.find { |r| r.x1 < x && x < r.x2 && r.y1 < y && y < r.y2 }.c
 }.join("\n")
