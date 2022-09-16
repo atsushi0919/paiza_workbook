@@ -23,39 +23,58 @@ OUTPUT2 = <<~"EOS"
   0.625000000000000
 EOS
 
-input_lines = STDIN.read.split("\n")
+input_lines = INPUT1.split("\n")
 h, w, n, m = input_lines.shift.split.map(&:to_i)
 img = input_lines.map { |line| line.chars.map(&:to_i) }
 
-# img の二次元累積和を計算する
-s = Array.new(h + 1) { Array.new(w + 1, 0) }
-0.upto(h - 1) do |y|
-  0.upto(w - 1) do |x|
-    s[y + 1][x + 1] = img[y][x] + s[y][x + 1] + s[y + 1][x] - s[y][x]
-  end
-end
+left = 0
+right = 2
+while right - left > 10 ** -8
+  mid = (right + left) / 2.0
+  s = Array.new(h + 1) { Array.new(w + 1, 0) }
 
-max_blackness = 0.0
-0.upto(h - n) do |y1|
-  0.upto(w - m) do |x1|
-    n.upto(h - y1) do |hw|
-      m.upto(w - x1) do |ww|
-        y2 = y1 + hw
-        x2 = x1 + ww
-        count = s[y2][x2] - s[y1][x2] - s[y2][x1] + s[y1][x1]
-        total = hw * ww
-        # puts "hw: #{hw}, ww: #{ww}"
-        # puts "左上: (#{y1}, #{x1}), 右下: (#{y2}, #{x2})"
-        # puts "count: #{count}, total: #{total}"
-        max_blackness = [max_blackness, count / total.to_f].max
-        # puts tmp_max
-        # puts "---"
+  1.upto(h) do |i|
+    1.upto(w) do |j|
+      cnt = img[i - 1][j - 1] == 1 ? 1 : 0
+      s[i][j] += cnt - mid
+      s[i][j] += s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1]
+    end
+  end
+
+  work = [0] * (w + 1)
+  mx = [0] * (w + 1)
+  flag = false
+  0.upto(h) do |i|
+    (i + n).upto(h) do |j|
+      0.upto(w) do |k|
+        work[k] = s[j][k] - s[i][k]
+      end
+
+      w.downto(0) do |k|
+        mx[k] = work[k]
+        if k < w
+          if mx[k] < mx[k + 1]
+            mx[k] = mx[k + 1]
+          end
+        end
+      end
+
+      m.upto(w) do |k|
+        if -work[k - m] + mx[k] >= 0.0
+          flag = true
+        end
       end
     end
   end
+
+  if flag
+    left = mid
+  else
+    right = mid
+  end
 end
 
-puts max_blackness
+p left
 
 =begin
 問題文のURLをコピーする
