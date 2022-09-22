@@ -98,7 +98,8 @@ def main(input_str)
     end
   end
   # 頂点数が最も多い経路から 1 つ出力
-  results.sort { |a, b| a.length <=> b.length }.last.join(" ")
+  # results.sort { |a, b| a.length <=> b.length }.last.join(" ")
+  results.sort_by { |x| x.length }
 end
 
-puts main(STDIN.read)
+p main(INPUT1)

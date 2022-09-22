@@ -15,10 +15,6 @@ OUTPUT2 = <<~"EOS"
   1 5 3 4 5 2
 EOS
 
-INPUT3 = <<~"EOS"
-  14 3 9
-EOS
-
 Trail = Struct.new(:nodes, :edges)
 
 def main(input_str)
@@ -37,7 +33,7 @@ def main(input_str)
   while trails.length > 0
     trail = trails.pop
 
-    # k 回移動した経路を出力
+    # k 回移動した経路を返す
     if trail.nodes.length == k + 1
       return trail.nodes.join(" ")
     end
