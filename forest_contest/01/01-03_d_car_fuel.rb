@@ -14,12 +14,16 @@ OUTPUT2 = <<~"EOS"
   23
 EOS
 
-def solve(input_str)
-  # 入力
-  v, d = input_str.split.map(&:to_i)
+# 解答例1
+# 入力
+v, d = gets.split.map(&:to_i)
 
-  # 燃費を返す
-  d.div(v)
-end
+# 燃費を出力
+puts d / v
 
-puts solve(STDIN.read)
+# 解答例2
+# 入力
+v, d = gets.split.map(&:to_i)
+
+# 燃費を出力
+puts d.div(v)
