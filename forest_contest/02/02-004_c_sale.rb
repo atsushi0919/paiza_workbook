@@ -21,25 +21,67 @@ OUTPTU2 = <<~"EOS"
   3500
 EOS
 
-def solve(input_str)
-  # 値引き条件対象
-  target = "pants"
-  # 入力
-  _, *items = input_str.split("\n")
+=begin
+# 解答例1
+# 入力
+n = gets.to_i
+shopping_list = []
+n.times do
+  item, price = gets.split
+  shopping_list << [item, price.to_i]
+end
 
-  # 合計金額計算
-  pants = false
-  total = 0
-  items.each do |item|
-    kind, price = item.split
-    pants = true if kind == target
-    total += price.to_i
+# pants 購入チェックと合計金額計算
+bought_pants = false
+total = 0
+items.each do |item, price|
+  bought_pants = true if item == "pants"
+  total += price
+end
+
+# 値引き処理
+if bought_pants && total >= 2000
+  total -= 500
+end
+
+# 支払金額を出力
+puts total
+=end
+
+# 解答例2
+
+def solve(input_str)
+  # 入力
+  input_lines = input_str.split("\n")
+  shopping_list = input_lines[1..].map do |line|
+    item, price = line.split
+    [item, price.to_i]
   end
-  # 値引き計算
-  total -= 500 if pants && total >= 2000
+
+  # pants 購入チェックと合計金額計算
+  bought_pants = false
+  total = 0
+  shopping_list.each do |item, price|
+    bought_pants = true if item == "pants"
+    total += price
+  end
+
+  # 値引き処理
+  if bought_pants && total >= 2000
+    total -= 500
+  end
 
   # 合計金額を返す
   total
 end
 
-puts solve(STDIN.read)
+puts solve(INPUT1)
+# > ["3", "shirt 1000", "shoes 2000", "shirt 500"]
+# > [["shirt", 1000], ["shoes", 2000], ["shirt", 500]]
+# > [false, 3500]
+# > 3500
+puts solve(INPUT2)
+# > ["4", "shirt 500", "pants 1000", "pants 500", "shoes 2000"]
+# > [["shirt", 1000], ["shoes", 2000], ["shirt", 500]]
+# > [true, 4000]
+# 3500
