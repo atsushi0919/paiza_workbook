@@ -95,6 +95,7 @@ def main(input_str)
 
   # 頂点数が一番多い多い経路から 1 つを出力
   results.sort { |a, b| a.length <=> b.length }.last.join(" ")
+  results
 end
 
-puts main(STDIN.read)
+pp main(INPUT2)

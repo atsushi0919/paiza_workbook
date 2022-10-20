@@ -102,4 +102,4 @@ def main(input_str)
   results.sort_by { |x| x.length }
 end
 
-p main(INPUT1)
+p main(INPUT3)

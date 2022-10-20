@@ -101,7 +101,7 @@ def e_dist(x1, y1, x2, y2)
   ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
 end
 
-input_lines = STDIN.read.split("\n")
+input_lines = INPUT1.split("\n")
 n = input_lines.shift.to_i
 coords = input_lines.map { |l| l.split.map(&:to_i) }
 
