@@ -19,7 +19,7 @@ OUTPUT2 = <<~"EOS"
   -1
 EOS
 
-input_lines = INPUT2.split("\n")
+input_lines = STDIN.read.split("\n")
 _, m = input_lines.shift.split.map(&:to_i)
 a = input_lines.shift.split.map(&:to_i)
 b = input_lines.shift.split.map(&:to_i)
