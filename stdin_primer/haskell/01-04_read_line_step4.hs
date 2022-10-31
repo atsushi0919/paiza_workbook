@@ -6,7 +6,7 @@
 -- lines :: String -> [String]
 -- unlines :: [String] -> String
 
-main :: IO()
+main :: IO ()
 main = do
   inputStr <- getContents  -- "ak\nbl\ncm\ndn\neo\nfp\ngq\nhr\nis\njt\n"
   let inputLines = lines inputStr  -- ["ak","bl","cm","dn","eo","fp","gq","hr","is","jt"]

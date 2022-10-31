@@ -23,7 +23,7 @@
 -- getLine :: IO String
 -- putStrLn :: String -> IO ()
 
-main :: IO()
+main :: IO ()
 main = do
   s <- getLine
   

@@ -3,7 +3,7 @@
 
 -- fmap :: Functor f => (a -> b) -> f a -> f b
 
-main :: IO()
+main :: IO ()
 main = do
   -- a <- fmap words getContents
   a <- words <$> getContents

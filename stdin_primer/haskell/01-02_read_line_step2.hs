@@ -25,7 +25,7 @@
 -- 2012021300
 -- 2020042218
 
-main :: IO()
+main :: IO ()
 main = do
   s0 <- getLine
   s1 <- getLine
