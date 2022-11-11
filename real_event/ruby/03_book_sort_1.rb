@@ -17,6 +17,14 @@ OUTPUT2 = <<~"EOS"
   6
 EOS
 
+INPUT3 = <<~"EOS"
+  15
+  8 5 10 6 4 11 12 3 9 1 13 2 15 14 7
+EOS
+OUTPUT3 = <<~"EOS"
+  10
+EOS
+
 def solve(input_lines)
   n, *a = input_lines.split.map(&:to_i)
   b = a.each_with_index.to_h
@@ -32,4 +40,4 @@ def solve(input_lines)
   count
 end
 
-puts solve(STDIN.read)
+puts solve(INPUT3)
