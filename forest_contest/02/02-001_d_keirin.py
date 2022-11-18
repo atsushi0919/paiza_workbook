@@ -2,14 +2,18 @@
 # https://paiza.jp/works/mondai/forest_contest_002/forest_contest_002__d_keirin
 
 INPUT1 = """\
-2"""
+2
+"""
 OUTPUT1 = """\
-black"""
+black
+"""
 
 INPUT2 = """\
-5"""
+5
+"""
 OUTPUT2 ="""\
-yellow"""
+yellow
+"""
 
 '''
 # 解答例1

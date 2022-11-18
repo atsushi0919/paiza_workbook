@@ -5,18 +5,22 @@ INPUT1 = """\
 3
 shirt 1000
 shoes 2000
-shirt 500"""
+shirt 500
+"""
 OUTPUT1 = """\
-3500"""
+3500
+"""
 
 INPUT2 = """\
 4
 shirt 500
 pants 1000
 pants 500
-shoes 2000"""
+shoes 2000
+"""
 OUTPTU2 = """\
-3500"""
+3500
+"""
 
 '''
 # 解答例1

@@ -1,24 +1,24 @@
 # セール販売 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_002/forest_contest_002__c_sale
 
-INPUT1 = <<~"EOS"
-  3
-  shirt 1000
-  shoes 2000
-  shirt 500
+INPUT1 = <<"EOS"
+3
+shirt 1000
+shoes 2000
+shirt 500
 EOS
-OUTPUT1 = <<~"EOS"
-  3500
+OUTPUT1 = <<"EOS"
+3500
 EOS
-INPUT2 = <<~"EOS"
-  4
-  shirt 500
-  pants 1000
-  pants 500
-  shoes 2000
+INPUT2 = <<"EOS"
+4
+shirt 500
+pants 1000
+pants 500
+shoes 2000
 EOS
-OUTPTU2 = <<~"EOS"
-  3500
+OUTPTU2 = <<"EOS"
+3500
 EOS
 
 =begin

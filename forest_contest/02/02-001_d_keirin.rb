@@ -1,22 +1,22 @@
 # 競輪のユニフォーム (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_002/forest_contest_002__d_keirin
 
-INPUT1 = <<~"EOS"
-  2
+INPUT1 = <<"EOS"
+2
 EOS
-OUTPUT1 = <<~"EOS"
-  black
+OUTPUT1 = <<"EOS"
+black
 EOS
 
-INPUT2 = <<~"EOS"
-  5
+INPUT2 = <<"EOS"
+5
 EOS
-OUTPUT2 = <<~"EOS"
-  yellow
+OUTPUT2 = <<"EOS"
+yellow
 EOS
 
 =begin
-# 解答例1
+# 解答例1-1
 # 入力
 n = gets.to_i
 
@@ -43,33 +43,65 @@ end
 =end
 
 =begin
-# 解答例1
+# 解答例1-2
 # 入力
 n = gets.to_i
 
 # n に対応した色を出力
-case n
-when 1
-  puts "white"
-when 2
-  puts "black"
-when 3
-  puts "red"
-when 4
-  puts "blue"
-when 5
-  puts "yellow"
-when 6
-  puts "green"
-when 7
-  puts "orange"
-when 8
-  puts "pink"
-when 9
-  puts "purple"
-end
+color = if n == 1
+    "white"
+  elsif n == 2
+    "black"
+  elsif n == 3
+    "red"
+  elsif n == 4
+    "blue"
+  elsif n == 5
+    "yellow"
+  elsif n == 6
+    "green"
+  elsif n == 7
+    "orange"
+  elsif n == 8
+    "pink"
+  elsif n == 9
+    "purple"
+  end
+
+puts color
 =end
 
+=begin
+# 解答例2
+# 入力
+n = gets.to_i
+
+# n に対応した色を出力
+color = case n
+  when 1
+    "white"
+  when 2
+    "black"
+  when 3
+    "red"
+  when 4
+    "blue"
+  when 5
+    "yellow"
+  when 6
+    "green"
+  when 7
+    "orange"
+  when 8
+    "pink"
+  when 9
+    "purple"
+  end
+
+puts color
+=end
+
+=begin
 # 解答例3
 # 色の設定
 colors = ["white", "black", "red", "blue", "yellow", "green", "orange", "pink", "purple"]
@@ -80,12 +112,11 @@ colors = ["white", "black", "red", "blue", "yellow", "green", "orange", "pink", 
 # colors = %w(white black red blue yellow green orange pink purple)
 
 # 入力
-n = input_str.to_i
+n = gets.to_i
 
 # n に対応した色を出力
 puts colors[n - 1]
 
-=begin
 n が
 1のとき、white
 2のとき、black
