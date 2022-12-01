@@ -1,85 +1,68 @@
-=begin
-キューじゃんけん (paizaランク B 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# キューじゃんけん (paizaランク B 相当)
+# https://paiza.jp/works/mondai/stack_queue_advanced/stack_queue_advanced__queue_janken
 
-シェア用URL:
-https://paiza.jp/works/mondai/stack_queue_advanced/stack_queue_advanced__queue_janken
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-paiza 君と kyoko さんは、キューの勉強の一環としてキューを使ったキューじゃんけんをすることにしました。
-キューじゃんけんのルールは次の通りです。
+INPUT1 = <<~"EOS"
+  3 5
+  P R
+  S S
+  R P
+  push push
+  push push
+  push push
+  discard push
+  push discard
+EOS
+OUTPUT1 = <<~"EOS"
+  paiza
+EOS
 
-・各プレイヤーはゲーム開始前に、じゃんけん N 回分の手が書かれたブロック（グー・チョキ・パーのいずれか）が入ったキューを作っておく。
-・ゲームが始まったら、次の 3 つの手順をじゃんけん 1 回として、合計 K 回じゃんけんを行い、勝った回数が多い方が勝利となる。
+INPUT2 = <<~"EOS"
+  1 6
+  R R
+  push push
+  push push
+  push push
+  push push
+  push push
+  push push
+EOS
+OUTPUT2 = <<~"EOS"
+  draw
+EOS
 
-1. 各プレイヤーは自分のキューの先頭に入っているブロックを取り出す。
-2. お互いのブロックに書かれている手を確認し、通常のじゃんけんの通り勝敗を決定する。（ただし、あいこの場合であっても再度手を出さない）
-3. 各プレイヤーは、出したブロックを「キューの末尾に挿入する」か、「追加せずに破棄する」かを決めて、その操作を行う。
+def janken(p0, p1)
+  return -1 if p0 == p1
+  cd = { "R" => 0, "S" => 1, "P" => 2 }
+  ((cd[p0] - cd[p1]) % 3) % 2
+end
 
-各プレイヤーのはじめのキューの中身と、K 回のじゃんけんの 3. における選択が与えられるので、キューじゃんけんの勝敗を判定してください。
-なお、K 回のじゃんけんの途中でキューが空になるような入力は与えられないことが保証されています。
+Player = Struct.new(:name, :block, :win_cnt)
 
-▼　下記解答欄にコードを記入してみよう
+input_lines = $stdin.read.split("\n")
+N, K = input_lines.shift.split.map(&:to_i)
+Q = input_lines.shift(N).map(&:split)
+C = input_lines.shift(K).map(&:split)
 
-入力される値
-N K
-Q_1_1 Q_2_1
-Q_1_2 Q_2_2
-...
-Q_1_N Q_2_N
-C_1_1 C_2_1
-...
-C_1_K C_2_K
+queues = Q.transpose
+players = [Player.new("paiza", queues[0], 0),
+           Player.new("kyoko", queues[1], 0)]
+K.times do
+  opes = C.shift
+  jankens = players.map { |pl| pl.block.shift }
+  winer = janken(*jankens)
+  players[winer].win_cnt += 1 if winer != -1
 
+  opes.each_with_index do |ope, i|
+    players[i].block.push(jankens[i]) if ope == "push"
+  end
+end
 
-・1 行目では、最初にキューに入れるブロックの数 N, じゃんけんの回数 K が半角スペース区切りで与えられます。
+res = if players[0].win_cnt > players[1].win_cnt
+    players[0].name
+  elsif players[0].win_cnt < players[1].win_cnt
+    players[1].name
+  else
+    "draw"
+  end
 
-・2 行目から N 行にかけて、paiza 君のキューの先頭から i 番目に入っているブロックに書かれている手 Q_1_i と kyoko さんのキューの先頭から i 番目に入っているブロックに書かれている手 Q_2_i が半角スペース区切りで与えられます。
-R はグー、S はチョキ、P はパーを表します。
-
-・2 行目から N 行にかけて、paiza 君の i 回目のじゃんけんの 3. における選択 C_1_i と kyoko さんの i 回目のじゃんけんの 3. における選択 C_2_i が半角スペース区切りで与えられます。
-push はブロックをキューの末尾に追加したことを、discard はブロックを破棄したことを表します。
-
-入力値最終行の末尾に改行が１つ入ります。
-文字列は標準入力から渡されます。 標準入力からの値取得方法はこちらをご確認ください
-期待する出力
-・勝者の名前を 1 行で出力してください。
-・ただし、引き分けの場合は "draw" と出力してください。
-
-条件
-すべてのテストケースにおいて、以下の条件をみたします。
-
-・1 ≦ N ≦ 10000
-・N ≦ K ≦ 10000
-・Q_1_i, Q_2_i は 'R' 'S' 'P' のいずれか(1 ≦ i ≦ K)
-・C_1_i, C_2_i は次のいずれかの形式(1 ≦ i ≦ K)
-「push」
-「discard」
-
-入力例1
-3 5
-P R
-S S
-R P
-push push
-push push
-push push
-discard push
-push discard
-
-出力例1
-paiza
-
-入力例2
-1 6
-R R
-push push
-push push
-push push
-push push
-push push
-push push
-
-出力例2
-draw
-=end
+puts res

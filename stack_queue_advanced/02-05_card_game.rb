@@ -1,87 +1,120 @@
-=begin
-カードゲーム (paizaランク B 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# カードゲーム (paizaランク B 相当)
+# https://paiza.jp/works/mondai/stack_queue_advanced/stack_queue_advanced__card_game
 
-シェア用URL:
-https://paiza.jp/works/mondai/stack_queue_advanced/stack_queue_advanced__card_game
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-カードゲームにはよくキーカードと呼ばれる、引けるかどうかで試合を大きく左右するカードが存在します。
-どうしてもゲームに勝ちたい paiza 君は、40 枚のデッキの中に入っている 1 枚のキーカードを引きたいと考えていました。
-そこで paiza 君は、山札の並びといくつかの発動する効果を入力した時にキーカードを引くことができるかを判定するプログラムを作成することにしました。
-「キーカードが山札の上から何枚目にあるか」と発動する効果が時系列順に与えられるので、paiza 君がキーカードを引くことができるかを判定してください。
-また、キーカードを引くことができる場合は、それが何回目の効果発動後になるかを答えてください。
+INPUT1 = <<~"EOS"
+  10 5
+  game_start
+  draw 1
+  draw 2
+  draw 1
+  exclude 20
+EOS
+OUTPUT1 = <<~"EOS"
+  Lose
+EOS
 
-なお、発動する効果は次のいずれかです。
+INPUT2 = <<~"EOS"
+  7 5
+  game_start
+  discard 34
+  return_from_the_graveyard 34
+  draw 20
+  draw 14
+EOS
+OUTPUT2 = <<~"EOS"
+  5
+EOS
 
-・game_start
-山札の上から 5 枚引く。
+INPUT3 = <<~"EOS"
+  22 50
+  game_start
+  discard 11
+  return_from_the_graveyard 8
+  exclude 29
+  return_from_the_exclusion 13
+  return_from_the_exclusion 12
+  return_from_the_graveyard 3
+  draw 2
+  draw 5
+  draw 10
+  return_from_the_exclusion 3
+  return_from_the_exclusion 1
+  discard 16
+  draw 1
+  exclude 1
+  return_from_the_graveyard 5
+  exclude 3
+  return_from_the_graveyard 8
+  return_from_the_graveyard 3
+  exclude 13
+  return_from_the_exclusion 10
+  return_from_the_exclusion 4
+  discard 4
+  return_from_the_graveyard 1
+  discard 10
+  return_from_the_graveyard 3
+  discard 2
+  discard 2
+  return_from_the_graveyard 11
+  return_from_the_exclusion 3
+  exclude 10
+  return_from_the_exclusion 10
+  draw 12
+  exclude 2
+  return_from_the_exclusion 1
+  exclude 1
+  return_from_the_graveyard 3
+  exclude 3
+  return_from_the_exclusion 3
+  draw 3
+  return_from_the_exclusion 1
+  draw 1
+  return_from_the_exclusion 1
+  discard 1
+  return_from_the_graveyard 1
+  discard 1
+  return_from_the_graveyard 1
+  exclude 1
+  return_from_the_exclusion 1
+  draw 1
+EOS
 
-・draw X
-山札の上から X 枚引く。
+NOC = 40
+input_lines = $stdin.read.split("\n")
+N, X = input_lines.shift.split.map(&:to_i)
+evts = input_lines.shift(X)
 
-・discard X
-山札の上から X 枚を、一番上のカードから順番に墓地へ送る。
+stock = Array.new(NOC)     # 山札 queue
+stock[N - 1] = "key_card"
+graveyard = []             # 墓地 stack
+exclud = []                # 除外 stack
 
-・return_from_the_graveyard X
-墓地の上から X 枚を、一番上のカードから順番に山札の一番下に加える。
+evt_cnt = 0
+get_key_card = false
+until get_key_card || evts.empty?
+  ope, n = evts.shift.split
+  n = ope == "game_start" ? 5 : n.to_i
 
-・exclude X
-山札の上から X 枚を、一番上のカードから順番に除外する。
+  new_cards = []
+  case ope
+  when "game_start", "draw"
+    # stock から dequeue して、 new_cards に push
+    n.times { new_cards.push(stock.shift) }
+  when "discard"
+    # stock から dequeue して、 graveyard に push
+    n.times { graveyard.push(stock.shift) }
+  when "return_from_the_graveyard"
+    # graveyard から pop して、 stock に enqueue
+    n.times { stock.push(graveyard.pop) }
+  when "exclude"
+    # stock から dequeue して、 exclud に push
+    n.times { exclud.push(stock.shift) }
+  when "return_from_the_exclusion"
+    # exclud から pop して、 stock に enqueue
+    n.times { stock.push(exclud.pop) }
+  end
+  evt_cnt += 1
+  get_key_card = true if new_cards.include?("key_card")
+end
 
-・return_from_the_exclusion X
-除外されているカードの上から X 枚を、一番上のカードから順番に山札の一番下に加える。
-
-▼　下記解答欄にコードを記入してみよう
-
-入力される値
-N K
-event_1
-...
-event_K
-
-
-・1 行目ではキーカードが山札の上から何枚目にあるかを表す N と効果を発動する回数 K が半角スペース区切りで与えられます。
-・2 行目からの K 行では、発動した効果の内容が時系列順に与えられます。
-
-入力値最終行の末尾に改行が１つ入ります。
-文字列は標準入力から渡されます。 標準入力からの値取得方法はこちらをご確認ください
-期待する出力
-・paiza 君がキーカードを引くことができる場合は、それが何回目の効果発動後になるかを出力してください。（game_start も効果に含まれることに注意してください。）
-・キーカードを引くことができない場合は "Lose" と出力してください。
-
-条件
-すべてのテストケースにおいて、以下の条件をみたします。
-
-・1 ≦ N ≦ 40
-・event_1 は game_start であり、以後 game_start は登場しない。
-・event_i (2 ≦ i) は次のいずれかの形式
-「discard X」
-「draw X」
-「return_from_the_graveyard X 」
-「exclude X」
-「return_from_the_exclusion X」
-・効果発動後に山札・墓地・除外のカードの枚数が負になるような入力は与えられないことが保証されている。
-
-入力例1
-10 5
-game_start
-draw 1
-draw 2
-draw 1
-exclude 20
-
-出力例1
-Lose
-
-入力例2
-7 5
-game_start
-discard 34
-return_from_the_graveyard 34
-draw 20
-draw 14
-
-出力例2
-5
-=end
+puts get_key_card ? evt_cnt : "Lose"
