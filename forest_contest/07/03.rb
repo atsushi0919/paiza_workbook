@@ -1,5 +1,26 @@
 # 気温 (paizaランク D 相当)
 
+INPUT1 = <<~"EOS"
+  38
+EOS
+OUTPUT1 = <<~"EOS"
+  extremely hot day
+EOS
+
+INPUT2 = <<~"EOS"
+  32
+EOS
+OUTPUT2 = <<~"EOS"
+  hot summer day
+EOS
+
+INPUT3 = <<~"EOS"
+  -1
+EOS
+OUTPUT3 = <<~"EOS"
+  ice day
+EOS
+
 x = gets.to_i
 
 res = if x >= 35
@@ -39,23 +60,5 @@ x
 
 ・ -20 ≦ x ≦ 40
 
-入力例1
-38
 
-出力例1
-extremely hot day
-
-入力例2
-32
-
-出力例2
-hot summer day
-
-入力例3
--1
-
-出力例3
-ice day
 =end
-
-
