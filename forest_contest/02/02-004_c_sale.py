@@ -25,60 +25,47 @@ OUTPTU2 = """\
 '''
 # 解答例1
 # 入力
-n = int(input())
-shopping_list = []
-for _ in range(n):
-    item, price = input().split()
-    shopping_list.append([item, int(price)])
 
-# pants 購入チェックと合計金額計算
-bought_pants = False
+# n = int(input())            # 1 行の入力を受け取って整数型に変換
+# lines = []                  # 空のリストを用意
+# for _ in range(n):
+#     lines.append(input())   # n 行の入力を受け取って配列 list 末尾に追加
+
+# ↓ 短く書くと (n は不要になる)
+
+_, *lines = open(0).read().strip().split("\n")
+
+# 品物 item のリストと合計金額 total を記録する
+items = []
 total = 0
-for (item, price) in shopping_list:
-    if item == "pants":
-        bought_pants = True
-    total += price
+for line in lines:
+    item, price = line.split()
+    items.append(item)
+    total += int(price)
 
-# 値引き処理
-if bought_pants and total >= 2000:
+# もし "pants" を購入かつ total が 2000 円以上なら 500 円引き
+if "pants" in items and total >= 2000:
     total -= 500
 
-# 支払金額を出力
 print(total)
 '''
 
 # 解答例2
-def solve(input_str):
-    # 入力
-    input_lines = input_str.strip().split("\n")
-    shopping_list = []
-    for line in input_lines[1:]:
-        item, price = line.split()
-        shopping_list.append([item, int(price)])
+# 入力
 
-    # 合計金額計算
-    bought_pants = False
-    total = 0
-    for (item, price) in shopping_list:
-        if item == "pants":
-            bought_pants = True
-        total += price
-    
-    # 値引き処理
-    if bought_pants and total >= 2000:
-        total -= 500
+_, *lines = open(0).read().strip().split("\n")
 
-    # 確認用コード
-    return total
+# 合計金額 total と "pants" を買ったかを記録する
+flag = False
+total = 0
+for line in lines:
+    item, price = line.split()
+    if item == "pants":
+        flag = True 
+    total += int(price)
 
+# もし pants を購入かつ total が 2000 円以上なら 500 円引き
+if flag and total >= 2000:
+    total -= 500
 
-print(solve(INPUT1))
-# > ['3', 'shirt 1000', 'shoes 2000', 'shirt 500']
-# > [['shirt', 1000], ['shoes', 2000], ['shirt', 500]]
-# > [False, 3500]
-# > 3500
-print(solve(INPUT2))
-# > ['4', 'shirt 500', 'pants 1000', 'pants 500', 'shoes 2000']
-# > [['shirt', 500], ['pants', 1000], ['pants', 500], ['shoes', 2000]]
-# > [True, 4000]
-# > 3500
+print(total)

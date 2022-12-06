@@ -21,7 +21,7 @@ down
 # f1 = int(input_strings[0][:-1])  # 1 番目の文字列の末尾 (F) を削除して整数に変換
 # f2 = int(input_strings[1][:-1])  # 2 番目の文字列の末尾 (F) を削除して整数に変換
 
-# ↓ 1行で書くと
+# ↓ 短く書くと
 
 f1, f2 = map(lambda x: int(x[:-1]), input().split())
 

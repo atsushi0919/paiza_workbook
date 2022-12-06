@@ -21,30 +21,34 @@ yellow
 n = int(input())
 
 # n に対応した色を出力
+color = ""
 if n == 1:
-    print("white")
+    color = "white"
 elif n == 2:
-    print("black")
+    color = "black"
 elif n == 3:
-    print("red")
+    color = "red"
 elif n == 4:
-    print("blue")
+    color = "blue"
 elif n == 5:
-    print("yellow")
+    color = "yellow"
 elif n == 6:
-    print("green")
+    color = "green"
 elif n == 7:
-    print("orange")
+    color = "orange"
 elif n == 8:
-    print("pink")
+    color = "pink"
 elif n == 9:
-    print("purple")
+    color = "purple"
+
+print(color)
 '''
 
 # 解答例2
 # 色の設定
 colors = ["white", "black", "red", "blue", "yellow", "green", "orange", "pink", "purple"]
-# なるべく少ない入力で配列を作る
+
+# なるべく少ない入力で配列を作るなら
 # split メソッド
 # colors = "white black red blue yellow green orange pink purple".split()
 

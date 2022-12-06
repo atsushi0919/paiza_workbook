@@ -16,57 +16,30 @@ yellow
 EOS
 
 =begin
-# 解答例1-1
-# 入力
-n = gets.to_i
-
-# n に対応した色を出力
-if n == 1
-  puts "white"
-elsif n == 2
-  puts "black"
-elsif n == 3
-  puts "red"
-elsif n == 4
-  puts "blue"
-elsif n == 5
-  puts "yellow"
-elsif n == 6
-  puts "green"
-elsif n == 7
-  puts "orange"
-elsif n == 8
-  puts "pink"
-elsif n == 9
-  puts "purple"
-end
-=end
-
-=begin
-# 解答例1-2
+# 解答例1
 # 入力
 n = gets.to_i
 
 # n に対応した色を出力
 color = if n == 1
-    "white"
-  elsif n == 2
-    "black"
-  elsif n == 3
-    "red"
-  elsif n == 4
-    "blue"
-  elsif n == 5
-    "yellow"
-  elsif n == 6
-    "green"
-  elsif n == 7
-    "orange"
-  elsif n == 8
-    "pink"
-  elsif n == 9
-    "purple"
-  end
+  "white"
+elsif n == 2
+  "black"
+elsif n == 3
+  "red"
+elsif n == 4
+  "blue"
+elsif n == 5
+  "yellow"
+elsif n == 6
+  "green"
+elsif n == 7
+  "orange"
+elsif n == 8
+  "pink"
+elsif n == 9
+  "purple"
+end
 
 puts color
 =end
@@ -105,7 +78,8 @@ puts color
 # 解答例3
 # 色の設定
 colors = ["white", "black", "red", "blue", "yellow", "green", "orange", "pink", "purple"]
-# なるべく少ない入力で配列を作る
+
+# なるべく少ない入力で配列を作るなら
 # split メソッド
 # colors = "white black red blue yellow green orange pink purple".split
 # % 記法

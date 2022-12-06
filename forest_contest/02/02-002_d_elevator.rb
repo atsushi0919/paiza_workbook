@@ -23,7 +23,7 @@ EOS
 # f1 = input_strings[0].to_i  # 1 番目の文字列を整数に変換
 # f2 = input_strings[1].to_i  # 2 番目の文字列を整数に変換
 
-# ↓ 1 行で書くと
+# ↓ 短く書くと
 
 f1, f2 = gets.split.map(&:to_i)
 
