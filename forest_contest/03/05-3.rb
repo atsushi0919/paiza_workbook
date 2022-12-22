@@ -43,6 +43,7 @@ EOS
 def solve(input_str)
   bingo = 777
   n, *a = input_str.split.map(&:to_i)
+  
   result = []
   1.upto(n) do |i|
     a.combination(i) { |c| result << c if c.sum == bingo }

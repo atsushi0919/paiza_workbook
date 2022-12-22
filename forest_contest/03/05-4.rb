@@ -72,4 +72,4 @@ def solve(input_str)
   end
 end
 
-puts solve(STDIN.read)
+puts solve(INPUT3)
