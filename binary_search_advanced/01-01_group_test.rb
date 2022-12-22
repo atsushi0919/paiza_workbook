@@ -1,10 +1,7 @@
 # 集団検査 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/binary_search_advanced/binary_search_advanced__group_test
 
-# 2 ≦ N ≦ 1,000,000,000 = 10^9
 n = gets.to_i
-
-# puts Math.log2(n).ceil
 
 cnt = 0
 while n > 1
@@ -13,7 +10,6 @@ while n > 1
 end
 
 puts cnt
-
 
 =begin
 paiza 国には大勢の住民がいます。今回、N 人の住民のうち誰か 1 人が謎のウイルス X に感染したことがわかりました。
