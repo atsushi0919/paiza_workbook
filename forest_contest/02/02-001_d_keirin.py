@@ -20,7 +20,7 @@ yellow
 # 入力
 n = int(input())
 
-# n に対応した色を出力
+# n に対応した色を color に代入
 color = ""
 if n == 1:
     color = "white"
@@ -41,6 +41,7 @@ elif n == 8:
 elif n == 9:
     color = "purple"
 
+# color を出力
 print(color)
 '''
 

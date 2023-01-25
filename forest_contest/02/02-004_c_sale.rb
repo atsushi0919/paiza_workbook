@@ -23,17 +23,14 @@ EOS
 
 # 解答例1
 # 入力
+n = gets.to_i                    # 1 行の入力を受け取って整数型に変換
+lines = []                       # 購入履歴を格納するための空のリストを用意
+n.times { lines << gets.chomp }  # n 行の入力を受け取って lines に追加
 
-=begin
-# n = gets.to_i                    # 1 行の入力を受け取って整数型に変換
-# lines = []                       # 空のリストを用意
-# n.times { lines << gets.chomp }  # n 行の入力を受け取って配列 list 末尾に追加
+# 上記を短く書くと(n は不要になる)
+# _, *lines = $stdin.read.split("\n")
 
-# ↓ 短く書くと (n は不要になる)
-
-_, *lines = $stdin.read.split("\n")
-
-# 品物 item のリストと合計金額 total を記録する
+# 購入品 item と合計金額 total を記録する
 items = []
 total = 0
 lines.each do |line|
@@ -48,25 +45,25 @@ if items.include?("pants") && total >= 2000
 end
 
 puts total
-=end
 
+=begin
 # 解答例2
 # 入力
-
 _, *lines = $stdin.read.split("\n")
 
-# "pants" を買ったか? と合計金額 total を記録する
-flag = false
+# "pants" を買ったか?のフラグ と合計金額 total を記録する
+pants = false
 total = 0
 lines.each do |line|
   item, price = line.split
-  flag = true if item == "pants"
+  pants = true if item == "pants"
   total += price.to_i
 end
 
 # もし pants を購入かつ total が 2000 円以上なら 500 円引き
-if flag && total >= 2000
+if pants && total >= 2000
   total -= 500
 end
 
 puts total
+=end

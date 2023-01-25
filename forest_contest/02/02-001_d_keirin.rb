@@ -49,7 +49,7 @@ puts color
 # 入力
 n = gets.to_i
 
-# n に対応した色を出力
+# n に対応した色を color に代入
 color = case n
   when 1
     "white"
@@ -71,6 +71,7 @@ color = case n
     "purple"
   end
 
+# color を出力
 puts color
 =end
 

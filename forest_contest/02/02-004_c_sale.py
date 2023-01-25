@@ -25,14 +25,12 @@ OUTPTU2 = """\
 '''
 # 解答例1
 # 入力
-
 # n = int(input())            # 1 行の入力を受け取って整数型に変換
 # lines = []                  # 空のリストを用意
 # for _ in range(n):
 #     lines.append(input())   # n 行の入力を受け取って配列 list 末尾に追加
 
-# ↓ 短く書くと (n は不要になる)
-
+# 上記を短く書くと (n は不要になる)
 _, *lines = open(0).read().strip().split("\n")
 
 # 品物 item のリストと合計金額 total を記録する
@@ -52,20 +50,19 @@ print(total)
 
 # 解答例2
 # 入力
-
 _, *lines = open(0).read().strip().split("\n")
 
 # 合計金額 total と "pants" を買ったかを記録する
-flag = False
+pants = False
 total = 0
 for line in lines:
     item, price = line.split()
     if item == "pants":
-        flag = True 
+        pants = True 
     total += int(price)
 
 # もし pants を購入かつ total が 2000 円以上なら 500 円引き
-if flag and total >= 2000:
+if pants and total >= 2000:
     total -= 500
 
 print(total)

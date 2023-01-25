@@ -15,7 +15,7 @@ OUTPUT2 = """\
 invalid
 """
 
-
+'''
 # 解答例1
 # 入力
 # input_strings = input().split()  # 半角スペースで分割して文字列の配列を生成
@@ -36,7 +36,7 @@ else:
     print("invalid")
 '''
 
-'''
+
 # 解答例2
 import math
 
@@ -46,8 +46,4 @@ import math
 s = math.prod(map(int, input().split()))
 
 # 面積 s または invalid を出力
-if s > 0:
-    print(s)
-else:
-    print("invalid")
-'''
+print(s if s > 0 else "invalid")
