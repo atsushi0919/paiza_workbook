@@ -1,44 +1,51 @@
 # 英単語の生成（連結） (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_003/forest_contest_003__d_join
 
-INPUT1 = <<~"EOS"
-  play ing
-EOS
-OUTPUT1 = <<~"EOS"
-  playing
-EOS
+INPUT1 ="""\
+play ing"""
+OUTPUT1 ="""\
+playing"""
 
-INPUT2 = <<~"EOS"
-  un balance
-EOS
-OUTPUT2 = <<~"EOS"
-  unbalance
-EOS
+INPUT2 = """\
+un balance"""
+OUTPUT2 = """\
+unbalance"""
 
+'''
 # 解答例1
-s = gets.split.chomp
+# 入力
+s = INPUT2
 
-w = ""                # 空文字列 w を用意
-n = s.length          # s の文字数 n を取得
-0.upto(n - 1) do |i|  # i を 0 から n-1 まで 1 ずつ増やしながら繰り返す
-  if s[i] != " "      # もし、s[i] が 半角スペース以外なら
-    w <<= s[i]        # s[i] を w 末尾に追加
-  end
-end
+# 空文字列 w を用意
+w = ""
+# s の文字数 n を取得
+n = len(s)
+# i を 0 から n-1 まで 1 ずつ増やしながら繰り返す
+for i in range(n):
+    # もし、s[i] が 半角スペース以外なら
+    if s[i] != " ":
+        # s[i] を w 末尾に追加
+        w += s[i]
 
-puts w
+print(w)
+'''
 
+'''
 # 解答例2
-s1, s2 = gets.split
+s1, s2 = input().split()
 
-puts s1 + s2
+print(s1 + s2)
 
 # 解答例3
-puts gets.split.join
+print("".join(input().split()))
+'''
 
+'''
 # 解答例4
-puts gets.gsub(" ", "")
+print(INPUT2.replace(" ", ""))
+'''
 
+'''
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
@@ -82,3 +89,4 @@ un balance
 出力例2
 unbalance
 =end
+'''

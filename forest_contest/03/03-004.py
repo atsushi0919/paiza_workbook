@@ -1,74 +1,46 @@
 # 入出力例
-INPUT1 = <<~"EOS"
-  3
-  a
-  shift b
-  c
-EOS
-OUTPUT1 = <<~"EOS"
-  aBc
-EOS
+INPUT1 = """\
+3
+a
+shift b
+c"""
+OUTPUT1 = """\
+aBc"""
 
-INPUT2 = <<~"EOS"
-  7
-  a
-  capslock
-  b
-  c
-  d
-  capslock
-  f
-EOS
-OUTPUT2 = <<~"EOS"
-  aBCDf
-EOS
+INPUT2 = """\
+7
+a
+capslock
+b
+c
+d
+capslock
+f"""
+OUTPUT2 = """\
+aBCDf"""
 
 # 解答例1
-=begin
-n = gets.to_i
-c = []
-n.times { c << gets.split }
+n = int(input())
+c = [input() for _ in range(n)]
 
 display = ""
-capslock = false
-c.each do |keys|
-  key1, key2 = keys
+capslock = False
+for row in c:
+    keys = row.split()
 
-  case key1
-  when "capslock"
-    capslock = !capslock
-  when "shift"
-    display <<= key2.upcase
-  else
-    if capslock
-      key1.upcase!
-    end
-    display <<= key1
-  end
-end
+    if keys[0] == "capslock":
+        # capslock の ON/OFF 切り替え
+        capslock = not capslock
+    elif keys[0] == "shift":
+        # shift と一緒に押されたキーの大文字を display に追加
+        display += keys[1].upper()
+    else:
+        # capslock ON なら大文字, OFF なら小文字を display に追加
+        display += keys[0].upper() if capslock else keys[0]
 
-puts display
-=end
+print(display)
 
-_, *c = INPUT2.split("\n").map(&:split)
-
-results = []
-capslock = false
-c.each do |keys|
-  key1, key2 = keys
-
-  case key1
-  when "capslock"
-    capslock = !capslock
-  when "shift"
-    results <<= key2.upcase
-  else
-    results <<= capslock ? key1.upcase : key1
-  end
-end
-
-puts results.join
-
+'''
 =begin
 キーボードのシミュレーション (paizaランク C 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
@@ -144,3 +116,4 @@ f
 出力例2
 aBCDf
 =end
+'''

@@ -15,57 +15,61 @@ OUTPUT2 = <<~"EOS"
   information
 EOS
 
-=begin
 # 解答例1
-# A: 0, B: 1, C: 2 ... X: 23, Y: 24, Z: 25
-# UC = [
-#   "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-#   "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-# ]
-# # a: 0, b: 1, c: 2 ... x: 23, y: 24, z: 25
-# LC = [
-#   "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-#   "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-# ]
+# 大文字と小文字の対応のハッシュを用意する
+# ALPHABET = {
+#   "A" => "a", "B" => "b", "C" => "c", "D" => "d", "E" => "e", "F" => "f",
+#   "G" => "g", "H" => "h", "I" => "i", "J" => "j", "K" => "k", "L" => "l",
+#   "M" => "m", "N" => "n", "O" => "o", "P" => "p", "Q" => "q", "R" => "r",
+#   "S" => "s", "T" => "t", "U" => "u", "V" => "v", "W" => "w", "X" => "x",
+#   "Y" => "y", "Z" => "z",
+# }
 
-# ↑ と一緒
-
-# A: 0, B: 1, C: 2 ... X: 23, Y: 24, Z: 25
-UC = ("A".."Z").to_a
-# # a: 0, b: 1, c: 2 ... x: 23, y: 24, z: 25
-LC = ("a".."z").to_a
+# こう書いても同じ
+ALPHABET = ("A".."Z").zip("a".."z").to_h
 
 s = gets.chomp
 
-s_s = ""              # 空文字列 s_s を用意
-n = s.length          # s の文字数 n を取得
-0.upto(n - 1) do |i|  # i を 0 から n-1 まで 1 ずつ増やしながら繰り返す
-  j = UC.index(s[i])
-  if j                # もし、 s[i] が UC に存在するなら（大文字なら）
-    s_s <<= LC[j]     # 対応する小文字を s_s 末尾に追加
-  else                # もし、 s[i] が小文字なら
-    s_s <<= s[i]      # s[i] を s_s 末尾に追加
-  end
-end
+# l_s = ""               # 空文字列 l_s を用意
+# s.chars.each do |s_i|  # s を 先頭から順に s_i で参照
+#   l_c = ALPHABET[s_i]  # s_i が大文字なら小文字、 s_i が小文字なら nil を l_c に代入
+#   if l_c
+#     l_s <<= l_c        # s_i の小文字を l_s に追加
+#   else
+#     l_s <<= s_i        # s_i を l_s に追加
+#   end
+# end
 
-puts s_s
+# 上記を短くまとめると
+l_s = ""
+s.chars.each { |s_i| l_s <<= ALPHABET[s_i] || s_i }
 
+puts l_s
+
+# ASCII コード
+# A: 65, B: 66, C: 67, D: 68, ... W: 87, X: 88, Y: 89, Z: 90
+# a: 97, b: 98, c: 99, d: 100, ... w: 119, x: 120, y: 121, z: 122
+
+=begin
 # 解答例2
 s = gets.chomp
 
-s_s = ""
-s.chars.each do |s_i|  # s を先頭から順に s_i で参照
-  cd = s_i.ord         # s_i を文字コードに変換
-  if cd <= 90          # もし、文字コードが 90 以下（大文字）なら
-    cd += 32           # 文字コードに 32 を足して小文字の文字コードに変換
-  end
-  s_s <<= cd.chr       # 文字コードを文字に変換して s_s 末尾に追加
+# 空文字列 l_s を用意
+l_s = ""
+# s を先頭から順に s_i で参照
+s.chars.each do |s_i|
+  # s_i を文字コードに変換
+  cd = s_i.ord
+  # もし、大文字なら小文字の文字コードに変換
+  cd += 32 if cd <= 90
+  # 文字コードを文字に変換して l_s に追加
+  l_s <<= cd.chr
 end
 
-puts s_s
+puts l_s
 
 # 解答例3
-puts gets.downcase
+# puts gets.downcase
 =end
 
 =begin

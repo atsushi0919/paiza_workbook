@@ -1,35 +1,41 @@
 # 文字列の逆順 (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_003/forest_contest_003__d_reverse
 
-INPUT1 = <<~"EOS"
-  paiza
-EOS
-OUTPUT1 = <<~"EOS"
-  aziap
-EOS
+INPUT1 = """\
+paiza"""
+OUTPUT1 = """\
+aziap"""
 
-INPUT2 = <<~"EOS"
-  apple
-EOS
-OUTPUT2 = <<~"EOS"
-  elppa
-EOS
+INPUT2 = """\
+apple"""
+OUTPUT2 = """\
+elppa"""
 
+'''
 # 解答例1
+# 入力
+s = INPUT2
 
-s = gets.chomp
+# s の文字数 n を取得
+n = len(s)
 
-n = s.length              # s の文字数 n を取得
-r_s = ""                  # 空文字列 r_s を用意
-(n - 1).downto(0) do |i|  # i を n-1 から 0 まで 1 ずつ減らしながら繰り返す 
-  r_s <<= s[i]            # s[i] を r_s 末尾に追加
-end
+# 空文字列 r_s を用意
+r_s = ""
+# i を n-1 から 0 まで 1 ずつ減らしながら繰り返す
+for i in range(n-1, -1, -1):
+    # s[i] を r_s 末尾に追加
+    r_s += s[i]
 
-puts r_s
+# 出力
+print(r_s)
+'''
 
+'''
 # 解答例2
-puts gets.chomp.reverse  # reverse メソッドを使う
+print(input()[::-1])  # スライスを使う
+'''
 
+'''
 =begin
 
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
@@ -68,3 +74,4 @@ sを逆順にして出力してください。
 
 
 =end
+'''
