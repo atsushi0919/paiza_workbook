@@ -26,9 +26,10 @@ INPUT3 = """\
 OUTPUT3 = """\
 no answer"""
 
-
+# python3 解答例1
 BINGO = 777
-_, *a = [int(x) for x in INPUT3.split()]
+# 入力
+_, *a = [int(x) for x in open(0).read().split()]
 
 # BINGO 以下の数字だけ調べる
 a = [x for x in a if x <= BINGO]
@@ -57,6 +58,7 @@ for i in range(1, max_cnt):
     if len(win_comb) > 1:
         break
 
+# 出力
 if len(win_comb) == 0:
     # BINGO が作れない場合
     res = "no answer"
@@ -66,10 +68,7 @@ elif len(win_comb) == 1:
 else:
     # BINGO の組み合わせが 2 個以上
     res = "multiple answers"
-
 print(res)
-
-print(win_comb)
 
 '''
 =begin

@@ -40,15 +40,16 @@ INPUT0 = <<~"EOS"
   4
 EOS
 
+# ruby 解答例3
 BINGO = 777
+# 入力
 _, *a = INPUT3.split.map(&:to_i)
 # BINGO 以下の数字だけ調べる
 a.select! { |x| x <= BINGO }
 
 # dpテーブル初期化
 dp = Array.new(BINGO + 1) { [] }
-
-# 数字を使って作れる数を記録
+# 数字の組み合わせで作れる数を記録していく
 a.each do |num|
   BINGO.downto(num) do |i|
     next if dp[i - num].empty?
@@ -62,6 +63,7 @@ a.each do |num|
   dp[num] << [num]
 end
 
+# 出力
 puts case dp[BINGO].length
   when 0
     # BINGO が作れない場合

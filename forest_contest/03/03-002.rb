@@ -15,9 +15,9 @@ OUTPUT2 = <<~"EOS"
   unbalance
 EOS
 
-# 解答例1
+# ruby 解答例1
 # 入力
-s = gets.split.chomp
+s = gets.split
 
 # 空文字列 w を用意
 w = ""
@@ -32,17 +32,17 @@ n = s.length
   end
 end
 
+# 出力
 puts w
 
-# 解答例2
+# ruby 解答例2
 s1, s2 = gets.split
-
 puts s1 + s2
 
-# 解答例3
+# ruby 解答例3
 puts gets.split.join
 
-# 解答例4
+# ruby 解答例4
 puts gets.gsub(" ", "")
 
 =begin

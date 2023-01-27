@@ -33,9 +33,10 @@ INPUT0 = """\
 3
 4"""
 
-# python 解答例2
+# python3 解答例3
 BINGO = 777
-_, *a = [int(x) for x in INPUT1.split()]
+# 入力
+_, *a = [int(x) for x in open(0).read().split()]
 
 # BINGO 以下の数字だけ調べる
 a = [x for x in a if x <= BINGO]
@@ -43,8 +44,7 @@ n = len(a)
 
 # dpテーブル初期化
 dp = [[] for _ in range(BINGO+1)]
-
-# 数字を使って作れる数を記録
+# 数字の組み合わせで作れる数を記録していく
 for num in a:
     for i in range(BINGO, num-1, -1):
         if len(dp[i - num]) == 0:
@@ -58,7 +58,7 @@ for num in a:
     # 単体で作れる数
     dp[num].append([num])
 
-
+# 出力
 if len(dp[BINGO]) == 0:
     # BINGO が作れない場合
     res = "no answer"
@@ -68,5 +68,4 @@ elif len(dp[BINGO]) == 1:
 else:
     # BINGO の組み合わせが 2 個以上
     res = "multiple answers"
-
 print(res)

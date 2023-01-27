@@ -32,8 +32,10 @@ OUTPUT3 = <<"EOS"
 no answer
 EOS
 
+# ruby 解答例1
 BINGO = 777
-_, *a = INPUT3.split.map(&:to_i)
+# 入力
+_, *a = $stdin.read.split.map(&:to_i)
 
 # BINGO 以下の数字だけ調べる
 a.select! { |x| x <= BINGO }
@@ -50,8 +52,7 @@ win_comb = []
   # 数字の組み合わせを作る
   tmp_comb = []
   0.upto(n - 1) do |j|
-    next if bits[j] == "0"
-    tmp_comb << a[j]
+    tmp_comb << a[j] if bits[j] == "1"
   end
 
   # 数字の合計が BINGO のとき
@@ -63,6 +64,7 @@ win_comb = []
   end
 end
 
+# 出力
 puts case win_comb.length
   when 0
     # BINGO が作れない場合

@@ -19,12 +19,14 @@ f"""
 OUTPUT2 = """\
 aBCDf"""
 
-# 解答例1
+# python3 解答例1
+# 入力
 n = int(input())
 c = [input() for _ in range(n)]
 
 display = ""
 capslock = False
+# n 行の入力で繰り返し処理
 for row in c:
     keys = row.split()
 
@@ -38,6 +40,7 @@ for row in c:
         # capslock ON なら大文字, OFF なら小文字を display に追加
         display += keys[0].upper() if capslock else keys[0]
 
+# 出力
 print(display)
 
 '''

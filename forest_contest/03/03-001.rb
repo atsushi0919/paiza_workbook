@@ -15,9 +15,10 @@ OUTPUT2 = <<~"EOS"
   elppa
 EOS
 
-# 解答例1
+# ruby 解答例1
 # 入力
 s = gets.chomp
+
 # s の文字数 n を取得
 n = s.length
 # 空文字列 r_s を用意
@@ -31,8 +32,8 @@ end
 # 出力
 puts r_s
 
-# 解答例2
-# puts gets.chomp.reverse  # reverse メソッドを使う
+# ruby 解答例2
+puts gets.chomp.reverse
 
 =begin
 

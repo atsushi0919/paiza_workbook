@@ -24,14 +24,15 @@ OUTPUT2 = <<~"EOS"
 EOS
 
 # 解答例1
+# 入力
 n = gets.to_i
 c = n.times.map { gets.split }
 
 display = ""
 capslock = false
+# n 行の入力で繰り返し処理
 c.each do |keys|
   key1, key2 = keys
-
   case key1
   when "capslock"
     # capslock の ON/OFF 切り替え
@@ -45,6 +46,7 @@ c.each do |keys|
   end
 end
 
+# 出力
 puts display
 
 =begin

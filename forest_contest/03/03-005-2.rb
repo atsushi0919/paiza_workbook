@@ -40,8 +40,10 @@ INPUT0 = <<"EOS"
 6
 EOS
 
+# ruby 解答例2
 BINGO = 777
-_, *a = INPUT3.split.map(&:to_i)
+# 入力
+_, *a = $stdin.read.split.map(&:to_i)
 
 # BINGO 以下の数字だけ調べる
 a.select! { |x| x <= BINGO }
@@ -69,6 +71,7 @@ is_multiple = false
   break if is_multiple
 end
 
+# 出力
 puts case win_comb.length
   when 0
     # BINGO が作れない場合

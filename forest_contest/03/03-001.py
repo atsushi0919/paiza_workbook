@@ -11,10 +11,9 @@ apple"""
 OUTPUT2 = """\
 elppa"""
 
-'''
-# 解答例1
+# ptyhon3 解答例1
 # 入力
-s = INPUT2
+s = input()
 
 # s の文字数 n を取得
 n = len(s)
@@ -28,12 +27,9 @@ for i in range(n-1, -1, -1):
 
 # 出力
 print(r_s)
-'''
 
-'''
-# 解答例2
-print(input()[::-1])  # スライスを使う
-'''
+# python3 解答例2
+print(input()[::-1])
 
 '''
 =begin

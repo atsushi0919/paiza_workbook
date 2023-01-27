@@ -11,10 +11,9 @@ un balance"""
 OUTPUT2 = """\
 unbalance"""
 
-'''
-# 解答例1
+# python3 解答例1
 # 入力
-s = INPUT2
+s = input()
 
 # 空文字列 w を用意
 w = ""
@@ -27,21 +26,20 @@ for i in range(n):
         # s[i] を w 末尾に追加
         w += s[i]
 
+# 出力
 print(w)
-'''
 
 '''
-# 解答例2
+# python3 解答例2
 s1, s2 = input().split()
-
 print(s1 + s2)
 
-# 解答例3
+#python3 解答例3
 print("".join(input().split()))
 '''
 
 '''
-# 解答例4
+# python3 解答例4
 print(INPUT2.replace(" ", ""))
 '''
 

@@ -12,7 +12,7 @@ OUTPUT2 = """\
 information"""
 
 '''
-# 解答例1
+# python3 解答例1
 # 大文字と小文字の対応のハッシュを用意する
 # ALPHABET = {
 #   "A": "a", "B": "b", "C": "c", "D": "d", "E": "e", "F": "f",
@@ -28,8 +28,9 @@ information"""
 
 # 文字コードを使って書くと
 ALPHABET = {chr(c): chr(c+32) for c in range(65, 91)}
+# 入力
+s = input()
 
-s = INPUT2
 # 空文字列 l_s を用意
 l_s = ""
 # s を 先頭から順に s_i で参照
@@ -46,7 +47,8 @@ for s_i in s:
 print(l_s)
 '''
 '''
-# 解答例2
+# python3 解答例2
+# 入力
 s = input()
 
 # 空文字列 l_s を用意
@@ -61,10 +63,12 @@ for s_i in s:
     # 文字コードを文字に変換して l_s に追加
     l_s += chr(cd)
 
+# 出力
 print(l_s)
+
 '''
 '''
-# 解答例3
+# python3 解答例3
 print(input().lower())
 '''
 

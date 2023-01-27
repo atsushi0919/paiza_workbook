@@ -35,9 +35,10 @@ INPUT0 = """\
 
 import itertools
 
-# python 解答例2
+# python3 解答例2
 BINGO = 777
-_, *a = [int(x) for x in INPUT3.split()]
+# 入力
+_, *a = [int(x) for x in open(0).read().split()]
 
 # BINGO 以下の数字だけ調べる
 a = [x for x in a if x <= BINGO]
@@ -61,6 +62,7 @@ for i in range(1, n+1):
     if is_multiple:
         break
 
+# 出力
 if len(win_comb) == 0:
     # BINGO が作れない場合
     res = "no answer"
@@ -70,5 +72,4 @@ elif len(win_comb) == 1:
 else:
     # BINGO の組み合わせが 2 個以上
     res = "multiple answers"
-
 print(res)
