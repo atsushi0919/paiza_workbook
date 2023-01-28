@@ -1,3 +1,6 @@
+# ラッキーナンバー (paizaランク B 相当)
+# https://paiza.jp/works/mondai/forest_contest_003/forest_contest_003__b_lucky_number
+
 # 入出力例
 INPUT1 = <<"EOS"
 4

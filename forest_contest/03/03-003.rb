@@ -1,21 +1,20 @@
 # 小文字にする (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_003/forest_contest_003__d_lowercase
 
-INPUT1 = <<~"EOS"
-  pAIza
+INPUT1 = <<"EOS"
+pAIza
 EOS
-OUTPUT1 = <<~"EOS"
-  paiza
-EOS
-
-INPUT2 = <<~"EOS"
-  iNfORMatIon
-EOS
-OUTPUT2 = <<~"EOS"
-  information
+OUTPUT1 = <<"EOS"
+paiza
 EOS
 
-=begin
+INPUT2 = <<"EOS"
+iNfORMatIon
+EOS
+OUTPUT2 = <<"EOS"
+information
+EOS
+
 # ruby 解答例1-1
 # 大文字と小文字の対応のハッシュを用意する
 ALPHABET = {
@@ -45,7 +44,6 @@ end
 
 # 出力
 puts l_s
-=end
 
 # ruby 解答例1-2
 # 大文字と小文字の対応のハッシュを用意する
@@ -61,7 +59,6 @@ l_s = s.chars.map { |s_i| ALPHABET[s_i] || s_i }.join
 # 出力
 puts l_s
 
-=begin
 # 解答例2
 # ASCII コード
 # A: 65, B: 66, C: 67, D: 68, ... W: 87, X: 88, Y: 89, Z: 90
@@ -87,50 +84,4 @@ puts l_s
 =end
 
 # 解答例3
-# puts gets.downcase
-
-=begin
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
-
-シェア用URL:
-https://paiza.jp/works/mondai/forest_contest_003/forest_contest_003__d_lowercase
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-入力として、小文字と大文字が混在した文字列が与えられます。
-
-これでは何が書いてあるかわかりにくいので、
-
-この文字列に含まれる大文字を、すべて小文字に書き換えて出力してください。
-
-▼　下記解答欄にコードを記入してみよう
-
-入力される値
-入力は以下のフォーマットで与えられます
-
-s
-
-・sは文字列
-
-
-入力値最終行の末尾に改行が１つ入ります。
-文字列は標準入力から渡されます。 標準入力からの値取得方法はこちらをご確認ください
-期待する出力
-入力された文字列sをすべて小文字に書き換えて出力してください。
-
-条件
-すべてのテストケースにおいて、以下の条件をみたします。
-
-1 ≤ (Sの長さ) ≤ 15
-
-入力例1
-pAIza
-
-出力例1
-paiza
-
-入力例2
-iNfORMatIon
-
-出力例2
-information
-=end
+puts gets.downcase
