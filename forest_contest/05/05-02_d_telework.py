@@ -1,31 +1,26 @@
 # テレワーク可能か (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_005/forest_contest_005__d_telework
 
-INPUT1 = <<"EOS"
-60 sunny
-EOS
+INPUT1 = "60 sunny"
 
-OUTPUT1 = <<"EOS"
-Yes
-EOS
+OUTPUT1 = "Yes"
 
-# 解答例1-1
-a, b = gets.split
-a = a.to_i
+# # 解答例1-1
+# a, b = input().split()
+# a = int(a)
 
-if a > 30 || b == "rainy"
-  puts "Yes"
-else
-  puts "No"
-end
+# if a > 30 or b == "rainy":
+#     print("Yes")
+# else:
+#     print("No")
 
 
-# 解答例1-2
-a, b = gets.split
+# # 解答例1-2
+# a, b = input().split()
 
-puts a.to_i > 30 || b == "rainy" ? "Yes" : "No"
+# print("Yes") if int(a) > 30 or b == "rainy" else print("No")
 
-=begin
+'''
 テレワーク可能か (paizaランク D 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
@@ -59,4 +54,4 @@ a b
 
 出力例1
 Yes
-=end
+'''

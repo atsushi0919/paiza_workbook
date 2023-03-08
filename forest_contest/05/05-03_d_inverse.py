@@ -4,18 +4,14 @@
 # 第 3 回
 # https://paiza.jp/works/mondai/forest_contest_003/forest_contest_003__d_reverse
 
-INPUT1 = <<"EOS"
-paiza
-EOS
+INPUT1 = "paiza"
 
-OUTPUT1 = <<"EOS"
-aziap
-EOS
+OUTPUT1 = "aziap"
 
 # 解答例
-puts gets.chomp.reverse
+print(input()[::-1])
 
-=begin
+'''
 文字列の反転 (paizaランク D 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
@@ -47,4 +43,4 @@ paiza
 
 出力例1
 aziap
-=end
+'''

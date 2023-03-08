@@ -1,71 +1,68 @@
 # サイクルヒット (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_005/forest_contest_005__c_ciclehit
 
-INPUT1 = <<"EOS"
+INPUT1 = """\
 4
 3
 2
 0
 1
-EOS
+"""
 
-OUTPUT1 = <<"EOS"
-Yes
-EOS
+OUTPUT1 = "Yes"
+
 
 # # 解答例1-1
 # n = 5
 
-# single_hit = false
-# two_base_hit = false
-# three_base_hit = false
-# home_run = false
-# n.times do
-#   m_i = gets.to_i
-#   if m_i == 1
-#     single_hit = true
-#   elsif m_i == 2
-#     two_base_hit = true
-#   elsif m_i == 3
-#     three_base_hit = true
-#   elsif m_i == 4
-#     home_run = true
-#   end
-# end
+# single_hit = False
+# two_base_hit = False
+# three_base_hit = False
+# home_run = False
+# for _ in range(n):
+#     m = int(input())
+#     if m == 1:
+#         single_hit = True
+#     elif m == 2:
+#         two_base_hit = True
+#     elif m == 3:
+#         three_base_hit = True
+#     elif m == 4:
+#         home_run = True
 
-# if single_hit && two_base_hit && three_base_hit && home_run
-#   puts "Yes"
-# else
-#   puts "No"
-# end
+# if single_hit and two_base_hit and three_base_hit and home_run:
+#     print("Yes")
+# else:
+#     print("No")
 
 # # 解答例1-2
-# m = $stdin.read.split.map(&:to_i)
+# m = list(map(int, open(0).read().strip().split()))
 
 # # 0: 単打, 1: 二塁打, 2: 三塁打, 3: 本塁打
-# ciclehit = Array.new(4, false)  # ciclehit = [false] * 4 でも OK
+# ciclehit = [False] * 4
+# for res in m:
+#     if res > 0:
+#         ciclehit[res - 1] = True
 
-# m.each { |res| ciclehit[res - 1] = true if res > 0 }
+# print("Yes") if all(ciclehit) else print("No")
 
-# puts ciclehit.all? ? "Yes" : "No"
+# # 解答例2
+# m = open(0).read().strip().split()
 
-# # 解答例2-1
-# m = $stdin.read.split
+# results = {}
+# for res in m:
+#     if res != "0":
+#         results[res] = results.get(res, 0) + 1
 
-# results = Hash.new(0)
-# m.each { |res| results[res] += 1 if res != "0" }
+# print("Yes") if len(results) == 4 else print("No")
 
-# puts results.length == 4 ? "Yes" : "No"
+# 解答例3
+if len({res for res in open(0).read().strip().split() if res != "0"}) == 4:
+    print("Yes")
+else:
+    print("No")
 
-# results = INPUT1.split.select { |x| x != "0" }.tally
-
-# # 解答例2-2
-# results = $stdin.read.split.select { |x| x != "0" }.tally
-# results = INPUT1.split.select { |x| x != "0" }.tally
-
-# puts results.length == 4 ? "Yes" : "No"
-
-=begin
+'''
 サイクルヒット (paizaランク C 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
@@ -109,4 +106,4 @@ m_5
 
 出力例1
 Yes
-=end
+'''

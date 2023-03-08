@@ -1,39 +1,34 @@
 # 条件を満たす最小の整数 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_005/forest_contest_005__c_mod_easy
 
-INPUT1 = <<"EOS"
-11 7 2
-EOS
+INPUT1 = "11 7 2"
 
-OUTPUT1 = <<"EOS"
-16
-EOS
+OUTPUT1 = "16"
 
 # # 解答例1-1
-# x, y, z = gets.split.map(&:to_i)
+# x, y, z = map(int, input().split())
 
-# while x % y != z
-#   x += 1
-# end
+# while x % y != z:
+#     x += 1
 
-# puts x
+# print(x)
 
-# # 解答例1-2
-# x, y, z = gets.split.map(&:to_i)
+# 解答例1-2
+x, y, z = map(int, input().split())
 
-# (y - 1).times do
-#   break if x % y == z
-#   x += 1
-# end
+for _ in range(y-1):
+    if x % y == z:
+        break
+    x += 1
 
-# puts x
+print(x)
 
 # # 解答例2
 # x, y, z = gets.split.map(&:to_i)
 
 # puts x + (z - x % y) % y
 
-=begin
+'''
 条件を満たす最小の整数 (paizaランク C 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
@@ -63,4 +58,4 @@ x y z
 
 出力例1
 16
-=end
+'''
