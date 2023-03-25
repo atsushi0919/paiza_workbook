@@ -1,33 +1,27 @@
 # 占い (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_007/forest_contest_007__fortune_telling
 
-INPUT1 = <<"EOS"
-7
-EOS
-OUTPUT1 = <<"EOS"
-Yes
-EOS
+INPUT1 = """\
+7"""
+OUTPUT1 = "Yes"
 
-INPUT2 = <<"EOS"
-3
-EOS
-OUTPUT2 = <<"EOS"
-No
-EOS
+INPUT2 = """\
+3"""
+OUTPUT2 = """\
+No"""
 
 # 解答例1-1
-n = gets.to_i
+n = int(input())
 
-if n == 7
-  puts "Yes"
-else
-  puts "No"
-end
+if n == 7:
+    print("Yes")
+else:
+    print("No")
 
 # 解答例1-2
-puts gets.chomp == "7" ? "Yes" : "No"
+print("Yes" if input() == "7" else "No")
 
-=begin
+'''
 ある占いでは、箱の中に 1~9 までのいずれかの数字が書かれている玉を取り出し、その玉に書かれている数字から運勢を占います。
 玉に書かれている数字が 7 の時は大吉となります。占いで取り出した玉に書かれている数字が 1 つ与えられます。大吉かどうかを判定してください。
 
@@ -57,4 +51,4 @@ Yes
 
 出力例2
 No
-=end
+'''

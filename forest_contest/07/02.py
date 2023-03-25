@@ -1,69 +1,45 @@
 # 年収計算 (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_007/forest_contest_007__jtc_salary
 
-INPUT1 = <<"EOS"
-200 50 10
-EOS
-OUTPUT1 = <<"EOS"
-300
-EOS
+INPUT1 = """\
+200 50 10"""
+OUTPUT1 = "300"
 
-INPUT2 = <<"EOS"
-200 50 9
-EOS
-OUTPUT2 = <<"EOS"
-250
-EOS
+INPUT2 = """\
+200 50 9"""
+OUTPUT2 = "250"
 
-# # 解答例1-1
-# a, b, c = gets.split.map(&:to_i)
+# 解答例1-1
+a, b, c = map(int, input().split())
 
-# if 1 <= c && c <= 4
-#   a += 0
-# elsif 5 <= c && c <= 9
-#   a += b
-# elsif 10 <= c && c <= 14
-#   a += 2 * b
-# elsif 15 <= c && c <= 19
-#   a += 3 * b
-# elsif 20 <= c && c <= 24
-#   a += 4 * b
-# end
+if 1 <= c <= 4:
+    a += 0
+elif 5 <= c <= 9:
+    a += b
+elif 10 <= c <= 14:
+    a += 2 * b
+elif 15 <= c <= 19:
+    a += 3 * b
+elif 20 <= c <= 24:
+    a += 4 * b
 
-# puts a
+print(a)
 
 # # 解答例1-2
-# a, b, c = gets.split.map(&:to_i)
+# a, b, c = map(int, input().split())
 
-# if (5..9).include? c
-#   a += b
-# elsif (10..14).include? c
-#   a += 2 * b
-# elsif (15..19).include? c
-#   a += 3 * b
-# elsif (20..24).include? c
-#   a += 4 * b
-# end
+# if c in range(5, 10):
+#     a += b
+# elif c in range(10, 15):
+#     a += 2 * b
+# elif c in range(15, 20):
+#     a += 3 * b
+# elif c in range(20, 25):
+#     a += 4 * b
 
-# puts a
+# print(a)
 
-# # 解答例1-3
-# a, b, c = gets.split.map(&:to_i)
-
-# case c
-# when 5..9
-#   a += b
-# when 10..14
-#   a += b * 2
-# when 15..19
-#   a += b * 3
-# when 20..24
-#   a += b * 4
-# end
-
-# puts a
-
-=begin
+'''
 とある企業の場合従業員の年収は、基本給 a 円に加えて就業年数に応じて以下のように給与が加算されます。
 
 ・入社 1 ~ 4 年目、追加なし
@@ -105,4 +81,4 @@ a b c
 
 出力例2
 250
-=end
+'''

@@ -1,63 +1,48 @@
 # 気温 (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_007/forest_contest_007__temparature
 
-INPUT1 = <<"EOS"
-38
-EOS
-OUTPUT1 = <<"EOS"
-extremely hot day
-EOS
+INPUT1 = "38"
+OUTPUT1 = "extremely hot day"
 
-INPUT2 = <<"EOS"
-32
-EOS
-OUTPUT2 = <<"EOS"
-hot summer day
-EOS
+INPUT2 = "32"
+OUTPUT2 = "hot summer day"
 
-INPUT3 = <<"EOS"
--1
-EOS
-OUTPUT3 = <<"EOS"
-ice day
-EOS
+INPUT3 = "-1"
+OUTPUT3 = "ice day"
 
-# 解答例1-1
-x = gets.to_i
+# # 解答例1-1
+# x = int(input())
 
-if x >= 35
-  res = "extremely hot day"
-elsif x >= 30
-  res = "hot summer day"
-elsif x >= 25
-  res = "summer day"
-elsif x < 0
-  res = "ice day"
-else
-  res = "normal day"
-end
+# if x >= 35:
+#     res = "extremely hot day"
+# elif x >= 30:
+#     res = "hot summer day"
+# elif x >= 25:
+#     res = "summer day"
+# elif x < 0:
+#     res = "ice day"
+# else:
+#     res = "normal day"
 
-puts res
+# print(res)
 
-# 解答例1-2
-x = gets.to_i
+# # 解答例1-2
+# x = int(input())
 
-res = case x
-  when 35..40
-    "extremely hot day"
-  when 30..34
-    "hot summer day"
-  when 25..29
-    "summer day"
-  when -20..-1
-    "ice day"
-  else
-    "normal day"
-  end
+# if x in range(35, 41):
+#     res = "extremely hot day"
+# elif x in range(30, 35):
+#     res = "hot summer day"
+# elif x in range(25, 30):
+#     "summer day"
+# elif x in range(-20, 0):
+#     "ice day"
+# else:
+#     "normal day"
 
-puts res
+# print(res)
 
-=begin
+'''
 最高気温が35度以上の日を猛暑日、30度以上の日を真夏日、25度以上の日を夏日、0度未満の日を真冬日といいます。
 最高気温が与えられるので、どの日に当たるかを判定してください。
 
@@ -97,4 +82,4 @@ hot summer day
 
 出力例3
 ice day
-=end
+'''

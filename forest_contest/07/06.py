@@ -1,58 +1,48 @@
 # 最も大きな最大公約数 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_007/forest_contest_007__max_gcd
 
-INPUT1 = <<"EOS"
-6
-EOS
-OUTPUT1 = <<"EOS"
-3
-EOS
+INPUT1 = "6"
+OUTPUT1 = "3"
 
-INPUT2 = <<"EOS"
-17
-EOS
-OUTPUT2 = <<"EOS"
-8
-EOS
+INPUT2 = "17"
+OUTPUT2 = "8"
 
 # # 解答例1-1
-# def get_gcd(a, b)
-#   a, b = b, a if a < b
-#   t = a % b
-#   while t != 0
-#     a = b
-#     b = t
+# def get_gcd(a, b):
+#     if a < b:
+#         a, b = b, a 
 #     t = a % b
-#   end
-#   b
-# end
+#     while t != 0:
+#         a = b
+#         b = t
+#         t = a % b
+#     return b
 
-# n = gets.to_i
+# n = int(input())
 
 # max_gcd = -1
-# 1.upto(n - 1) do |a|
-#   (i + 1).upto(n) do |b|
-#     max_gcd = [max_gcd, get_gcd(a, b)].max
-#   end
-# end
+# for a in range(1, n):
+#     for b in range(a+1, n+1):
+#         max_gcd = max([max_gcd, get_gcd(a, b)])
 
-# puts max_gcd
+# print(max_gcd)
 
-# 解答例1-2
-n = gets.to_i
+# # 解答例1-2
+# import math
+# import itertools
 
-max_gcd = -1
-(1..n).to_a.combination(2).each do |a, b|
-  p [a, b]
-  max_gcd = [max_gcd, a.gcd(b)].max
-end
+# n = int(input())
 
-puts max_gcd
+# max_gcd = -1
+# for (a, b) in itertools.combinations(range(1, n+1), 2):
+#     max_gcd = max([max_gcd, math.gcd(a, b)])
+
+# print(max_gcd)
 
 # 解答例2
-# puts gets.to_i / 2
+print(int(input()) // 2)
 
-=begin
+'''
 入力として自然数 n が与えられます。1 から n までの範囲にある全ての異なる整数の組のうち、最も大きな最大公約数を求めてください。
 つまり、 1 ≦ a < b ≦ n を満たすようなすべての gcd(a, b) の中で最も大きな値を求めてください。
 
@@ -85,4 +75,4 @@ n
 
 出力例2
 8
-=end
+'''

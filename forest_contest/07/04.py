@@ -1,32 +1,24 @@
 # 気温2 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_007/forest_contest_007__temparature_2
 
-INPUT1 = <<"EOS"
+INPUT1 = """\
 5
--2 5 13 1 4
-EOS
-OUTPUT1 = <<"EOS"
-15
-EOS
+-2 5 13 1 4"""
+OUTPUT1 = "15"
 
-INPUT2 = <<"EOS"
+INPUT2 = """\
 3
--20 0 40
-EOS
-OUTPUT2 = <<"EOS"
-60
-EOS
+-20 0 40"""
+OUTPUT2 = "60"
 
 # 最大の差 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_006/forest_contest_006__d_largest_diff
 
-n, *x = $stdin.read.split.map(&:to_i)
+n, *x = map(int, open(0).read().strip().split())
 
-min_sc, max_sc = x.minmax
+puts max(x) - min(x)
 
-puts max_sc - min_sc
-
-=begin
+'''
 # 解答例1-1
 n = 5
 a = n.times.map { gets.to_i }
@@ -87,4 +79,4 @@ x_1 ... x_n
 
 出力例2
 60
-=end
+'''

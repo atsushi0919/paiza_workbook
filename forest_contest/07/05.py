@@ -1,25 +1,17 @@
 # ブロックの埋め込み (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_007/forest_contest_007__block_filling
 
-INPUT1 = <<"EOS"
-4 6
-EOS
-OUTPUT1 = <<"EOS"
-12
-EOS
+INPUT1 = "4 6"
+OUTPUT1 = "12"
 
-INPUT2 = <<"EOS"
-3 3
-EOS
-OUTPUT2 = <<"EOS"
-4
-EOS
+INPUT2 = "3 3"
+OUTPUT2 = "4"
 
-n, m = gets.split.map(&:to_i)
+n, m = map(int, input().split())
 
-puts n * m / 2
+puts n * m // 2
 
-=begin
+'''
 縦 n マス、横 m マスのボードに縦 2 マス、横 1 マスのブロックをできるだけ多く配置するとき、必要なブロックの数を求めてください。
 ただし、ブロックは回転させても良いこととします。
 
@@ -52,4 +44,4 @@ n m
 
 出力例2
 4
-=end
+'''
