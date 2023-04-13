@@ -18,9 +18,10 @@ OUTPUT2 = <<"EOS"
 3600000
 EOS
 
+# input_lines = INPUT2.split("\n")
+
 # 入力
-input_lines = INPUT2.split("\n")
-# input_lines = $stdin.read.split("\n")
+input_lines = $stdin.read.split("\n")
 y, x, h = input_lines.shift.split.map(&:to_i)
 l = input_lines.shift.split.map(&:to_i)
 m = input_lines.shift.split.map(&:to_i)
