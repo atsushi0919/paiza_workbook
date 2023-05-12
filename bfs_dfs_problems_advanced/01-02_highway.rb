@@ -1,6 +1,30 @@
 # 高速道路 (paizaランク B 相当)
 # https://paiza.jp/works/mondai/bfs_dfs_problems_advanced/bfs_dfs_problems_advanced__highway
 
+INPUT1 = <<"EOS"
+5 4
+0 3 10 12 9
+1 2
+2 3
+2 4
+2 5
+EOS
+OUTPUT1 = <<"EOS"
+1
+EOS
+
+# 入力
+input_lines = INPUT1.split("\n")
+# input_lines = $stdin.read.split("\n")
+n, m = input_lines.shift.split.map(&:to_i)
+t = input_lines.shift.split.map(&:to_i)
+a_b = input_lines.shift(m).map { |e| e.split.map(&:to_i) }
+
+p [n, m]
+p t
+p a_b
+
+exit
 
 =begin
 paiza 国では新たに高速道路を建設することになりました。

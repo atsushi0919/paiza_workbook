@@ -105,22 +105,22 @@ s_t.each do |s, t|
 end
 
 # x 駅からスタート
-visited = Array.new(n, nil)
-search_list = PriorityQueue.new([[x - 1]])
+num_of_transit = Array.new(n, nil)          # 到着まで経由する駅の数
+search_list = PriorityQueue.new([[x - 1]])  # 探索リスト
 # BFS
 while search_list.size > 0
   # 現在の状態を取り出す
   route = search_list.extract
   # 探索済み確認
-  visited[route.last].nil? ? visited[route.last] = route.length - 1 : next
-  # y 駅に着いたら通過駅数を記録してループ終了
-  break if !visited[y - 1].nil?
+  num_of_transit[route.last].nil? ? num_of_transit[route.last] = route.length : next
+  # y 駅に着いたら経由駅数を記録してループ終了
+  break if !num_of_transit[y - 1].nil?
   # 未探索の隣接駅を追加
-  ad_list[route.last].each { |ns| search_list.insert(route + [ns]) unless visited[ns] }
+  ad_list[route.last].each { |ns| search_list.insert(route + [ns]) unless num_of_transit[ns] }
 end
 
 # 出力
-travel_time = 5 * visited[y - 1]                # 最短時間
+travel_time = 5 * (num_of_transit[y - 1] - 1)   # 最短時間
 travel_time += 10 if ad_list[x - 1].length > 1  # 間違えた移動時間
 puts travel_time
 
