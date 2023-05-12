@@ -35,6 +35,21 @@ EOS
 # # 解答例1-2
 # a, b, c = gets.split.map(&:to_i)
 
+# if 20 <= c
+#   a += 4 * b
+# elsif 15 <= c
+#   a += 3 * b
+# elsif 10 <= c
+#   a += 2 * b
+# elsif 5 <= c
+#   a += b
+# end
+
+# puts a
+
+# # 解答例2-1
+# a, b, c = gets.split.map(&:to_i)
+
 # if (5..9).include? c
 #   a += b
 # elsif (10..14).include? c
@@ -47,7 +62,7 @@ EOS
 
 # puts a
 
-# # 解答例1-3
+# # 解答例2-2
 # a, b, c = gets.split.map(&:to_i)
 
 # case c

@@ -1,30 +1,26 @@
 # OPS (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_008/forest_contest_008__OPS
 
-INPUT1 = <<"EOS"
-0.458 0.710
-EOS
-
-OUTPUT1 = <<"EOS"
-1.168
-EOS
+INPUT1 = "0.458 0.710"
+OUTPUT1 = "1.168"
 
 # # 解答例1-1
-# b, s = gets.split.map(&:to_f)
+# b, s = map(float, input().split())
 
 # ops = b + s
 
-# puts format("%.3f", ops)
-
-# 解答例1-2
-b, s = gets.split.map(&:to_f)
-
-ops = b + s
-
-puts "%.3f" % ops
+# print("{:.3f}".format(ops))
 
 
-=begin
+# # 解答例1-2
+# b, s = map(float, input().split())
+
+# ops = b + s
+
+# print(f"{ops:.3f}")
+
+
+'''
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
@@ -57,4 +53,4 @@ OPS を計算し、その計算結果を小数点第 3 位まで出力してく�
 
 出力例1
 1.168
-=end
+'''

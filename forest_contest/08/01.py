@@ -1,37 +1,26 @@
 # 文字数カウント (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_008/forest_contest_008__word_count
 
-INPUT1 = <<"EOS"
-forest
-EOS
+INPUT1 = "forest"
+OUTPUT1 = "6"
 
-OUTPUT1 = <<"EOS"
-6
-EOS
+INPUT2 = "paiza"
+OUTPUT2 = "5"
 
-INPUT2 = <<"EOS"
-paiza
-EOS
+# 解答例1
+m = gets.chomp
 
-OUTPUT2 = <<"EOS"
-5
-EOS
+i = 0
+while m[i]
+  i += 1
+end
 
-# # 解答例1
-# m = gets.chomp
-
-# i = 0
-# while m[i]
-#   i += 1
-# end
-
-# puts i
+puts i
 
 # # 解答例2
 # puts gets.chomp.length
 
-=begin
-
+'''
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
@@ -68,4 +57,4 @@ paiza
 
 出力例2
 5
-=end
+'''

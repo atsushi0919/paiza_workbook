@@ -1,20 +1,15 @@
 # 乗客人数 (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_008/forest_contest_008__passenger
 
-INPUT1 = <<"EOS"
-5 3 2
-EOS
-
-OUTPUT1 = <<"EOS"
-4
-EOS
+INPUT1 = "5 3 2"
+OUTPUT1 = "4"
 
 # 解答例
-a, b, c = gets.split.map(&:to_i)
+a, b, c = map(int, input().split())
 
-puts a - b + c
+print(a - b + c)
 
-=begin
+'''
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
@@ -47,4 +42,4 @@ a b c
 
 出力例1
 4
-=end
+'''

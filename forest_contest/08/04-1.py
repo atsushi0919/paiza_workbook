@@ -1,7 +1,7 @@
 # 通貨レート (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_008/forest_contest_008__currency_rate
 
-INPUT1 = <<"EOS"
+INPUT1 = """\
 12
 72
 130
@@ -15,13 +15,13 @@ INPUT1 = <<"EOS"
 102
 87
 115
-EOS
-OUTPUT1 = <<"EOS"
+"""
+OUTPUT1 = """\
 1
 2
-EOS
+"""
 
-INPUT2 = <<"EOS"
+INPUT2 = """\
 48
 126
 86
@@ -71,24 +71,16 @@ INPUT2 = <<"EOS"
 83
 100
 114
-EOS
-
-OUTPUT2 = <<"EOS"
-1
-2
-EOS
-
-def rand_ary(low, high, n, seed = 0)
-  srand(seed)
-  n.times.map { rand(low..high) }
-end
-
-n = 10000
-m = rand_ary(70, 130, n)
+"""
 
 # 解答例1
-# n = gets.to_i
-# m = n.times.map { gets.to_i }
+n = int(input())
+m = [int(input()) for _ in range(n)]
+
+buy_date = None
+sell_date = None
+# 損益の下限(-60)より低い値で初期化
+max_profit = -999
 
 # ********************************************************
 # 売る日・買う日のすべての組み合わせについて調べる
@@ -103,35 +95,31 @@ m = rand_ary(70, 130, n)
 # ********************************************************
 
 # 売る日・買う日を格納する変数を用意
-buy_date = nil
-sell_date = nil
+buy_date = None
+sell_date = None
 # 損益の下限(-60)より低い値で初期化
 max_profit = -999
 # 買う日のループ
-0.upto(n - 2) do |b_i|
-  # 売る日のループ
-  (b_i + 1).upto(n - 1) do |s_i|
-    # (売却レート - 購入レート)がプラスなら利益
-    profit = m[s_i] - m[b_i]
+for b_i in range(n-1):
+    # 売る日のループ
+    for s_i in range(b_i+1, n):
+        # (売却レート - 購入レート)がプラスなら利益発生
+        profit = m[s_i] - m[b_i]
 
-    # 最大利益の情報更新
-    if profit > max_profit
-      buy_date = b_i + 1
-      sell_date = s_i + 1
-      max_profit = profit
-    end
-  end
-end
+        # 最大利益の情報更新
+        if profit > max_profit:
+            buy_date = b_i + 1
+            sell_date = s_i + 1
+            max_profit = profit
 
-if max_profit > 0
-  # 利益が出る場合
-  puts [buy_date, sell_date]
-else
-  # 利益が出ない場合
-  puts "No"
-end
+if max_profit > 0:
+    # 利益が出る場合
+    print(buy_date, sell_date, sep="\n")
+else:
+    # 利益が出ない場合
+    print("No")
 
-=begin
+'''
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
@@ -178,4 +166,4 @@ m_n
 出力例1
 1
 2
-=end
+'''

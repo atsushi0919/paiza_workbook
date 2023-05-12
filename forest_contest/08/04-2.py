@@ -1,7 +1,7 @@
 # 通貨レート (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_008/forest_contest_008__currency_rate
 
-INPUT1 = <<"EOS"
+INPUT1 = """\
 12
 72
 130
@@ -15,123 +15,57 @@ INPUT1 = <<"EOS"
 102
 87
 115
-EOS
-OUTPUT1 = <<"EOS"
+"""
+
+OUTPUT1 = """\
 1
 2
-EOS
+"""
 
-INPUT2 = <<"EOS"
-48
-126
-86
-116
-77
-114
-129
-85
-128
-79
-129
-124
-90
-105
-76
-90
-126
-93
-116
-71
-108
-78
-91
-74
-83
-123
-89
-102
-74
-84
-83
-120
-94
-91
-114
-124
-112
-103
-127
-108
-127
-76
-102
-102
-127
-123
-83
-100
-114
-EOS
+# 解答例2
+# n, *m = map(int, open(0).read().strip().split())
+n, *m = map(int, INPUT1.strip().split())
+# n, *m = $stdin.read.split.map(&:to_i)
 
-OUTPUT2 = <<"EOS"
-1
-2
-EOS
+# [日付, レート]の形式で、レート降順・日付昇順でソートした配列を生成
+s_m = sorted([[i, v] for i, v in enumerate(m)], key=lambda x:(-x[1], x[0]))
 
-def rand_ary(low, high, n, seed = 0)
-  srand(seed)
-  n.times.map { rand(low..high) }
-end
+# buy_idx = 0
+# max_profit = { profit: 0 }
+# while buy_idx < n && s_m.length > 0
+#   # 売る日, レート
+#   sell_idx, sell_rate = s_m.shift
 
-n = 10000
-m = rand_ary(70, 130, n)
+#   # 探索済みの区間は調べない
+#   next if sell_idx <= buy_idx
 
-# 解答例1
-# n = gets.to_i
-# m = n.times.map { gets.to_i }
+#   # buy_idx 以上 sell_idx 未満の区間での最低レート（買う日）を探す
+#   # 70 ≦ m_i（レート） ≦ 130
+#   buy_rate = 999
+#   (buy_idx...sell_idx).each do |tmp_idx|
+#     if m[tmp_idx] < buy_rate
+#       buy_idx = tmp_idx
+#       buy_rate = m[tmp_idx]
+#     end
+#   end
 
-# ********************************************************
-# 売る日・買う日のすべての組み合わせについて調べる
-# 入力例1の場合は (12*11)/(1*2) = 66 通り
-# 1-2, 1-3, 1-4, 1-5, 1-6, 1-7, 1-8, 1-9, 1-10, 1-11, 1-12
-# 2-3, 2-4, 2-5, 2-6, 2-7, 2-8, 2-9, 2-10, 2-11, 2-12
-# 3-4, 3-5, 3-6, 3-7, 3-8, 3-9, 3-10, 3-11, 3-12
-# ... 中略 ...
-# 9-10, 9-11, 9-12
-# 10-11, 10-12
-# 11-12
-# ********************************************************
+#   # 最高利益の更新
+#   profit = sell_rate - buy_rate
+#   if max_profit[:profit] < profit
+#     max_profit = {
+#       buy_date: buy_idx + 1,
+#       sell_date: sell_idx + 1,
+#       profit: profit,
+#     }
+#   end
 
-# 売る日・買う日を格納する変数を用意
-buy_date = nil
-sell_date = nil
-# 損益の下限(-60)より低い値で初期化
-max_profit = -999
-# 買う日のループ
-0.upto(n - 2) do |b_i|
-  # 売る日のループ
-  (b_i + 1).upto(n - 1) do |s_i|
-    # (売却レート - 購入レート)がプラスなら利益
-    profit = m[s_i] - m[b_i]
+#   # 次の区間の開始地点を設定
+#   buy_idx = sell_idx + 1
+# end
 
-    # 最大利益の情報更新
-    if profit > max_profit
-      buy_date = b_i + 1
-      sell_date = s_i + 1
-      max_profit = profit
-    end
-  end
-end
+# puts max_profit[:profit] > 0 ? [max_profit[:buy_date], max_profit[:sell_date]] : "No"
 
-if max_profit > 0
-  # 利益が出る場合
-  puts [buy_date, sell_date]
-else
-  # 利益が出ない場合
-  puts "No"
-end
-
-=begin
+'''
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
@@ -178,4 +112,4 @@ m_n
 出力例1
 1
 2
-=end
+'''

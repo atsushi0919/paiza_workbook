@@ -103,36 +103,36 @@ OUTPUT3 = "Nobody"
 #     print("Nobody")
 
 
-# 解答例2-2
-n, *q = open(0).read().strip().split("\n")
-n = int(n)
+# # 解答例2-2
+# n, *q = open(0).read().strip().split("\n")
+# n = int(n)
 
-# 打率, 打点, ホームランの順位表作成
-records = [{} for _ in range(3)]
-for i, record in enumerate(q):
-    b_i, r_i, h_i = record.split()
-    b_i = float(b_i)
-    r_i = int(r_i)
-    h_i = int(h_i)
-    records[0][b_i] = records[0].get(b_i, []) + [i]
-    records[1][r_i] = records[1].get(r_i, []) + [i]
-    records[2][h_i] = records[2].get(h_i, []) + [i]
+# # 打率, 打点, ホームランの順位表作成
+# records = [{} for _ in range(3)]
+# for i, record in enumerate(q):
+#     b_i, r_i, h_i = record.split()
+#     b_i = float(b_i)
+#     r_i = int(r_i)
+#     h_i = int(h_i)
+#     records[0][b_i] = records[0].get(b_i, []) + [i]
+#     records[1][r_i] = records[1].get(r_i, []) + [i]
+#     records[2][h_i] = records[2].get(h_i, []) + [i]
 
-# 打率, 打点, ホームランそれぞれの首位選手を記録
-p_results = [0] * n
-for record in records:
-    for i in sorted(record.items())[-1][-1]:
-        p_results[i] += 1
-# [sorted(record.items())[-1][-1] for record in records]
+# # 打率, 打点, ホームランそれぞれの首位選手を記録
+# p_results = [0] * n
+# for record in records:
+#     for i in sorted(record.items())[-1][-1]:
+#         p_results[i] += 1
+# # [sorted(record.items())[-1][-1] for record in records]
 
-# Top選手は何冠しているか？
-crowns = max(p_results)
-if crowns ==3:
-    print("Triple")
-elif crowns == 2:
-    print("Double")
-else:
-    print("Nobody")
+# # Top選手は何冠しているか？
+# crowns = max(p_results)
+# if crowns ==3:
+#     print("Triple")
+# elif crowns == 2:
+#     print("Double")
+# else:
+#     print("Nobody")
 
 
 '''

@@ -12,15 +12,44 @@ OUTPUT1 = <<"EOS"
 2
 EOS
 
-_, *a = $stdin.read.split("\n").map { |r| r.split.map(&:to_f) }
+# # 解答例1-1
+# n = gets.to_i
+# a = []
+# n.times do
+#   b, s = gets.split.map(&:to_f)
+#   a << [b, s]
+# end
 
-highest = { index: nil, ops: 0.0 }
+# # 最大OPSの背番号, 最大OPSを格納する変数を用意
+# max_num = nil
+# max_ops = -1.0
+
+# # 最大OPSの選手を調べる
+# 0.upto(n - 1) do |i|
+#   tmp_ops = a[i].sum
+#   if tmp_ops > max_ops
+#     max_num = i + 1
+#     max_ops = tmp_ops
+#   end
+# end
+
+# puts max_num
+
+# 解答例1-2
+# 1行で書く場合
+# _, *a = $stdin.read.split("\n").map { |r| r.split.map(&:to_f) }
+
+# 分けて書く場合
+_, *a = $stdin.read.split("\n")
+a.map! { |r| r.split.map(&:to_f) }
+
+max_ops = { ops: -1.0 }
 a.each.with_index(1) do |(b, s), i|
   ops = b + s
-  highest = { index: i, ops: ops } if highest[:ops] < ops
+  max_ops = { num: i, ops: ops } if max_ops[:ops] < ops
 end
 
-puts highest[:index]
+puts max_ops[:num]
 
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！

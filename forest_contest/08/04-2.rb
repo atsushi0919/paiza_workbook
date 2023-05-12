@@ -74,44 +74,68 @@ INPUT2 = <<"EOS"
 114
 EOS
 
-OUTPUT2 = <<"EOS"
-1
-2
+INPUT3 = <<"EOS"
+8
+75
+85
+70
+75
+130
+120
+70
+120
+80
 EOS
 
-n, *m = $stdin.read.split.map(&:to_i)
-s_m = m.map.with_index { |e, i| [i, e] }.sort_by { |x| [-x[1], x[0]] }
+def rand_ary(low, high, n, seed = 0)
+  srand(seed)
+  n.times.map { rand(low..high) }
+end
 
-l_idx = r_idx = 0
-max_profit = { val: 0 }
-while l_idx < n && s_m.length > 0
-  r_idx, r_val = s_m.shift
+n = 10000
+m = rand_ary(70, 130, n)
 
-  if r_idx <= l_idx
-    l_idx += 1 if r_idx == l_idx
-    next
-  end
+# 解答例2
+# n, *m = $stdin.read.split.map(&:to_i)
+# n, *m = INPUT3.split.map(&:to_i)
 
-  l_val = Float::INFINITY
-  (l_idx...r_idx).each do |t_idx|
-    if m[t_idx] < l_val
-      l_idx = t_idx
-      l_val = m[t_idx]
+# [日付, レート]の形式で、レート降順・日付昇順でソートした配列を生成
+s_m = m.map.with_index { |v, i| [i, v] }.sort_by { |x| [-x[1], x[0]] }
+
+buy_idx = 0
+max_profit = { profit: 0 }
+while buy_idx < n && s_m.length > 0
+  # 売る日, レート
+  sell_idx, sell_rate = s_m.shift
+
+  # 探索済みの区間は調べない
+  next if sell_idx <= buy_idx
+
+  # buy_idx 以上 sell_idx 未満の区間での最低レート（買う日）を探す
+  # 70 ≦ m_i（レート） ≦ 130
+  buy_rate = 999
+  (buy_idx...sell_idx).each do |tmp_idx|
+    if m[tmp_idx] < buy_rate
+      buy_idx = tmp_idx
+      buy_rate = m[tmp_idx]
     end
   end
 
-  t_val = r_val - l_val
-  if max_profit[:val] < t_val
+  # 最高利益の更新
+  profit = sell_rate - buy_rate
+  if max_profit[:profit] < profit
     max_profit = {
-      buy: l_idx + 1,
-      sell: r_idx + 1,
-      val: t_val,
+      buy_date: buy_idx + 1,
+      sell_date: sell_idx + 1,
+      profit: profit,
     }
   end
-  idx = r_idx + 1
+
+  # 次の区間の開始地点を設定
+  buy_idx = sell_idx + 1
 end
 
-puts max_profit[:val] > 0 ? [max_profit[:buy], max_profit[:sell]] : "No"
+puts max_profit[:profit] > 0 ? [max_profit[:buy_date], max_profit[:sell_date]] : "No"
 
 # l = 0
 # p sell_idx = sell_idx(l, m)

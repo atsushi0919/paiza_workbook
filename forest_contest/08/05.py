@@ -1,65 +1,61 @@
 # 乗客人数 - その 2 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_008/forest_contest_008__passenger2
 
-INPUT1 = <<"EOS"
+INPUT1 = """\
 4
 0 2 1 8
 6 3 2 0
-EOS
-
-OUTPUT1 = <<"EOS"
+"""
+OUTPUT1 = """\
 8
-EOS
+"""
 
-INPUT2 = <<"EOS"
+INPUT2 = """\
 4
 0 1 5 3
 3 4 2 0
-EOS
-
-OUTPUT2 = <<"EOS"
+"""
+OUTPUT2 = """\
 6
-EOS
+"""
 
 # # 解答例1-1
-# n = gets.to_i
-# leave = gets.split.map(&:to_i)
-# enter = gets.split.map(&:to_i)
+# n = int(input())
+# leave = list(map(int, input().split()))
+# enter = list(map(int, input().split()))
 
 # # 最大の乗客数、現在の乗客数を初期化
 # max_p = 0
 # now_p = 0
 # # 各バス停での乗降数を調べる
-# 0.upto(n - 1) do |i|
-#   now_p = now_p - leave[i] + enter[i]
-#   # 最大の乗客数を超えたら更新
-#   max_p = [max_p, now_p].max
-# end
+# for i in range(n):
+#     now_p = now_p - leave[i] + enter[i]
+#     # 最大の乗客数を超えたら更新
+#     max_p = max([max_p, now_p])
 
-# puts max_p
+# print(max_p)
 
-# # 解答例1-2
+
+# 解答例1-2
 # 1行で書く場合
-# _, leave, enter = $stdin.read.split("\n").map { |r| r.split.map(&:to_i) }
+# _, leave, enter = map(lambda x: list(map(int, x.split())), open(0).read().strip().split("\n"))
 
 # 分けて書く場合（デバッグしやすい）
-# _, leave, enter = $stdin.read.split("\n")
-# leave = leave.split.map(&:to_i)
-# enter = enter.split.map(&:to_i)
+_, leave, enter = open(0).read().strip().split("\n")
+leave = list(map(int, leave.split()))
+enter = list(map(int, enter.split()))
 
+# 最大の乗客数、現在の乗客数を初期化
+max_p = now_p = 0
+# 各バス停での乗降数を調べる
+for l_i, e_i in zip(leave, enter):
+    now_p = now_p - l_i + e_i
+    # 最大の乗客数を超えたら更新
+    max_p = max([max_p, now_p])
 
-# # 最大の乗客数、現在の乗客数を初期化
-# max_p = now_p = 0
-# # 各バス停での乗り降りを調べる
-# leave.zip(ebter).each do |l_i, e_i|
-#   now_p = now_p - l_i + e_i
-#   # 最大の乗客数を超えたら更新
-#   max_p = [max_p, now_p].max
-# end
+print(max_p)
 
-# puts max_p
-
-=begin
+'''
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
@@ -111,4 +107,4 @@ b_1 ... b_n
 
 出力例2
 6
-=end
+'''
