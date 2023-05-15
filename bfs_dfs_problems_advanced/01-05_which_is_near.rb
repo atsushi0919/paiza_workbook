@@ -112,8 +112,7 @@ def shortest_route(n, s, ad_list)
 end
 
 # 入力
-# input_lines = $stdin.read.split("\n")
-input_lines = INPUT1.split("\n")
+input_lines = $stdin.read.split("\n")
 n, m, x, y = input_lines.shift.split.map(&:to_i)
 a_b = input_lines.shift(m).map { |e| e.split.map(&:to_i) }
 

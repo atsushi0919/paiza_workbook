@@ -17,8 +17,7 @@ EOS
 DIR = [[-1, 0], [0, 1], [1, 0], [0, -1]]
 
 # 入力
-# input_lines = $stdin.read.split("\n")
-input_lines = INPUT1.split("\n")
+input_lines = $stdin.read.split("\n")
 n, m, x, y = input_lines.shift.split.map(&:to_i)
 s = input_lines.shift(n).map(&:chars)
 

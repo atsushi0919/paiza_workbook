@@ -11,31 +11,32 @@ OUTPUT1 = <<"EOS"
 2
 EOS
 
-def num_of_connected_components(color, board)
+def count_connected_components(board)
+  searched = "*"
   row = board.length
   col = board[0].length
+
   count = 0
   0.upto(row - 1) do |x|
     0.upto(col - 1) do |y|
-      next if board[x][y] != color
+      # 探索開始地点を探す
+      next if board[x][y] == searched
+      color = board[x][y]
 
+      # 探索開始地点から連結成分を調べる
       count += 1
       search_list = [[x, y]]
       while search_list.length > 0
         cx, cy = search_list.shift
-        if board[cx][cy] == color
-          board[cx][cy] = true
-        end
+        next if board[cx][cy] == searched
 
+        board[cx][cy] = searched
         DIR.each do |dx, dy|
           nx = cx + dx
           ny = cy + dy
-
-          # 連結してないならスキップ
           next if nx < 0 || row - 1 < nx || ny < 0 || col - 1 < ny
           next if board[nx][ny] != color
 
-          # 連結なら座標を追加
           search_list << [nx, ny]
         end
       end
@@ -44,24 +45,24 @@ def num_of_connected_components(color, board)
   count
 end
 
-require "byebug"
-
+# 色設定
+COLORS = %w[R G B]
 # 方向設定 x↓ y→
 DIR = [[-1, 0], [0, 1], [1, 0], [0, -1]]
 
 # 入力
-# input_lines = $stdin.read.split("\n")
-input_lines = INPUT1.split("\n")
+input_lines = $stdin.read.split("\n")
 n, m = input_lines.shift.split.map(&:to_i)
-s = input_lines.shift(n).map(&:chars)
+s = input_lines.shift(n)
 
-c_c = { "R" => 0, "G" => 0, "B" => 0 }
-c_c.keys.each do |key|
-  c_c[key] = num_of_connected_components(key, s.map(&:dup))
-end
-c_c = c_c.sort_by { |k, v| v }.reverse
+# 2 色に減色した盤面を生成する
+repainted_boards = COLORS.combination(2).map { |a, b| s.map { |row| row.gsub(a, b) } }
 
-p c_c
+# 生成した各盤面の連結成分数を数える
+num_of_cc = repainted_boards.map { |board| count_connected_components(board) }
+
+# 連結成分数の最小値を出力
+puts num_of_cc.min
 
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！

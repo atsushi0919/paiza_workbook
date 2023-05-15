@@ -1,6 +1,60 @@
 # 連結判定 (paizaランク A 相当)
 # https://paiza.jp/works/mondai/bfs_dfs_problems_advanced/bfs_dfs_problems_advanced__connected
 
+INPUT1 = <<"EOS"
+3 3 2
+RRR
+GGR
+BRR
+1 1 3 2
+1 1 3 1
+EOS
+OUTPUT1 = <<"EOS"
+Yes
+No
+EOS
+
+# 方向設定 x↓ y→
+DIR = [[-1, 0], [0, 1], [1, 0], [0, -1]]
+
+# 入力
+input_lines = $stdin.read.split("\n")
+n, m, k = input_lines.shift.split.map(&:to_i)
+s = input_lines.shift(n)
+abcd = input_lines.shift(k).map { |r| r.split.map(&:to_i) }
+
+searched = Array.new (n) { Array.new(m, nil) }
+group_count = 0
+0.upto(n - 1) do |x|
+  0.upto(m - 1) do |y|
+    # 探索開始地点
+    next unless searched[x][y].nil?
+    color = s[x][y]
+
+    # 探索開始地点から連結成分を調べる
+    group_count += 1
+    search_list = [[x, y]]
+    while search_list.length > 0
+      cx, cy = search_list.shift
+      next unless searched[cx][cy].nil?
+
+      searched[cx][cy] = group_count
+      DIR.each do |dx, dy|
+        nx = cx + dx
+        ny = cy + dy
+        next if nx < 0 || n - 1 < nx || ny < 0 || m - 1 < ny
+        next if s[nx][ny] != color
+
+        search_list << [nx, ny]
+      end
+    end
+  end
+end
+
+# (a,b) と (c,d) が同じ連結成分か判定して出力
+puts abcd.map { |a, b, c, d|
+  searched[a - 1][b - 1] == searched[c - 1][d - 1] ? "Yes" : "No"
+}.join("\n")
 
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
