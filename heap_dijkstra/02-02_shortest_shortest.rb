@@ -1,9 +1,82 @@
+# 最も近い頂点と二番目に近い頂点 (paizaランク B 相当)
+# https://paiza.jp/works/mondai/heap_dijkstra/heap_dijkstra__shortest_shortest
+
+INPUT1 = <<"EOS"
+7 11 1
+1 2 2
+1 3 4
+2 3 1
+2 4 8
+2 5 1
+3 5 4
+3 6 3
+4 7 2
+5 4 3
+5 7 1
+6 7 3
+EOS
+OUTPUT1 = <<"EOS"
+2
+3
+EOS
+
+INPUT2 = <<"EOS"
+8 7 2
+2 3 8
+1 8 4
+1 3 7
+1 7 4
+1 4 6
+1 6 4
+1 5 5
+EOS
+OUTPUT2 = <<"EOS"
+3
+inf
+EOS
+
+INPUT3 = <<"EOS"
+8 7 2
+1 2 8
+1 8 4
+1 3 7
+1 7 4
+1 4 6
+1 6 4
+1 5 5
+EOS
+OUTPUT3 = <<"EOS"
+inf
+inf
+EOS
+
+# 十分大きな値を cost 初期値に設定 (1 ≦ c_i ≦ 10)
+INF = 99
+N = 2
+# 入力
+input_lines = INPUT3.split("\n")
+n, m, s = input_lines.shift.split.map(&:to_i)
+abc = input_lines.shift(n).map { |r| r.split.map(&:to_i) }
+
+# 隣接行列 (頂点番号を index に合わせる)
+s -= 1
+ad_matrix = Array.new(n) { Array.new(n, INF) }
+abc.each do |a, b, c|
+  ad_matrix[a - 1][b - 1] = c
+  ad_matrix[b - 1][a - 1] = c
+end
+
+# 最小 2 個の cost
+min_costs = ad_matrix[s].min(N)
+
+p min_costs.map { |m_c|
+  m_c < INF ? ad_matrix[s].index(m_c) + 1 : "inf"
+}.to_a
+
 =begin
-最も近い頂点と二番目に近い頂点 (paizaランク B 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
-https://paiza.jp/works/mondai/heap_dijkstra/heap_dijkstra__shortest_shortest
 問題文のURLをコピーする
  下記の問題をプログラミングしてみよう！
 1,...,N の番号のついた N 個の頂点とそれらをつなぐ枝からなる有向グラフを考えます。ただし、自己ループと多重辺は考えません。

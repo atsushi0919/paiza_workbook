@@ -1,12 +1,69 @@
-=begin
-最も近い頂点 (paizaランク C 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# 最も近い頂点 (paizaランク C 相当)
+# https://paiza.jp/works/mondai/heap_dijkstra/heap_dijkstra__shortest
 
-シェア用URL:
-https://paiza.jp/works/mondai/heap_dijkstra/heap_dijkstra__shortest
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-ここからは最短経路問題を解くアルゴリズムであるダイクストラ法を扱います。最短経路問題とは、重み付きグラフの与えられた 2 点を結ぶ経路のうち、コスト（距離など）が最小のものを求める問題です。ダイクストラ法を使うと、グラフのある頂点からそのほかの各頂点への最短距離を求めることができます。
+INPUT1 = <<"EOS"
+5 5 1
+1 2 4
+1 3 9
+2 4 1
+4 5 3
+5 2 3
+EOS
+OUTPUT1 = <<"EOS"
+2
+EOS
+
+INPUT2 = <<"EOS"
+8 7 1
+1 2 8
+1 8 4
+1 3 7
+1 7 4
+1 4 6
+1 6 4
+1 5 5
+EOS
+OUTPUT2 = <<"EOS"
+6
+EOS
+
+INPUT3 = <<"EOS"
+8 7 2
+1 2 8
+1 8 4
+1 3 7
+1 7 4
+1 4 6
+1 6 4
+1 5 5
+EOS
+OUTPUT3 = <<"EOS"
+inf
+EOS
+
+# 十分大きな値を cost 初期値に設定 (1 ≦ c_i ≦ 10)
+INF = 99
+# 入力
+input_lines = INPUT1.split("\n")
+n, m, s = input_lines.shift.split.map(&:to_i)
+abc = input_lines.shift(n).map { |r| r.split.map(&:to_i) }
+
+# 隣接行列 (頂点番号を index に合わせる)
+s -= 1
+ad_matrix = Array.new(n) { Array.new(n, INF) }
+abc.each do |a, b, c|
+  ad_matrix[a - 1][b - 1] = c
+  ad_matrix[b - 1][a - 1] = c
+end
+
+# cost最小値の頂点番号を出力
+min_cost = ad_matrix[s].min
+puts min_cost < INF ? ad_matrix[s].index(min_cost) + 1 : "inf"
+
+=begin
+ここからは最短経路問題を解くアルゴリズムであるダイクストラ法を扱います。
+最短経路問題とは、重み付きグラフの与えられた 2 点を結ぶ経路のうち、コスト（距離など）が最小のものを求める問題です。
+ダイクストラ法を使うと、グラフのある頂点からそのほかの各頂点への最短距離を求めることができます。
 
 まずは、ある頂点に最も近い頂点を求めてみましょう。これは二分ヒープを用いて求めることができます。
 
@@ -14,7 +71,8 @@ https://paiza.jp/works/mondai/heap_dijkstra/heap_dijkstra__shortest
 
 M 本の有向枝と頂点番号 s が与えられます。頂点 s に隣接している頂点のなかで、s からの距離が最も短い頂点を出力してください。
 
-ただし、頂点 s から距離が同じ頂点が複数存在する場合は、そのなかで番号が最も小さい頂点を、頂点 s から最も距離が短い頂点とします。また、距離とはその頂点までの経路（枝の集合）を構成する枝の重みの和とします。
+ただし、頂点 s から距離が同じ頂点が複数存在する場合は、そのなかで番号が最も小さい頂点を、頂点 s から最も距離が短い頂点とします。
+また、距離とはその頂点までの経路（枝の集合）を構成する枝の重みの和とします。
 
 s に隣接している頂点が存在しない場合は、inf と出力してください。
 
