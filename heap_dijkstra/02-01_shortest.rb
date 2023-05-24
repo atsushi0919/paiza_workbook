@@ -44,19 +44,16 @@ EOS
 # 十分大きな値を cost 初期値に設定 (1 ≦ c_i ≦ 10)
 INF = 99
 # 入力
-input_lines = INPUT1.split("\n")
+input_lines = $stdin.read.split("\n")
 n, m, s = input_lines.shift.split.map(&:to_i)
-abc = input_lines.shift(n).map { |r| r.split.map(&:to_i) }
+abc = input_lines.shift(m).map { |r| r.split.map(&:to_i) }
 
 # 隣接行列 (頂点番号を index に合わせる)
 s -= 1
 ad_matrix = Array.new(n) { Array.new(n, INF) }
-abc.each do |a, b, c|
-  ad_matrix[a - 1][b - 1] = c
-  ad_matrix[b - 1][a - 1] = c
-end
+abc.each { |a, b, c| ad_matrix[a - 1][b - 1] = c }
 
-# cost最小値の頂点番号を出力
+# cost最小値の頂点番号を出力 (元の頂点番号に戻す)
 min_cost = ad_matrix[s].min
 puts min_cost < INF ? ad_matrix[s].index(min_cost) + 1 : "inf"
 

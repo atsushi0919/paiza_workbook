@@ -54,24 +54,39 @@ EOS
 INF = 99
 N = 2
 # 入力
-input_lines = INPUT3.split("\n")
+input_lines = $stdin.read.split("\n")
 n, m, s = input_lines.shift.split.map(&:to_i)
-abc = input_lines.shift(n).map { |r| r.split.map(&:to_i) }
+abc = input_lines.shift(m).map { |r| r.split.map(&:to_i) }
 
 # 隣接行列 (頂点番号を index に合わせる)
 s -= 1
 ad_matrix = Array.new(n) { Array.new(n, INF) }
-abc.each do |a, b, c|
-  ad_matrix[a - 1][b - 1] = c
-  ad_matrix[b - 1][a - 1] = c
+abc.each { |a, b, c| ad_matrix[a - 1][b - 1] = c }
+
+# 始点 s から近い頂点を調べる (到達コスト, 頂点番号)
+vertices = []
+ad_matrix[s].each_with_index do |c, v|
+  # 始点 s は除外
+  next if v == s
+  vertices << [c, v]
+end
+# コスト, 頂点番号で昇順ソート
+vertices.sort_by! { |c, v| [c, v] }
+
+# 近い順に2点の頂点 (コスト, 頂点番号)
+sv = vertices[...N]
+# 最も近い頂点の隣接頂点を調べる
+ad_matrix[sv[0][-1]].each_with_index do |nc, nv|
+  # s と 非連結頂点は除外
+  next if nv == s || nc == INF
+  # 2 番目に近い頂点を更新
+  if sv[0][0] + nc < sv[1][0] || sv[0][0] + nc == sv[1][0] && nv < sv[1][1]
+    sv[1] = [sv[0][0] + nc, nv]
+  end
 end
 
-# 最小 2 個の cost
-min_costs = ad_matrix[s].min(N)
-
-p min_costs.map { |m_c|
-  m_c < INF ? ad_matrix[s].index(m_c) + 1 : "inf"
-}.to_a
+# s から近い順に2点の頂点を出力 (元の頂点番号に戻す)
+puts sv.map { |c, v| c < INF ? v + 1 : "inf" }
 
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
@@ -83,7 +98,8 @@ p min_costs.map { |m_c|
 
 M 本の有向枝と頂点番号 s が与えられます。まず、頂点 s に隣接している頂点のなかで、s からの距離が最も短い頂点を出力してください。
 
-その後、s からの距離が二番目に短い頂点を出力してください。これは、すでに出力した頂点以外の s に隣接している頂点、またはすでに出力した頂点に隣接している頂点のなかで、s からの距離が最も短い頂点となります。
+その後、s からの距離が二番目に短い頂点を出力してください。
+これは、すでに出力した頂点以外の s に隣接している頂点、またはすでに出力した頂点に隣接している頂点のなかで、s からの距離が最も短い頂点となります。
 
 ただし、頂点 s から距離が同じ頂点が複数存在する場合は、そのなかで番号が最も小さい頂点を、頂点 s から最も距離が短い頂点とします。また、距離とはその頂点までの経路（枝の集合）を構成する枝の重みの和とします。
 

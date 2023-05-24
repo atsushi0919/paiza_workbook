@@ -17,8 +17,7 @@ EOS
 
 class BinaryTree
   def initialize(array = [])
-    @data = []
-    array.each { |element| push(element) }
+    @data = array
   end
 
   def push(element)
@@ -34,7 +33,7 @@ end
 n = gets.to_i
 
 # インスタンス化
-tree = BinaryTree.new 0..n
+tree = BinaryTree.new (0..n).to_a
 
 # n の親の番号を出力
 puts tree.parent_idx(n)

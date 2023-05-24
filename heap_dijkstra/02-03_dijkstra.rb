@@ -135,17 +135,14 @@ end
 # 十分大きな値を cost 初期値に設定 (1 ≦ c_i ≦ 10)
 INF = 99
 # 入力
-input_lines = INPUT1.split("\n")
+input_lines = $stdin.read.split("\n")
 n, m, s = input_lines.shift.split.map(&:to_i)
 abc = input_lines.shift(m).map { |r| r.split.map(&:to_i) }
 
 # 隣接行列 (頂点番号を index に合わせる)
 s -= 1
 ad_matrix = Array.new(n) { Array.new(n, INF) }
-abc.each do |a, b, c|
-  ad_matrix[a - 1][b - 1] = c
-  ad_matrix[b - 1][a - 1] = c
-end
+abc.each { |a, b, c| ad_matrix[a - 1][b - 1] = c }
 
 # dijkstra
 searched = Array.new(n, INF)
@@ -168,7 +165,20 @@ while search_list.size > 0
   end
 end
 
-p searched
+# 始点 s から近い頂点を調べる (到達コスト, 頂点番号)
+vertices = []
+searched.each_with_index do |c, v|
+  # 始点 s と s に非連結の頂点は除外
+  next if v == s || c == INF
+  vertices << [c, v]
+end
+# コスト, 頂点番号で昇順ソート
+vertices.sort_by! { |c, v| [c, v] }
+
+# 連結頂点を近い順に出力 (v + 1 して元の頂点番号に戻す)
+puts vertices.map { |c, v| v + 1 }.join("\n") if vertices.length > 0
+# 頂点番号順にコストを出力
+puts searched.map { |c| c < INF ? c : "inf" }
 
 =begin
 1,...,N の番号のついた N 個の頂点とそれらをつなぐ枝からなる有向グラフを考えます。ただし、自己ループと多重辺は考えません。
