@@ -135,7 +135,8 @@ end
 # 十分大きな値を cost 初期値に設定 (1 ≦ c_i ≦ 10)
 INF = 99
 # 入力
-input_lines = $stdin.read.split("\n")
+# input_lines = $stdin.read.split("\n")
+input_lines = INPUT1.split("\n")
 n, m, s = input_lines.shift.split.map(&:to_i)
 abc = input_lines.shift(m).map { |r| r.split.map(&:to_i) }
 
@@ -174,6 +175,10 @@ searched.each_with_index do |c, v|
 end
 # コスト, 頂点番号で昇順ソート
 vertices.sort_by! { |c, v| [c, v] }
+
+p vertices
+
+exit
 
 # 連結頂点を近い順に出力 (v + 1 して元の頂点番号に戻す)
 puts vertices.map { |c, v| v + 1 }.join("\n") if vertices.length > 0

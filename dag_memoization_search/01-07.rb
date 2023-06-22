@@ -1,6 +1,38 @@
 # かくれんぼ (paizaランク B 相当)
 # https://paiza.jp/works/mondai/dag_memoization_search/dag_memoization__problems_step7
 
+INPUT1 = <<"EOS"
+6 5
+1 2
+1 3
+2 4
+2 5
+3 6
+EOS
+OUTPUT1 = <<"EOS"
+4
+EOS
+
+# 入力
+input_lines = INPUT1.split("\n")
+n, m = input_lines.shift.split.map(&:to_i)
+st = input_lines.shift(m).map { |e| e.split.map(&:to_i) }
+
+# 隣接リスト
+ad_list = Array.new(n) { [] }
+st.each do |s, t|
+  ad_list[s - 1] <<= t - 1
+  ad_list[t - 1] <<= s - 1
+end
+
+# 行き止まりの部屋から調べる
+tr = ad_list.each_index.select { |i| ad_list[i].length == 1 }
+search_list = tr.map { |e| [0, e] }
+searched = Array.new(n)
+num_of_doors = 0
+
+p search_list
+
 =begin
 京子ちゃんはこれから友達とかくれんぼをしようとしています。
 かくれんぼのフィールドは N 個の部屋でおこなわれ、部屋 S_i と部屋 T_i は扉を介してつながっています。かくれんぼの会場は非常に特殊で、
