@@ -38,7 +38,7 @@ def solve(input_lines)
   ary_k.map { |k| dp[k - 1] }
 end
 
-puts solve(STDIN.read)
+puts solve(INPUT2)
 
 # 確認用コード
 # puts solve(INPUT1)
