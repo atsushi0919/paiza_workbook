@@ -1,11 +1,31 @@
+# 完全数 (paizaランク C 相当)
+# https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__divisor_perfect_number
+
+# 昇順で約数列挙
+def enumrate_divisors(n)
+  res = []
+  (1..n ** 0.5).each do |i|
+    if n % i == 0
+      res << i
+      res << n / i if i != n / i
+    end
+  end
+  res.sort
+end
+
+# 入力
+n = gets.to_i
+
+# 約数列挙
+divisors = enumrate_divisors(n)
+
+# 完全数の判定結果を出力
+puts divisors.sum / 2 == n ? "Yes" : "No"
+
 =begin
- 完全数 (paizaランク C 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
-https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__divisor_perfect_number
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
 整数 N が与えられるので、N が完全数かどうか判定してください。
 
 完全数とは、ある整数 N の約数のうち、N を抜いた約数の和が N に等しくなる数のことを指します。

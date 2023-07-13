@@ -16,7 +16,7 @@ n.downto(2) do |i|
   end
 end
 
-# 出力
+# n 以下の素数で最も大きいものを出力
 puts prime_number
 
 =begin

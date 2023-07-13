@@ -9,7 +9,7 @@ a, b = gets.split.map(&:to_i)
 # a 以上 b 以下の素数をリストアップする
 prime_numbers = (a..b).select { |n| Prime.prime?(n) }
 
-# 出力
+# 素数の数を出力
 puts prime_numbers.length
 
 

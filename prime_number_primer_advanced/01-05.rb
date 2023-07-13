@@ -18,7 +18,7 @@ near_prime = if Prime.prime?(n)
     false
   end
 
-# 出力
+# ニア素数の判定結果を出力
 puts near_prime ? "Yes" : "No"
 
 =begin

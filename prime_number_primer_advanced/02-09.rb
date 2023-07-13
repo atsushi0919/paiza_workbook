@@ -1,12 +1,15 @@
-=begin
-  すごいリンゴ (paizaランク C 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# すごいリンゴ (paizaランク C 相当)
+# https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__money_common
 
-シェア用URL:
-https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__money_common
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-三人はそれぞれ A 円、B 円、C 円持っています。三人はそれぞれが持っている所持金でリンゴを買って、自分自身の持っている所持金を使い切りたいと思っています。
+# 入力
+abc = gets.split.map(&:to_i)
+
+# a, b, c の最大公約数を出力
+puts abc.inject { |res, n| res.gcd n }
+
+=begin
+三人はそれぞれ A 円、B 円、C 円持っています。
+三人はそれぞれが持っている所持金でリンゴを買って、自分自身の持っている所持金を使い切りたいと思っています。
 
 そのリンゴの値段が x 円であるとき、x の最大値を求めてください。
 

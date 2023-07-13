@@ -16,7 +16,7 @@ while i <= n ** 0.5
 end
 factors << n
 
-# 出力
+# 因数分解した結果を出力
 puts factors
 
 =begin

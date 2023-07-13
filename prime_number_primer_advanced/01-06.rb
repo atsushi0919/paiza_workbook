@@ -16,7 +16,7 @@ abc.combination(2).each do |x, y|
   end
 end
 
-# 出力
+# 判定結果を出力
 puts prime ? "Yes" : "No"
 
 =begin

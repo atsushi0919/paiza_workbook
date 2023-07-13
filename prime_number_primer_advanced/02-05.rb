@@ -1,12 +1,70 @@
-=begin
- 複数の整数の約数列挙 (paizaランク C 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# 複数の整数の約数列挙 (paizaランク C 相当)
+# https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__divisor_show_multi
 
-シェア用URL:
-https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__divisor_show_multi
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
-整数 N と N 個の整数 A_1, A_2, ..., A_N が与えられるので、A_1, A_2, ..., A_N のそれぞれについて約数を全て列挙してください。
+INPUT1 = <<"EOS"
+5
+10
+20
+30
+40
+50
+EOS
+OUTPUT1 = <<"EOS"
+1 2 5 10
+1 2 4 5 10 20
+1 2 3 5 6 10 15 30
+1 2 4 5 8 10 20 40
+1 2 5 10 25 50
+EOS
+
+INPUT2 = <<"EOS"
+3
+120
+240
+360
+EOS
+OUTPUT2 = <<"EOS"
+1 2 3 4 5 6 8 10 12 15 20 24 30 40 60 120
+1 2 3 4 5 6 8 10 12 15 16 20 24 30 40 48 60 80 120 240
+1 2 3 4 5 6 8 9 10 12 15 18 20 24 30 36 40 45 60 72 90 120 180 360
+EOS
+
+INPUT3 = <<"EOS"
+3
+12345
+67891
+96385
+EOS
+OUTPUT3 = <<"EOS"
+1 3 5 15 823 2469 4115 12345
+1 67891
+1 5 37 185 521 2605 19277 96385
+EOS
+
+# 昇順で約数列挙
+def enumrate_divisors(n)
+  res = []
+  (1..n ** 0.5).each do |i|
+    if n % i == 0
+      res << i
+      res << n / i if i != n / i
+    end
+  end
+  res.sort
+end
+
+# 入力
+_, *a = $stdin.read.split.map(&:to_i)
+
+# 数列の約数を列挙
+res = a.map { |a_i| enumrate_divisors(a_i) }
+
+# 数列の約数を出力
+puts res.map { |l| l.join(" ") }.join("\n")
+
+=begin
+整数 N と N 個の整数 A_1, A_2, ..., A_N が与えられるので、
+A_1, A_2, ..., A_N のそれぞれについて約数を全て列挙してください。
 
 整数 N の約数とは、N を割り切る整数、またはその集合のことを指します。
 
@@ -32,7 +90,8 @@ divisor_1_(A_2) divisor_2_(A_2) ...
 ...
 divisor_1_(A_N) divisor_2_(A_N) ...
 
-N 個の整数 A_1, A_2, ..., A_N についてそれぞれ約数を求め、i 行目に A_i の約数を小さい方から順に半角スペース区切りで出力してください
+N 個の整数 A_1, A_2, ..., A_N についてそれぞれ約数を求め、
+i 行目に A_i の約数を小さい方から順に半角スペース区切りで出力してください
 
 末尾に改行を入れ、余計な文字、空行を含んではいけません。
 
@@ -42,7 +101,6 @@ N 個の整数 A_1, A_2, ..., A_N についてそれぞれ約数を求め、i �
 ・ 1 ≦ N ≦ 100
 
 ・ 1 ≦ A_i ≦ 1,000,000 (1 ≦ i ≦ N)
-
 
 入力例1
 5

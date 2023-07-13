@@ -1,11 +1,22 @@
-=begin
-  約数列挙 (paizaランク C 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# 約数列挙 (paizaランク C 相当)
+# https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__divisor_show
 
-シェア用URL:
-https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__divisor_show
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
+# 入力
+n = gets.to_i
+
+# 約数列挙
+res = []
+(1..n ** 0.5).each do |i|
+  if n % i == 0
+    res << i
+    res << n / i if i != n / i
+  end
+end
+
+# n の約数を昇順で出力
+puts res.sort
+
+=begin
 整数 N が与えられるので、N の約数を全て列挙してください。
 
 また、約数は昇順で出力してください。

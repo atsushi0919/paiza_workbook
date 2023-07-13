@@ -1,12 +1,20 @@
+# 最大公約数と最小公倍数 (paizaランク C 相当)
+# https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__race_common
+
+# 入力
+abc = gets.split.map(&:to_i)
+
+# a, b, c の最小公倍数を出力
+puts abc.inject { |res, n| res.lcm n }
+
 =begin
-  最大公約数と最小公倍数 (paizaランク C 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
-https://paiza.jp/works/mondai/prime_number_primer_advanced/prime_number_primer_advanced__race_common
 問題文のURLをコピーする
  下記の問題をプログラミングしてみよう！
-三人の選手が、それぞれ A 秒、B 秒、C 秒でトラックを一周します。この三人がスタートしてから、もう一度同時にスタートラインを通過するのはスタートしてから何秒後でしょうか？
+三人の選手が、それぞれ A 秒、B 秒、C 秒でトラックを一周します。
+この三人がスタートしてから、もう一度同時にスタートラインを通過するのはスタートしてから何秒後でしょうか？
 
 トラックを一周する秒数は常に一定であり、A 秒、B 秒、C 秒より遅く周回したり早く周回するといったことはありません。
 

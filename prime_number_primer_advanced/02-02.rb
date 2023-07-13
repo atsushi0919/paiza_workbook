@@ -32,37 +32,25 @@ OUTPUT3 = <<"EOS"
 3 131040
 EOS
 
-def prime_factorization(n)
-  factors = []
-  i = 2
-  while i <= n ** 0.5
-    while n > i && n % i == 0
-      factors << i
-      n /= i
-    end
-    i += 1
-  end
-  factors << n
+# 最大公約数
+def gcd(a, b)
+  a, b = b, a if a < b
+  while b != 0 do a, b = b, a % b end
+  a
 end
 
-# _, *a = $stdin.read.split.map(&:to_i)
-_, *a = INPUT3.split.map(&:to_i)
+# 最小公倍数
+def lcm(a, b) = (a * b) / gcd(a, b)
 
-# a_i を素因数分解する
-factors_list = a.map { |n| prime_factorization(n) }
-p factors_list
+# 入力
+_, *a = $stdin.read.split.map(&:to_i)
 
-# lcm, gcd を求める
-lcm_factors = factors_list.inject(:&)
-gcd_factors = factors_list
-  .inject([]) { |r, f| (r + f) }
-  .delete_if { |gf| lcm_factors.include? gf }.concat lcm_factors
-lcm, gcd = [lcm_factors, gcd_factors].map { |f| f.inject(:*) }
+# 数列の最大公約数・最小公倍数を求める
+gcd_a = a.inject { |res, a_i| res.gcd a_i }
+lcm_a = a.inject { |res, a_i| res.lcm a_i }
 
-p gcd_factors
-
-# 出力
-puts [lcm, gcd].join(" ")
+# 最大公約数・最小公倍数を出力
+puts [gcd_a, lcm_a].join(" ")
 
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
@@ -72,7 +60,8 @@ puts [lcm, gcd].join(" ")
  下記の問題をプログラミングしてみよう！
 整数 N と N 個の整数 A_1, ..., A_N が与えられるので、A_1, ..., A_N の最大公約数と最小公倍数を求めてください。
 
-最大公約数とは、複数個の整数に共通する約数のうち最大のものを指します。また、最小公倍数とは複数個の整数に共通する倍数のうち、最小のものを指します。
+最大公約数とは、複数個の整数に共通する約数のうち最大のものを指します。
+また、最小公倍数とは複数個の整数に共通する倍数のうち、最小のものを指します。
 
 
 
