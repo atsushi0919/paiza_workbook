@@ -3,11 +3,11 @@
 
 x, y = gets.split.map(&:to_i)
 
-c1 = [x, y].min * 2
-d = (x - y).abs
-c2 = d == 0 ? 0 : (d - 1) * 2 + 1
+diff = (x - y).abs
+step = [x, y].min * 2
+step += (diff - 1) * 2 + 1 if diff > 0
 
-puts c1 + c2
+puts step
 
 =begin
 2 次元グリッドにおいて、ロボットは(0,0)の初期位置から目標地点(x,y)まで移動したいです。

@@ -1,11 +1,11 @@
 # 残業時間 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_011/forest_contest_011__c_overwork
 
-HOURS = 8
-DAYS = 30
+H = 8
+D = 30
 m = $stdin.read.split.map(&:to_i)
 
-puts m.sum - (HOURS * DAYS)
+puts m.sum - (H * D)
 
 =begin
 一般的な勤務体系の場合、1日8時間を超えて働くと、「残業」となります。

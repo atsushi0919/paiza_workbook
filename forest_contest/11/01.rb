@@ -1,9 +1,14 @@
 # お菓子の合計金額 (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_011/forest_contest_011__d_snack
 
-a, b = gets.split.map(&:to_i)
+INPUT1 = <<"EOS"
+10 20
+EOS
+OUTPUT1 = <<"EOS"
+30
+EOS
 
-puts a + b
+puts gets.split.map(&:to_i).sum
 
 =begin
 2 種類のお菓子の値段はそれぞれ a, b 円です。2 種類のお菓子を 1 つずつ購入したときの合計金額を求めてください。
