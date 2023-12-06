@@ -1,5 +1,5 @@
-# 問題 7 : 文字列検索 3 (paizaランク A 相当)
-# https://paiza.jp/works/mondai/mp_kmp_algorithm/mp_kmp_algorithm__a_little_fast_boss
+# 問題 9 : 文字列検索 4 (paizaランク S 相当)
+# https://paiza.jp/works/mondai/mp_kmp_algorithm/mp_kmp_algorithm__mp_step2
 
 INPUT1 = <<"EOS"
 ask
@@ -61,7 +61,8 @@ def kmp(t, s)
 end
 
 # 入力
-s, t = $stdin.read.split
+s, t = INPUT1.split
+# s, t = $stdin.read.split
 
 # 部分一致か？
 partial_match = kmp(t, s)
@@ -70,26 +71,6 @@ partial_match = kmp(t, s)
 puts partial_match ? "Yes" : "No"
 
 =begin
-def kmp(s, t):
-    matched_indices = []
-    tbl = make_kmp_table(t)
-    i = 0
-    j = 0
-    n = len(s)
-    m = len(t)
-    while i + j < n:
-        if t[j] == s[i + j]:
-            j += 1
-            if j == m:
-                matched_indices.append(i)
-                i += j - tbl[j]
-                j = tbl[j]
-        else:
-            i += j - tbl[j]
-            if j > 0:
-                j = tbl[j]
-    return matched_indices
-
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
@@ -123,11 +104,11 @@ T
 期待する出力
 S が T の部分文字列のうちいずれかと一致するなら Yes を、そうでないなら No を一行で出力してください。
 ただし、末尾には改行を入れ、
-余分な文字や空白、空行を出力しないようにしてください。
+余計な文字や空白、空行を出力しないようにしてください。
 
 条件
 すべてのテストケースにおいて、以下の条件をみたします。
-・1 ≦ |S| ≦ 5000
+・1 ≦ |S| ≦ 10^6
 ・1 ≦ |T| ≦ 2×10^6
 ・|S| ≦ |T|
 ・|S|, |T| はそれぞれ文字列 S の長さと文字列 T の長さを表します。

@@ -1,5 +1,5 @@
-# 問題 6 : 一致する接頭辞と接尾辞 4 (paizaランク A 相当)
-# https://paiza.jp/works/mondai/mp_kmp_algorithm/mp_kmp_algorithm__a_little_fast_step1
+# 問題 8 : 一致する接頭辞と接尾辞 5 (paizaランク S 相当)
+# https://paiza.jp/works/mondai/mp_kmp_algorithm/mp_kmp_algorithm__mp_step1
 
 INPUT1 = <<"EOS"
 11
@@ -44,7 +44,8 @@ def kmp_table(s)
 end
 
 # 入力
-_, s = $stdin.read.split
+_, s = INPUT1.split
+# _, s = $stdin.read.split
 
 # 処理
 table = kmp_table(s)
@@ -53,76 +54,7 @@ table = kmp_table(s)
 puts table[1..].join("\n")
 
 =begin
-def make_kmp_table(t):
-    i = 2
-    j = 0
-    m = len(t)
-    tbl = [0] * (m + 1)
-    tbl[0] = -1
-    while i <= m:
-        if t[i - 1] == t[j]:
-            tbl[i] = j + 1
-            i += 1
-            j += 1
-        elif j > 0:
-            j = tbl[j]
-        else:
-            tbl[i] = 0
-            i += 1
-    return tbl
- 
- 
-def kmp(s, t):
-    matched_indices = []
-    tbl = make_kmp_table(t)
-    i = 0
-    j = 0
-    n = len(s)
-    m = len(t)
-    while i + j < n:
-        if t[j] == s[i + j]:
-            j += 1
-            if j == m:
-                matched_indices.append(i)
-                i += j - tbl[j]
-                j = tbl[j]
-        else:
-            i += j - tbl[j]
-            if j > 0:
-                j = tbl[j]
-    return matched_indices
-
-def mp_naive_n2(s)
-  mp = Array.new(s.size + 1, -1)
-  mp[0] = -1
-  mp[1] = 0
-  (2..(s.size)).each do |i|
-    if (s[mp[i - 1]] == s[i - 1])
-      mp[i] = mp[i - 1] + 1
-    else
-      prefix_r = mp[i - 1]
-      while (prefix_r > 0)
-        is_same = true
-        (0..(prefix_r - 1)).each do |j|
-          if (s[j] != s[i - prefix_r + j])
-            is_same = false
-            break
-          end
-        end
-        break if (is_same)
-        prefix_r -= 1
-      end
-      mp[i] = prefix_r
-    end
-  end
-  return mp
-end
-
-N = gets.to_i
-S = gets.chomp
-
-ans = mp_naive_n2(S)
-(1..N).each { |i| puts ans[i] }
+問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
 問題文のURLをコピーする
@@ -138,6 +70,12 @@ S の 1 文字目から i 文字目までの部分文字列は aabaa なので�
 ・接頭辞 : { φ, a, aa, aab, aaba }
 ・接尾辞 : { φ, a, aa, baa, abaa }
 となります。接頭辞かつ接尾辞である文字列は φ, a, aa の 3 つなので、答えは aa の長さである 2 となります。
+
+ヒント :
+以下にアルゴリズムの方針を軽く示すので、参考にしてください。
+i 文字目までの部分文字列に対する答えを dp_i とします。
+
+i 文字目までの部分文字列が一致するためには、画像の赤い部分が一致する必要があることに注意すると、何かが見えてくるかもしれません。
 
 ▼　下記解答欄にコードを記入してみよう
 
@@ -161,7 +99,7 @@ i 行目に
 
 条件
 すべてのテストケースにおいて、以下の条件を満たします。
-・2 ≦ N ≦ 5000
+・2 ≦ N ≦ 1000000
 ・S は英小文字のみからなる文字列
 
 入力例1
