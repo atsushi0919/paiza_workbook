@@ -1,20 +1,19 @@
-# log2 A
+# log2
+# https :/ / paiza.jp / works / mondai / double_roop_problems / double_roop_problems__log2
+
 
 INPUT1 = "4"
 OUTPUT1 = "3"
 
-n = gets.to_i
-
-count = 0
-(1..n).each do |i|
-  t = i
-  while t % 2 == 0
-    t /= 2
-    count += 1
+n=gets.to_i
+c=0
+(1..n).each{|i|
+  while i%2==0
+    i/=2
+    c+=1
   end
-end
-
-puts count
+}
+p c
 
 =begin
 n = int(input())

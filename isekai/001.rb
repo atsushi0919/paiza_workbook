@@ -1,19 +1,12 @@
 # スーパー鳩時計
+# https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__cuckoo_clock
 
-(0..23).each do |h|
-  (0..59).each do |m|
-    t = h + m
-    if t % 15 == 0
-      puts "FIZZBUZZ"
-    elsif t % 3 == 0
-      puts "FIZZ"
-    elsif t % 5 == 0
-      puts "BUZZ"
-    else
-      puts
-    end
-  end
-end
+(0..23).each {|h|
+  (0..59).each {|m|
+    i=(h+m)**4% -15
+    puts "FIZZBUZZ\n"[i,i + 13]
+  }
+}
 
 =begin
 普通の鳩時計は 1 時間に 1 回しか鳴かないのでつまらないと思ったあなたは、鳩時計を改造してスーパー鳩時計を作りました。

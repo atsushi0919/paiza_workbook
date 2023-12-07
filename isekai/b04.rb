@@ -12,39 +12,26 @@ OUTPUT1 = <<"EOS"
 ###
 EOS
 
-DIR = [
-  [-1, 0],  # U
-  [-1, 1],  # UR
-  [0, 1],   # R
-  [1, 1],   # DR
-  [1, 0],   # D
-  [1, -1],  # DL
-  [0, -1],  # L
-  [-1, -1], # UL
-]
-
-input_lines = $stdin.read.split("\n")
-h, w = input_lines.shift.split.map(&:to_i)
-s = input_lines.shift(h).map(&:chars)
-
-(0...h).each do |y|
-  (0...w).each do |x|
-    if s[y][x] == "."
-      bombs = 0
-      DIR.each do |dy, dx|
-        ny = y + dy
-        nx = x + dx
-        next if ny < 0 || h - 1 < ny
-        next if nx < 0 || w - 1 < nx
-
-        bombs += 1 if s[ny][nx] == "#"
-      end
-      s[y][x] = bombs
+D=[[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]]
+t=*$<
+h,w=t.shift.split.map &:to_i
+s=t.map &:chars
+(0...h).each{|y|
+  (0...w).each{|x|
+    if s[y][x]=="."
+      b=0
+      D.each{|dy,dx|
+        ny=y+dy;nx=x+dx
+        next if ny<0||h-1<ny
+        next if nx<0||w-1<nx
+        b+=1 if s[ny][nx]=="#"
+      } 
+      s[y][x]=b
     end
-  end
-end
+  }
+}
 
-puts s.map { |l| l.join }.join("\n")
+puts s.map(&:join)
 
 =begin
 あなたはボスの本拠地に乗り込みました。ボスの本拠地には爆弾が設置されているようです。

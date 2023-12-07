@@ -1,4 +1,5 @@
 # 辞書
+# https://paiza.jp/works/mondai/c_rank_level_up_problems/c_rank_dictionary_boss
 
 INPUT1 = <<"EOS"
 2 2 2
@@ -25,13 +26,11 @@ OUTPUT2 = <<"EOS"
 2 4
 EOS
 
-input_lines = $stdin.read.split("\n")
-
-a, b, c = input_lines.shift.split.map(&:to_i)
-a_to_b = input_lines.shift(a).map { |l| l.split.map(&:to_i) }.to_h
-b_to_c = input_lines.shift(b).map { |l| l.split.map(&:to_i) }.to_h
-
-puts a_to_b.map { |k, v| [k, b_to_c[v]] }.sort.map { |l| l.join(" ") }
+t=$<.read.split "\n"
+a,b,c=t.shift.split.map &:to_i
+d=t.shift(a).map{|l|l.split.map &:to_i}.to_h
+e=t.shift(b).map{|l|l.split.map &:to_i}.to_h
+puts d.map{|k,v|[k,e[v]]}.sort.map{|l|l.join " "}
 
 =begin
 

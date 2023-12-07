@@ -1,4 +1,5 @@
 # 卵 区間和
+# https://paiza.jp/works/mondai/forest_contest_009/forest_contest_009__b_egg3
 
 INPUT1 = <<"EOS"
 4 2
@@ -9,15 +10,12 @@ OUTPUT1 = <<"EOS"
 11
 EOS
 
-n, k, *a = $stdin.read.split.map(&:to_i)
-
-s = [0]
-a.each { |a_i| s << s[-1] + a_i }
-
-ans = -1
-k.upto(n) { |i| ans = [ans, s[i] - s[i - k]].max }
-
-puts ans
+n,k,*a=$<.read.split.map &:to_i
+s=[0]
+a.each{|e|s<<s[-1]+e}
+r=-1
+k.upto(n) {|i|r=[r,s[i]-s[i-k]].max}
+p r
 
 =begin
 n 日間で i 日目に a_i 個 (1 ≦ i ≦ n) の卵を産むニワトリがいます。ここで連続した k 日間 (k ≦ n) ニワトリから卵を貰える権利が与えられるとき、

@@ -1,4 +1,4 @@
-# 区間和 A
+# 区間和
 
 INPUT1 = <<"EOS"
 4 2
@@ -14,15 +14,13 @@ OUTPUT1 = <<"EOS"
 104
 EOS
 
-input_lines = $stdin.read.split("\n")
-n, k = input_lines.shift.split.map(&:to_i)
-a = input_lines.shift(n).map(&:to_i)
-lr = input_lines.shift(k).map { |l| l.split.map(&:to_i) }
-
-s = [0]
-a.each { |a_i| s << s[-1] + a_i }
-
-puts lr.map { |l, r| s[r] - s[l - 1] }.join("\n")
+t=*$<
+n,k=t.shift.split.map &:to_i
+a=t.shift(n).map &:to_i
+e=t.map{|l|l.split.map &:to_i}
+s=[0]
+a.each{|x|s<<s[-1]+x}
+puts e.map {|l,r|s[r]-s[l-1]}
 
 =begin
 長さ N の数列 A と、K 個の区間 (l_1,r_1) ... (l_K,r_K) が与えられるので、

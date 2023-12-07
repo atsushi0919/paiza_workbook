@@ -1,4 +1,5 @@
 # ソートと検索 (query)
+# https://paiza.jp/works/mondai/query_primer/query_primer__sort_find_multi
 
 INPUT1 = <<"EOS"
 3 3 176
@@ -45,29 +46,28 @@ OUTPUT2 = <<"EOS"
 6
 EOS
 
-input_lines = $stdin.read.split("\n")
-n, k, paiza = input_lines.shift.split.map(&:to_i)
-a = input_lines.shift(n).map(&:to_i) << paiza
-q = input_lines.shift(k)
-
-q.each do |event|
-  if event.include?("join")
-    a << event.split[-1].to_i
+t=*$<
+n,k,z = t.shift.split.map(&:to_i)
+a = t.shift(n).map(&:to_i)<<z
+q = t.shift(k)
+q.each{|e|
+  if e.include? "join"
+    a<<e.split[-1].to_i
   else
     a.sort!
-    puts a.index(paiza) + 1
+    p a.index(z)+1
   end
-end
+}
 
 =begin
-paiza 君のクラスには paiza 君を含めて N + 1 人の生徒がいます。paiza 君の身長は P cm で、他の N 人の生徒の身長はそれぞれ A_1 ... A_N です。
+z 君のクラスには z 君を含めて N + 1 人の生徒がいます。z 君の身長は P cm で、他の N 人の生徒の身長はそれぞれ A_1 ... A_N です。
 このクラスには次のようなイベントが合計 K 回起こります。
 それぞれのイベントは以下のうちのいずれかです。
 
 ・転校生がクラスに加入する
 ・全員で背の順に並ぶ
 
-全員で背の順で並ぶイベントが起こるたびに、そのとき paiza 君は前から何番目に並ぶことになるかを出力してください。
+全員で背の順で並ぶイベントが起こるたびに、そのとき z 君は前から何番目に並ぶことになるかを出力してください。
 
 入力される値
 入力は標準入力にて以下のフォーマットで与えられます。
@@ -80,12 +80,12 @@ A_1
 
 A_N
 
-event_1
+e_1
 
 ...
 
-event_K
-・1 行目では、paiza 君を除いたクラスの人数 N と起こるイベントの回数 K と paiza君の身長 P が与えられます。
+e_K
+・1 行目では、z 君を除いたクラスの人数 N と起こるイベントの回数 K と z君の身長 P が与えられます。
 ・続く N 行では、初めにクラスにいる N 人の生徒の身長が与えられます。
 ・続く K 行では、起こるイベントを表す文字列が与えられます。
 
@@ -93,8 +93,8 @@ event_K
 ・1 ≦ N , K ≦ 100,000
 ・100 ≦ P ≦ 200
 ・100 ≦ A_i ≦ 200 (1 ≦ i ≦ N)
-・転校生を含め、クラスの中で P cm の生徒は paiza 君のみであることが保証されている
-・event_i (1 ≦ i ≦ K) は以下のいずれかの形式で与えられる。
+・転校生を含め、クラスの中で P cm の生徒は z 君のみであることが保証されている
+・e_i (1 ≦ i ≦ K) は以下のいずれかの形式で与えられる。
 
 
 join num
@@ -103,9 +103,9 @@ join num
 sorting
 
 生徒が背の順に並ぶことを表す
-この入力が与えられるたび、paiza 君が背の順で前から何番目に並ぶことになるかを出力してください。
+この入力が与えられるたび、z 君が背の順で前から何番目に並ぶことになるかを出力してください。
 出力される値
-・全員で背の順で並ぶイベントが起こるたびに、paiza 君が前から何番目に並ぶことになるかを出力してください。
+・全員で背の順で並ぶイベントが起こるたびに、z 君が前から何番目に並ぶことになるかを出力してください。
 ・また、出力の末尾には改行を入れてください。
 
 入力例

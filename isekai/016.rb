@@ -1,18 +1,15 @@
-(1..100).each do |n|
-  if n % 15 == 0
-    puts "FizzBuzz"
-  elsif n % 3 == 0
-    puts "Fizz"
-  elsif n % 5 == 0
-    puts "Buzz"
-  else
-    puts n
-  end
-end
+# FizzBuzz
+
+
+(1..100).each {|n|
+  i=n**4% -15
+  puts "FizzBuzz\n"[i,i+13]||n
+}
 
 =begin
-FizzBuzz
-1 ~ 100 の整数に対して、3 と 5 の両方で割り切れるなら FizzBuzz を、 3 でのみ割り切れるなら Fizz 、5 でのみ割り切れるなら Buzz を改行区切りで出力してください。また、どちらでも割り切れない場合は、その数字を改行区切りで出力してください。
+1 ~ 100 の整数に対して、3 と 5 の両方で割り切れるなら FizzBuzz を、
+3 でのみ割り切れるなら Fizz 、5 でのみ割り切れるなら Buzz を改行区切りで出力してください。
+また、どちらでも割り切れない場合は、その数字を改行区切りで出力してください。
 
 1
 

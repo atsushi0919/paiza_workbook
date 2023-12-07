@@ -1,18 +1,18 @@
 # 二重ループ：活用編 三角形の探索
+# https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__triangle
 
-r_tri = false
-n = gets.to_i
-(1...(n - 1)).each do |i|
-  (1...(n - i)).each do |j|
-    if i ** 2 + j ** 2 == (n - i - j) ** 2
-      r_tri = true
+t=false
+n=gets.to_i
+(1...(n-1)).each{|i|
+  (1...(n-i)).each{|j|
+    if i**2+j**2==(n-i-j)**2
+      t=!t
       break
     end
-  end
-  break if r_tri
-end
-
-puts r_tri ? "YES" : "NO"
+  }
+  t&&break
+}
+puts t ? "YES" : "NO"
 
 =begin
 flag = False

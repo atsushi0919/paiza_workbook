@@ -1,4 +1,6 @@
-# シミュレーションの練習 S
+# シミュレーションの練習
+# https://paiza.jp/works/mondai/c_rank_level_up_problems/c_rank_simulation_step2
+
 
 INPUT1 = <<"EOS"
 6
@@ -8,17 +10,14 @@ OUTPUT1 = <<"EOS"
 2
 EOS
 
-n, a, b = $stdin.read.split.map(&:to_i)
-
-paiza = kyoko = 1
-count = 0
-while kyoko <= n
-  kyoko += paiza * a
-  paiza += kyoko % b
-  count += 1
+n,a,b= $<.read.split.map &:to_i
+z=k=1;i=0
+while k<=n
+  k+=z*a
+  z+=k%b
+  i+=1
 end
-
-puts count
+p i
 
 =begin
 パイザ君と霧島京子は最初どちらも数 1 をもっています。パイザ君は自分の番が来ると、自分のもっている数の a 倍を霧島京子の数に足してあげます。

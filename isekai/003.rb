@@ -1,4 +1,5 @@
 # お金の支払い
+# https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__payment
 
 INPUT1 = <<"EOS"
 500 1000 300
@@ -14,25 +15,19 @@ OUTPUT2 = <<"EOS"
 300
 EOS
 
-*a, z = gets.split.map(&:to_i)
-(a << 1).select! { |c| c <= z }
+*a,z=gets.split.map(&:to_i)
+(a<<1).select!{|c|c<=z}
 
-len = a.length
-dp = Array.new(len + 1) { Array.new(z + 1, 9999) }
-dp[0][0] = 0
+l=a.size
+t=Array.new(l+1){Array.new(z+1,9999)}
+t[0][0]=0
 
-1.upto(len) do |i|
-  coin = a[i - 1]
-  0.upto(z) do |j|
-    if j < coin
-      dp[i][j] = dp[i - 1][j]
-    else
-      dp[i][j] = [dp[i][j - coin] + 1, dp[i - 1][j]].min
-    end
-  end
-end
+1.upto(l){|i|
+  c = a[i-1]
+  0.upto(z){|j|t[i][j]=j<c ? t[i-1][j]:[t[i][j-c]+1,t[i-1][j]].min}
+}
 
-puts dp[-1][-1]
+p t[-1][-1]
 
 =begin
 paiza国では、1 円と X 円と Y 円の 3 種類の硬貨しかありません。

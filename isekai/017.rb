@@ -1,4 +1,5 @@
-# 行列の転置 A
+# 行列の転置
+# https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__transposition
 
 INPUT1 = <<"EOS"
 2 3
@@ -11,9 +12,8 @@ OUTPUT1 = <<"EOS"
 3 6
 EOS
 
-_, *a = $stdin.read.split("\n").map { |l| l.split.map(&:to_i) }
-
-puts a.transpose.map { |l| l.join(" ") }.join("\n")
+_,*a=$<.read.split("\n").map {|l|l.split.map &:to_i}
+puts a.transpose.map{|l|l.join " "}
 
 =begin
 N 行 K 列の行列 A の i 行 j 列 の要素 A_ij を A_ji とした K 行 N 列の行列を元の配列 A の転置行列と言います。

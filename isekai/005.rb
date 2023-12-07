@@ -1,12 +1,8 @@
 # 条件を満たす最小の自然数
 
-n = 10000
-loop do
-  break if n % 13 == 0
-  n += 1
-end
-
-puts n
+n=10000
+n+=1 until n%13==0
+p n
 
 =begin
 条件を満たす最小の自然数

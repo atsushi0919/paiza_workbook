@@ -1,15 +1,9 @@
 # 格子点
+# https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__grid_point
 
-max_xy = 0
-(1..98).each do |x|
-  (1..99 - x).each do |y|
-    if x ** 3 + y ** 3 < 100_000
-      max_xy = [max_xy, x * y].max
-    end
-  end
-end
-
-puts max_xy
+m=0
+(1..98).each{|x|(1..99-x).each{|y|m=[m,x*y].max if x**3+y**3<100000}}
+p m
 
 =begin
 x + y < 100 かつ (x ^ 3) + (y ^ 3) < 100000 が成り立つような正の整数 x , y について x × y の最大値を求めてください。
