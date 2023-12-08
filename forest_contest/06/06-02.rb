@@ -49,15 +49,7 @@ OUTPUT3 = <<"EOS"
 7
 EOS
 
-k,*a=$<.read.split.map &:to_i
-l=nil
-n=0
-(0..9).each{|i|
-  n+=a[i]
-  if n>k
-    l
-  end
-}
+k,*a=$<.map &:to_i;l=nil;n=0;(0..8).each{|i|n+=a[i];l=i+1 if n>k;break if l};puts l||"Yes"
 
 =begin
 # 解答例1-1

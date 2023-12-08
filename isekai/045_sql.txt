@@ -1,6 +1,5 @@
 SELECT * FROM ordered_menu ORDER BY num DESC;
 
-=begin
 注文数の降順に並べ替えよう
 注文内容が、ordered_menu テーブルに保存されています。
 ordered_menu テーブルの形式は次の通りです。
@@ -16,4 +15,3 @@ ordered_menu テーブルの形式は次の通りです。
 
 ・ SELECT * FROM テーブル名: テーブル名 テーブルのすべてのレコードを取得することができる
 ・ ORDER BY カラム名 DESC: カラム名 カラムの値の降順に並べ替えることができる
-=end

@@ -13,7 +13,7 @@ OUTPUT1 = <<"EOS"
 Yes
 EOS
 
-_,k,*a=$<.read.split.map &:to_i;puts a.sum<k ? "Yes" : "No"
+_,k,*a=`dd`.split.map &:to_i;puts a.sum<k ? "Yes" : "No"
 
 =begin
 # 解答例1-1

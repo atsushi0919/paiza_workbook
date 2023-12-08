@@ -12,6 +12,9 @@ OUTPUT1 = <<"EOS"
 37
 EOS
 
+p $<.map(&:to_i).minmax.inject(:-).abs
+
+=begin
 # 解答例1-1
 n = 5
 a = n.times.map { gets.to_i }
@@ -32,3 +35,4 @@ a = $stdin.read.split.map(&:to_i)
 min_sc, max_sc = a.minmax
 
 puts max_sc - min_sc
+=end

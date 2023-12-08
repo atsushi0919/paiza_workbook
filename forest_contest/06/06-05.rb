@@ -12,6 +12,9 @@ EOS1 = <<"EOS"
 65
 EOS
 
+p $<.read.split.map(&:to_i).sort[2]
+
+=begin
 # 解答例1-1
 n = 5
 a = n.times.map { gets.to_i }
@@ -30,3 +33,4 @@ a.sort!
 l = a.length
 
 puts l.odd? ? a[l / 2] : (a[l / 2 - 1] + a[l / 2]) / 2.0
+=end

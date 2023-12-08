@@ -2,7 +2,6 @@
 
 SELECT * FROM category ORDER BY name;
 
-=begin
 category_id int
 name        varchar
 
@@ -19,4 +18,3 @@ category テーブルの形式は次の通りです。
 
 ・ SELECT * FROM テーブル名: テーブル名 テーブルのすべてのレコードを取得することができる
 ・ ORDER BY カラム名: カラム名 カラムの値の昇順に並べ替えることができる
-=end

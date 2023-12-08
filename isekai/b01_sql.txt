@@ -1,7 +1,10 @@
+# 総攻撃
+
 SELECT user_id,SUM(count*damage) AS inventory_sum_damage
 FROM Inventories
 JOIN Items ON item_id = id
 GROUP BY user_id;
+
 
 Inventories
 user_id varchar(6)
@@ -18,8 +21,6 @@ name    text
 damage  int(11)
 
 
-
-総攻撃
 あなたは仲間たちの所持している攻撃アイテムで敵に総攻撃を仕掛けることにしましたが各仲間たちが合計で何ダメージ出せるかを計算することになりました。
 
 Inventories テーブルから Items テーブルの damage を参照し count を掛けたものを

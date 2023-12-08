@@ -8,6 +8,9 @@ OUTPUT1 = <<~"EOS"
   8
 EOS
 
+p gets.split.map{|l|l.to_i.abs}.sum
+
+=begin
 # 解答例1-1
 sx = 0  # スタート座標 x
 sy = 0  # スタート座標 y
@@ -24,3 +27,4 @@ puts x.abs + y.abs
 
 # 解答例1-3
 puts gets.split.map { |v| v.to_i.abs }.sum
+=end

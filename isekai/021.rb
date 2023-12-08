@@ -51,8 +51,7 @@ q.each{|e|
   if e.include? "join"
     a<<e.split[-1].to_i
   else
-    a.sort!
-    p a.index(z)+1
+    a.sort!;p a.index(z)+1
   end
 }
 

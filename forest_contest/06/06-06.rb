@@ -12,6 +12,14 @@ OUTPUT1 = <<"EOS"
 3
 EOS
 
+h={"c":2,"i":-1,"m":0}
+a=`dd`.split[1..]
+b=a.map{|x| x[0]}
+p b
+
+# p `dd`.split[1..].map{|x|case x[0];when "c";2;when "i";-1;else;0;end}.sum
+
+=begin
 # 解答例1
 n = gets.to_i
 a = n.times.map { gets.to_i }
@@ -37,3 +45,4 @@ SCORE_LIST = {
 _, *a = $stdin.read.split
 
 puts a.map { |k| SCORE_LIST[k] }.sum
+=end
