@@ -1,9 +1,7 @@
 # 素数の個数
 # https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__prime_number_easy
 
-require "prime"
-n=gets.to_i
-p (2..n).count{|x|x.prime?}
+require "prime";n=gets.to_i;p (2..n).count{|x|x.prime?}
 
 =begin
 整数 N が与えられるので、2 以上 N 以下の素数の個数を求めてください。

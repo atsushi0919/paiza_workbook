@@ -1,38 +1,18 @@
 # 二重ループ：活用編 三角形の探索
 # https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__triangle
 
-t=false
-n=gets.to_i
-(1...(n-1)).each{|i|
-  (1...(n-i)).each{|j|
-    if i**2+j**2==(n-i-j)**2
-      t=!t
-      break
-    end
-  }
-  t&&break
-}
+t=false;n=gets.to_i
+(1...(n-1)).each{|i|(1...(n-i)).each{|j|if i**2+j**2==(n-i-j)**2;t=!t;break end};t&&break}
 puts t ? "YES" : "NO"
 
 =begin
-flag = False
-n = int(input())
-for i in range(1,n-1):
-    for j in range(1,n-i):
-       if i**2 + j**2 == (n-i-j)**2:
-          flag = True
-if flag:
-   print("YES")
-else:
-   print("NO")
-
-二重ループ：活用編 三角形の探索
 整数 N が与えられるので、三角形の三辺の長さの和が N であり、全ての辺の長さが整数であるような直角三角形が存在するかどうかを判定してください。
 なお、直角三角形の斜辺 a と他の二辺 b , c の間には次のような三平方の定理が成り立ちます。
 
 a ^ 2 = b ^ 2 + c ^ 2
 ・ ヒント
-三辺の長さの和が N であるような全ての三角形の三辺 a , b , c の組み合わせのうち、三平方の定理を満たすものが 1 つでもあれば "YES" , それ以外の場合は "NO" が答えとなります。全ての三辺の場合を全列挙することができれば三平方の定理を満たすかの判定をすることで答えを求めることができます。
+三辺の長さの和が N であるような全ての三角形の三辺 a , b , c の組み合わせのうち、三平方の定理を満たすものが 1 つでもあれば "YES" ,
+それ以外の場合は "NO" が答えとなります。全ての三辺の場合を全列挙することができれば三平方の定理を満たすかの判定をすることで答えを求めることができます。
 
 入力される値
 入力は標準入力にて以下のフォーマットで与えられます。

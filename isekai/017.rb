@@ -12,7 +12,7 @@ OUTPUT1 = <<"EOS"
 3 6
 EOS
 
-_,*a=$<.read.split("\n").map {|l|l.split.map &:to_i}
+_,*a=$<.read.split("\n").map{|l|l.split.map &:to_i}
 puts a.transpose.map{|l|l.join " "}
 
 =begin

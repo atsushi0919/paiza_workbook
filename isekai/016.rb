@@ -1,10 +1,7 @@
 # FizzBuzz
 
 
-(1..100).each {|n|
-  i=n**4% -15
-  puts "FizzBuzz\n"[i,i+13]||n
-}
+(1..100).each{|n|i=n**4% -15;puts "FizzBuzz\n"[i,i+13]||n}
 
 =begin
 1 ~ 100 の整数に対して、3 と 5 の両方で割り切れるなら FizzBuzz を、

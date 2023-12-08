@@ -1,19 +1,11 @@
 # log2
-# https :/ / paiza.jp / works / mondai / double_roop_problems / double_roop_problems__log2
+# https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__log2
 
 
 INPUT1 = "4"
 OUTPUT1 = "3"
 
-n=gets.to_i
-c=0
-(1..n).each{|i|
-  while i%2==0
-    i/=2
-    c+=1
-  end
-}
-p c
+n=gets.to_i;c=0;(1..n).each{|i|while i%2==0;i/=2;c+=1 end};p c
 
 =begin
 n = int(input())

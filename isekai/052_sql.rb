@@ -1,0 +1,20 @@
+SELECT *
+FROM ordered
+ORDER BY datetime;
+
+=begin
+日時の昇順に並べ替えよう
+注文履歴が、ordered テーブルに保存されています。
+ordered テーブルの形式は次の通りです。
+
+orderd_id int
+datetime  datetime
+bill      int
+
+注文履歴を「注文が行われた日時」の昇順に並べ替えてすべて取得してください。
+
+ヒント
+
+・ SELECT * FROM テーブル名: テーブル名 テーブルのすべてのレコードを取得することができる
+・ ORDER BY カラム名: カラム名 カラムの値の昇順に並べ替えることができる
+=end

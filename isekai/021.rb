@@ -46,10 +46,7 @@ OUTPUT2 = <<"EOS"
 6
 EOS
 
-t=*$<
-n,k,z = t.shift.split.map(&:to_i)
-a = t.shift(n).map(&:to_i)<<z
-q = t.shift(k)
+t=*$<;n,k,z=t.shift.split.map &:to_i;a=t.shift(n).map(&:to_i)<<z;q=t.shift k
 q.each{|e|
   if e.include? "join"
     a<<e.split[-1].to_i

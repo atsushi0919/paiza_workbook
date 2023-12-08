@@ -26,10 +26,8 @@ OUTPUT2 = <<"EOS"
 2 4
 EOS
 
-t=$<.read.split "\n"
-a,b,c=t.shift.split.map &:to_i
-d=t.shift(a).map{|l|l.split.map &:to_i}.to_h
-e=t.shift(b).map{|l|l.split.map &:to_i}.to_h
+t=$<.read.split $/;a,b,c=t.shift.split.map &:to_i
+d=t.shift(a).map{|l|l.split.map &:to_i}.to_h;e=t.shift(b).map{|l|l.split.map &:to_i}.to_h
 puts d.map{|k,v|[k,e[v]]}.sort.map{|l|l.join " "}
 
 =begin

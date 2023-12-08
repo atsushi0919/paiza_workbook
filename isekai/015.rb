@@ -10,12 +10,7 @@ OUTPUT1 = <<"EOS"
 11
 EOS
 
-n,k,*a=$<.read.split.map &:to_i
-s=[0]
-a.each{|e|s<<s[-1]+e}
-r=-1
-k.upto(n) {|i|r=[r,s[i]-s[i-k]].max}
-p r
+r=-1;n,k,*a=$<.read.split.map &:to_i;s=[0];a.each{|e|s<<s[-1]+e};k.upto(n){|i|r=[r,s[i]-s[i-k]].max};p r
 
 =begin
 n 日間で i 日目に a_i 個 (1 ≦ i ≦ n) の卵を産むニワトリがいます。ここで連続した k 日間 (k ≦ n) ニワトリから卵を貰える権利が与えられるとき、

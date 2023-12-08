@@ -12,26 +12,21 @@ OUTPUT1 = <<"EOS"
 ###
 EOS
 
-D=[[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]]
-t=*$<
-h,w=t.shift.split.map &:to_i
-s=t.map &:chars
+t=*$<;h,w=t.shift.split.map &:to_i;s=t.map &:chars
 (0...h).each{|y|
   (0...w).each{|x|
     if s[y][x]=="."
       b=0
-      D.each{|dy,dx|
+      [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]].each{|dy,dx|
         ny=y+dy;nx=x+dx
-        next if ny<0||h-1<ny
-        next if nx<0||w-1<nx
+        next if ny<0||h-1<ny||nx<0||w-1<nx
         b+=1 if s[ny][nx]=="#"
       } 
       s[y][x]=b
     end
   }
 }
-
-puts s.map(&:join)
+puts s.map &:join
 
 =begin
 あなたはボスの本拠地に乗り込みました。ボスの本拠地には爆弾が設置されているようです。

@@ -10,14 +10,7 @@ OUTPUT1 = <<"EOS"
 2
 EOS
 
-n,a,b= $<.read.split.map &:to_i
-z=k=1;i=0
-while k<=n
-  k+=z*a
-  z+=k%b
-  i+=1
-end
-p i
+n,a,b=$<.read.split.map &:to_i;z=k=1;i=0;while k<=n;k+=z*a;z+=k%b;i+=1 end;p i
 
 =begin
 パイザ君と霧島京子は最初どちらも数 1 をもっています。パイザ君は自分の番が来ると、自分のもっている数の a 倍を霧島京子の数に足してあげます。
