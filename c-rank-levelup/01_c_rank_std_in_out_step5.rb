@@ -15,12 +15,14 @@ OUTPUT2 = <<~"EOS"
   paiza paiza paiza
 EOS
 
-result = ""
-(1..gets.to_i).each do |count|
-  result << "paiza"
-  break if count == n
-  result << " "
-end
-puts result
+puts (["paiza"]*gets.to_i).join " "
 
-puts Array.new(gets.to_i, "paiza").join(" ")
+# result = ""
+# (1..gets.to_i).each do |count|
+#   result << "paiza"
+#   break if count == n
+#   result << " "
+# end
+# puts result
+
+# puts Array.new(gets.to_i, "paiza").join(" ")

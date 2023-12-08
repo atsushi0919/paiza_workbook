@@ -20,6 +20,8 @@ OUTPUT2 = <<~"EOS"
   12
 EOS
 
+puts $<.read.split[1..]
+
 # [解答例1]
 # gets
 # gets.split.each do |value|
@@ -31,6 +33,6 @@ EOS
 # puts gets.split
 
 # [解答例3]
-puts STDIN.read.split.slice(1..)
+# puts STDIN.read.split.slice(1..)
 # 同じ
 #puts STDIN.read.split[1..]

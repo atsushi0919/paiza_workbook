@@ -15,7 +15,7 @@ OUTPUT2 = <<"EOS"
 300
 EOS
 
-*a,z=gets.split.map(&:to_i);(a<<1).select!{|c|c<=z};l=a.size
+*a,z=gets.split.map &:to_i;(a<<1).select!{|c|c<=z};l=a.size
 t=Array.new(l+1){Array.new(z+1,9999)};t[0][0]=0
 1.upto(l){|i|c=a[i-1];0.upto(z){|j|t[i][j]=j<c ? t[i-1][j]:[t[i][j-c]+1,t[i-1][j]].min}}
 p t[-1][-1]

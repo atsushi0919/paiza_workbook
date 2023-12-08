@@ -12,8 +12,7 @@ OUTPUT1 = <<"EOS"
 3 6
 EOS
 
-_,*a=$<.read.split("\n").map{|l|l.split.map &:to_i}
-puts a.transpose.map{|l|l.join " "}
+_,*a=$<.read.split($/).map{|l|l.split.map &:to_i};puts a.transpose.map{|l|l.join " "}
 
 =begin
 N 行 K 列の行列 A の i 行 j 列 の要素 A_ij を A_ji とした K 行 N 列の行列を元の配列 A の転置行列と言います。

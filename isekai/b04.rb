@@ -18,9 +18,7 @@ t=*$<;h,w=t.shift.split.map &:to_i;s=t.map &:chars
     if s[y][x]=="."
       b=0
       [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]].each{|dy,dx|
-        ny=y+dy;nx=x+dx
-        next if ny<0||h-1<ny||nx<0||w-1<nx
-        b+=1 if s[ny][nx]=="#"
+        ny=y+dy;nx=x+dx;next if ny<0||h-1<ny||nx<0||w-1<nx;b+=1 if s[ny][nx]=="#"
       } 
       s[y][x]=b
     end

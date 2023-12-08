@@ -1,0 +1,21 @@
+降順に並べ替え
+
+SELECT ordered_id,num,sum FROM ordered_menu ORDER BY sum DESC LIMIT 100;
+
+ordered_id  int 注文番号
+menu_id   int メニュー番号
+num       int メニューの注文数
+sum       int 小計
+
+注文内容が、ordered_menu テーブルに保存されています。
+ordered_menu テーブルの形式は次の通りです。
+
+
+
+注文内容を小計の降順に並べ替えて、上位 100 件の注文の通し番号、メニューの注文数、小計を、この順で取得してください。
+
+ヒント
+
+・ SELECT カラム名1, カラム名2, ... FROM テーブル名: テーブル名 テーブルの カラム名1, カラム名2, ... カラムの値を取得することができる
+・ ORDER BY カラム名 DESC: カラム名 カラムの値の降順に並べ替えることができる
+・ LIMIT 件数: 上から 件数 件を取得することができる

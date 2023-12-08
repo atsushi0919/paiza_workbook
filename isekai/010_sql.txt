@@ -1,0 +1,20 @@
+昇順に並べ替え
+
+SELECT * FROM ordered ORDER BY bill LIMIT 10;
+
+orderd_id int
+datetime  datetime
+bill      int
+
+注文履歴が、ordered テーブルに保存されています。
+ordered テーブルの形式は次の通りです。
+
+
+
+注文履歴を「注文の合計金額」の昇順に並べ替えて、上位 10 件をすべて取得してください。
+
+ヒント
+
+・ SELECT * FROM テーブル名: テーブル名 テーブルのすべてのレコードを取得することができる
+・ ORDER BY カラム名: カラム名 カラムの値の昇順に並べ替えることができる
+・ LIMIT 件数: 上から 件数 件を取得することができる

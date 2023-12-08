@@ -20,6 +20,8 @@ OUTPUT2 = <<~"EOS"
   paiza
 EOS
 
+puts "paiza\n"*gets.to_i
+
 # 文字列 "paiza\n" を n 回 表示する
 # 例1
 #puts "paiza\n" * gets.to_i
@@ -28,4 +30,4 @@ EOS
 #gets.to_i.times { puts "paiza" }
 
 # n 個の要素を "paiza" で初期化した配列を作る
-puts Array.new(gets.to_i, "paiza")
+# puts Array.new(gets.to_i, "paiza")

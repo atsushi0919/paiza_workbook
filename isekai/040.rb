@@ -8,8 +8,7 @@ OUTPUT1 = <<"EOS"
 3
 EOS
 
-n,_,*a=$<.read.split.map &:to_i
-p a.count n
+n,_,*a=$<.read.split.map &:hex;p a.count n
 
 =begin
 1 行目に整数 N, M が与えられます。

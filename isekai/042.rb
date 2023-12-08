@@ -1,7 +1,6 @@
 # 九九の表示 2
 
-n=gets.to_i
-puts (1..9).map{|i|n*i}.join " "
+n=gets.to_i;puts (1..9).map{|i|n*i}.join " "
 
 
 =begin

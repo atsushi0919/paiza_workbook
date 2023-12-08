@@ -1,0 +1,16 @@
+SELECT orderd_id,datetime FROM ordered ORDER BY orderd_id DESC;
+
+注文番号の降順に並べ替えよう
+注文履歴が、ordered テーブルに保存されています。
+ordered テーブルの形式は次の通りです。
+
+ordered_id int
+datetime  datetime
+bill      int
+
+注文履歴を「注文の通し番号」の降順に並べ替えて、注文の通し番号、日時を、この順ですべて取得してください。
+
+ヒント
+
+・ SELECT カラム名1, カラム名2, ... FROM テーブル名: テーブル名 テーブルの カラム名1, カラム名2, ... カラムを取得することができる
+・ ORDER BY カラム名 DESC: カラム名 カラムの値の降順に並べ替えることができる

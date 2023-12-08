@@ -9,16 +9,21 @@ OUTPUT1 = <<~"EOS"
   14:30
 EOS
 
-INPUT2 = <<~"EOS"
-  2
-  15:59 0 1
-  23:20 1 0
+INPUT2 = <<"EOS"
+2
+15:59 0 1
+23:20 1 0
 EOS
-OUTPUT2 = <<~"EOS"
-  16:00
-  00:20
+OUTPUT2 = <<"EOS"
+16:00
+00:20
 EOS
 
+a=$<.read
+
+p a
+
+=begin
 # [解答例1]
 def solve(input_lines)
   # input_lines を改行区切りで分割する
@@ -109,3 +114,4 @@ def solve(input_lines)
 end
 
 puts solve(STDIN.read)
+=end

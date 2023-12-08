@@ -2,26 +2,28 @@
 # https://paiza.jp/works/mondai/c_rank_level_up_problems/c_rank_std_in_out_boss
 
 # 入出力例
-INPUT1 = <<~"EOS"
-  1
-  Yamada 30
+INPUT1 = <<"EOS"
+1
+Yamada 30
 EOS
-OUTPUT1 = <<~"EOS"
-  Yamada 31
-EOS
-
-INPUT2 = <<~"EOS"
-  3
-  Tanaka 18
-  Sato 50
-  Suzuki 120
+OUTPUT1 = <<"EOS"
+Yamada 31
 EOS
 
-OUTPUT2 = <<~"EOS"
-  Tanaka 19
-  Sato 51
-  Suzuki 121
+INPUT2 = <<"EOS"
+3
+Tanaka 18
+Sato 50
+Suzuki 120
 EOS
+
+OUTPUT2 = <<"EOS"
+Tanaka 19
+Sato 51
+Suzuki 121
+EOS
+
+puts $<.read.split($/)[1..].map{|l|n,a=l.split;"#{n} #{a.to_i+1}"}
 
 =begin
 
@@ -38,8 +40,6 @@ n.times do
   # name と age を半角スペースの文字列に戻して出力
   puts "#{name} #{age.to_i + 1}"
 end
-
-=end
 
 def solve(input_lines)
   # input_lines を改行区切りで分割する
@@ -60,8 +60,6 @@ puts solve(STDIN.read)
 
 exit
 
-=begin
-
 # [解答例2]
 def solve(input_lines)
   # 改行で分割して1行目を _, 2行目以降を members に代入
@@ -80,5 +78,3 @@ def solve(input_lines)
 end
 
 =end
-
-puts solve(STDIN.read)

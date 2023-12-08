@@ -1,6 +1,4 @@
-SELECT *
-FROM ordered_menu
-ORDER BY num DESC;
+SELECT * FROM ordered_menu ORDER BY num DESC;
 
 =begin
 注文数の降順に並べ替えよう

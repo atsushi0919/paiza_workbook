@@ -23,11 +23,13 @@ OUTPUT2 = <<~"EOS"
   39
 EOS
 
+puts $<.read.split[1..]
+
 # [解答例1]
 # 回数 n を受け取り整数に変換する
-n = gets.to_i
+# n = gets.to_i
 # n 回分の標準入力をそのまま出力する
-n.times { puts gets }
+# n.times { puts gets }
 
 # [解答例2]
-get.to_i.times { puts gets }
+# get.to_i.times { puts gets }

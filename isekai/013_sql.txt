@@ -1,11 +1,10 @@
-# 複数の条件で並べ替え2 SQL
+# 複数の条件で並べ替え2
 
 SELECT name, name_yomi, join_date
 FROM customer
 ORDER BY join_date DESC, name_yomi
 LIMIT 30
 
-=begin
 会員のリストが、customer テーブルに保存されています。
 customer テーブルの形式は次の通りです。
 
@@ -28,4 +27,3 @@ customer テーブルの形式は次の通りです。
 ・ カラム名1 カラムの値の降順
 ・ そして、カラム名1 カラムの値が同じとき、カラム名2 カラムの値の昇順
 ・ LIMIT 件数: 上位 件数 件を取得することができる
-=end

@@ -1,6 +1,4 @@
-SELECT *
-FROM ordered
-ORDER BY datetime;
+SELECT * FROM ordered ORDER BY datetime;
 
 =begin
 日時の昇順に並べ替えよう

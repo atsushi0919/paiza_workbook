@@ -16,4 +16,4 @@ OUTPUT2 = <<~"EOS"
 EOS
 
 # [解答例]
-puts gets
+$><<gets

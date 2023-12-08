@@ -14,8 +14,7 @@ OUTPUT1 = <<"EOS"
 104
 EOS
 
-t=*$<;n,k=t.shift.split.map &:to_i;a=t.shift(n).map &:to_i;e=t.map{|l|l.split.map &:to_i}
-s=[0];a.each{|x|s<<s[-1]+x};puts e.map{|l,r|s[r]-s[l-1]}
+t=*$<;n,k=t.shift.split.map &:to_i;a=t.shift(n).map &:to_i;e=t.map{|l|l.split.map &:to_i};s=[0];a.each{|x|s<<s[-1]+x};puts e.map{|l,r|s[r]-s[l-1]}
 
 =begin
 長さ N の数列 A と、K 個の区間 (l_1,r_1) ... (l_K,r_K) が与えられるので、

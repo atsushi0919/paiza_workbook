@@ -20,16 +20,19 @@ OUTPUT2 = <<~"EOS"
   20
 EOS
 
+p $<.read.split.map(&:to_i)[1..].max
+
 # [解答例1]
-ary = []
-max_num = 0
-gets.to_i.times do
-  num = gets.to_i
-  max_num = num if max_num < num
-  ary.push(num)
-end
-puts max_num
+# ary = []
+# max_num = 0
+# gets.to_i.times do
+#   num = gets.to_i
+#   max_num = num if max_num < num
+#   ary.push(num)
+# end
+# puts max_num
 
 # [解答例2]
-ary = gets.to_i.times.map { gets.to_i }
-puts ary.max
+# ary = gets.to_i.times.map { gets.to_i }
+# puts ary.max
+

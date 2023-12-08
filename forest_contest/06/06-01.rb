@@ -13,6 +13,9 @@ OUTPUT1 = <<"EOS"
 Yes
 EOS
 
+_,k,*a=$<.read.split.map &:to_i;puts a.sum<k ? "Yes" : "No"
+
+=begin
 # 解答例1-1
 n, k = gets.split.map(&:to_i)
 a = n.times.map { gets.to_i }
@@ -28,3 +31,4 @@ end
 _, k, *a = $stdin.read.split.map(&:to_i)
 
 puts a.sum < k ? "Yes" : "No"
+=end

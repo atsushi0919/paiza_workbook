@@ -49,6 +49,17 @@ OUTPUT3 = <<"EOS"
 7
 EOS
 
+k,*a=$<.read.split.map &:to_i
+l=nil
+n=0
+(0..9).each{|i|
+  n+=a[i]
+  if n>k
+    l
+  end
+}
+
+=begin
 # 解答例1-1
 n = 9
 k = gets.to_i
@@ -88,3 +99,4 @@ a.each.with_index(1) do |v, i|
 end
 
 puts leaving_inning || "Yes"
+=end

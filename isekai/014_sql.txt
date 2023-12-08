@@ -1,0 +1,24 @@
+価格の高い順に 10 件取得しよう
+https://paiza.jp/works/mondai/sql-new-primer-02_drill/sql-new-primer-02_drill__0799
+
+
+SELECT * FROM menu ORDER BY price DESC LIMIT 10;
+
+メニューが、menu テーブルに保存されています。
+menu テーブルの形式は次の通りです。
+
+menu_id     int     メニュー番号
+categoly_id int     カテゴリ番号
+name        varchar メニュー名
+price       int     価格
+
+メニューを価格の高い順に 10 件すべて取得してください。
+
+回答形式
+menu_id     category_id     name     price
+
+menu_id_01  category_id_01  name_01  price_01
+
+...
+
+menu_id_10  category_id_10  name_10  price_10
