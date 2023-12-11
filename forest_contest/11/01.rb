@@ -8,7 +8,9 @@ OUTPUT1 = <<"EOS"
 30
 EOS
 
-puts gets.split.map(&:to_i).sum
+p gets.split.map(&:to_i).sum
+
+# puts gets.split.map(&:to_i).sum
 
 =begin
 2 種類のお菓子の値段はそれぞれ a, b 円です。2 種類のお菓子を 1 つずつ購入したときの合計金額を求めてください。

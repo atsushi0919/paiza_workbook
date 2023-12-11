@@ -1,9 +1,7 @@
 # 素数判定 (paizaランク D 相当)
 # https://paiza.jp/works/mondai/forest_contest_011/forest_contest_011__d_prime_number
 
-require "prime"
-
-puts gets.to_i.prime? ? "Yes" : "No"
+require"prime";puts gets.to_i.prime? ? "Yes" : "No"
 
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！

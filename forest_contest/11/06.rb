@@ -1,9 +1,11 @@
 # 辞書順で最も小さい文字列 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_011/forest_contest_011__c_the_smallest_string
 
-_, s = $stdin.read.split
+puts`dd`.split[1].chars.sort.join
 
-puts s.chars.sort.join
+# _, s = $stdin.read.split
+
+# puts s.chars.sort.join
 
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！

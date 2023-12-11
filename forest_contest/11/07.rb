@@ -1,10 +1,12 @@
 # 全員が正答 (paizaランク B 相当)
 # https://paiza.jp/works/mondai/forest_contest_011/forest_contest_011__b_easyproblem
 
-_, *c = $stdin.read.split("\n").map { |l| l.split.map(&:to_i) }
+puts`dd`.split($/)[1..].map(&:split).transpose.any?{|l|l.all? "1"} ? "Yes" : "No"
 
-is_all_correct = c.transpose.any? { |prb| prb.all? 1 }
-puts is_all_correct ? "Yes" : "No"
+# _, *c = $stdin.read.split("\n").map { |l| l.split.map(&:to_i) }
+
+# is_all_correct = c.transpose.any? { |prb| prb.all? 1 }
+# puts is_all_correct ? "Yes" : "No"
 
 =begin
 パイザ小学校であるテストを行いました。問題は n 問あり、m 人の生徒の解答の正誤が与えられるとき、

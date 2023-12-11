@@ -1,13 +1,42 @@
 # ロボットの移動 - その 2 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/forest_contest_011/forest_contest_011__c_robot_movement_2
 
-x, y = gets.split.map(&:to_i)
+INPUT1=<<"EOS"
+5 3
+EOS
+OUTPUT1=<<"EOS"
+9
+EOS
 
-diff = (x - y).abs
-step = [x, y].min * 2
-step += (diff - 1) * 2 + 1 if diff > 0
+INPUT2=<<"EOS"
+-66 -7
+EOS
+OUTPUT2=<<"EOS"
+131
+EOS
 
-puts step
+INPUT3 = <<"EOS"
+-100 -100
+EOS
+OUTPUT3 = <<"EOS"
+200
+EOS
+
+INPUT4 = <<"EOS"
+74 -77
+EOS
+OUTPUT4 = <<"EOS"
+153
+EOS
+
+x,y=gets.split.map{|x|x.to_i.abs};s=[x,y].min*2;p x==y ? s : s+(x-y).abs*2-1
+
+# x, y = gets.split.map{|x|x.to_i.abs}
+# s = [x, y].min * 2
+# p s
+# d = (x - y).abs
+# s += d * 2 - 1 if d > 0
+# puts s
 
 =begin
 2 次元グリッドにおいて、ロボットは(0,0)の初期位置から目標地点(x,y)まで移動したいです。
@@ -41,7 +70,6 @@ x y
 
 入力例1
 5 3
-
 出力例1
 9
 =end
