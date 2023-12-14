@@ -11,7 +11,8 @@ OUTPUT1 = <<"EOS"
 109
 EOS
 
-t=*$<;n,k=t.shift.split.map &:to_i;a=t.shift(n).map &:to_i;q=t.map &:to_i;s=[0];a.each{|x|s<<s[-1]+x};q.each{|i|p s[i]}
+t=*$<;n,k=t.shift.split.map &:to_i;a=t.shift(n).map &:to_i;q=t.map &:to_i
+s=[0];a.each{|x|s<<s[-1]+x};q.each{|i|p s[i]}
 
 =begin
 長さ N の数列 A と、K 個の整数 Q_1 ... Q_K が与えられるので、各整数 Q_i (1 ≦ i ≦ K) について A_1 ... A_{Q_i} の和を求めてください。

@@ -1,7 +1,7 @@
 # 九九の表示 2
+# https://paiza.jp/works/mondai/loop_problems/loop_problems__kuku_step2
 
-n=gets.to_i;puts (1..9).map{|i|n*i}.join " "
-
+gets;puts (1..9).map{|i|$_.hex*i}*?\s
 
 =begin
 整数 N が与えられます。

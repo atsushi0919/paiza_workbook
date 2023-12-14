@@ -15,16 +15,29 @@ EOS
 t=*$<;h,w=t.shift.split.map &:to_i;s=t.map &:chars
 (0...h).each{|y|
   (0...w).each{|x|
-    if s[y][x]=="."
+    s[y][x]=[[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]].map{|c,d|
+      e=y+c;f=x+d;0<=e&&e<h&&0<=f&&f<w&&s[e][f]==?#?1:0
+    }.sum if s[y][x]==?.
+  }
+}
+puts s.map &:join
+
+=begin
+t=*$<;h,w=t.shift.split.map &:to_i;s=t.map &:chars
+(0...h).each{|y|
+  (0...w).each{|x|
+    if s[y][x]==?.
       b=0
-      [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]].each{|dy,dx|
-        ny=y+dy;nx=x+dx;next if ny<0||h-1<ny||nx<0||w-1<nx;b+=1 if s[ny][nx]=="#"
+      [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]].each{|c,d|
+        e=y+c;f=x+d;next if e<0||h-1<e||f<0||w-1<f;b+=1 if s[e][f]==?#
+        e=y+c;f=x+d;if 0<=e||e<h||0<=f||f<w;b+=1 if s[e][f]==?# end
       } 
       s[y][x]=b
     end
   }
 }
 puts s.map &:join
+=end
 
 =begin
 あなたはボスの本拠地に乗り込みました。ボスの本拠地には爆弾が設置されているようです。

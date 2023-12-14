@@ -46,14 +46,8 @@ OUTPUT2 = <<"EOS"
 6
 EOS
 
-t=*$<;n,k,z=t.shift.split.map &:to_i;a=t.shift(n).map(&:to_i)<<z;q=t.shift k
-q.each{|e|
-  if e.include? "join"
-    a<<e.split[-1].to_i
-  else
-    a.sort!;p a.index(z)+1
-  end
-}
+t=*$<;n,k,z=t.shift.split.map &:to_i;a=t.shift(n).map(&:to_i)<<z
+t.each{|e|if e[0]==?j;a<<e.split[-1].to_i else a.sort!;p a.index(z)+1;end}
 
 =begin
 z 君のクラスには z 君を含めて N + 1 人の生徒がいます。z 君の身長は P cm で、他の N 人の生徒の身長はそれぞれ A_1 ... A_N です。

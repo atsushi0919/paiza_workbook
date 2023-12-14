@@ -1,6 +1,6 @@
 # ゾロ目
 
-n=gets.to_i;9.downto(1){|i|if n>=i*11;p i*11;break;end}
+gets;9.downto(1){|i|if $_.to_i>=i*11;p i*11;exit;end}
 
 =begin
 あなたは大豆を x (11 ≦ x ≦ 99) 粒持っています。

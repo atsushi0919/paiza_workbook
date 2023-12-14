@@ -1,6 +1,6 @@
 # 数列の最大値
 
-p $<.read.split.map(&:to_i)[1..].max
+gets;p gets.split.map(&:to_i).max
 
 =begin
 長さ N の数列 a (a_1, a_2, ..., a_N) が与えられます。

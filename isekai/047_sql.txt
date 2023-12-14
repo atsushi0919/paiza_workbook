@@ -1,0 +1,18 @@
+価格の降順に並べ替えよう
+
+SELECT * FROM menu ORDER BY price DESC;
+
+メニューが、menu テーブルに保存されています。
+menu テーブルの形式は次の通りです。
+
+menu_id     int     メニュー番号
+categoly_id int     カテゴリ番号
+name        varchar メニュー名
+price       int     価格
+
+メニューを価格の降順に並べ替えてすべて取得してください。
+
+ヒント
+
+・ SELECT * FROM テーブル名: テーブル名 テーブルのすべてのレコードを取得することができる
+・ ORDER BY カラム名 DESC: カラム名 カラムの値の降順に並べ替えることができる

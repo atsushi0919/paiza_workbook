@@ -16,7 +16,9 @@ OUTPUT1=<<"EOS"
 Yes
 EOS
 
-a=$<.read.split.map &:to_i;puts 0.upto(8).any?{|i|(a[i]-a[i+1]).abs>2} ? "Yes" : "No"
+puts $<.readlines.map(&:to_i).each_cons(2).any?{|x,y|(x-y).abs>2} ? :Yes : :No
+
+# a=$<.read.split.map &:to_i;puts 0.upto(8).any?{|i|(a[i]-a[i+1]).abs>2} ? "Yes" : "No"
 
 =begin
 連続する 2 日間の最高気温の差が 3 度以上あるとき、「寒暖差がある」と呼ぶことにします。

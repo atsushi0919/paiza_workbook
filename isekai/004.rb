@@ -1,9 +1,9 @@
 # 二重ループ：活用編 三角形の探索
 # https://paiza.jp/works/mondai/double_roop_problems/double_roop_problems__triangle
 
-t=false;n=gets.to_i
+n,t=gets.to_i
 (1...(n-1)).each{|i|(1...(n-i)).each{|j|if i**2+j**2==(n-i-j)**2;t=!t;break end};t&&break}
-puts t ? "YES" : "NO"
+puts t ? :YES : :NO
 
 =begin
 整数 N が与えられるので、三角形の三辺の長さの和が N であり、全ての辺の長さが整数であるような直角三角形が存在するかどうかを判定してください。

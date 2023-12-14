@@ -1,0 +1,21 @@
+フリガナの昇順に並べ替えよう
+
+SELECT * FROM customer ORDER BY name_yomi;
+
+会員のリストが、customer テーブルに保存されています。
+customer テーブルの形式は次の通りです。
+
+1. customer_id  int     会員の通し番号
+2. name         varchar 会員名 漢字
+3. name_yomi    varchar 会員名 フリガナ
+4. join_date    date
+5. residence    varchar 居住地
+
+会員のリストを会員名（フリガナ）の昇順に並べ替えてすべて取得してください。
+
+※: 会員名（フリガナ）は、カタカナからなる文字列です。
+
+ヒント
+
+・ SELECT * FROM テーブル名: テーブル名 テーブルのすべてのレコードを取得することができる
+・ ORDER BY カラム名: カラム名 カラムの値の昇順に並べ替えることができる

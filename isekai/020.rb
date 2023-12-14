@@ -5,20 +5,9 @@
 INPUT1 = "4"
 OUTPUT1 = "3"
 
-n=gets.to_i;c=0;(1..n).each{|i|while i%2==0;i/=2;c+=1 end};p c
+gets;c=0;(1..$_.to_i).each{|i|while i%2==0;i/=2;c+=1 end};p c
 
 =begin
-n = int(input())
-
-ans = 0
-for i in range(1, n + 1):
-    now = i
-    while now % 2 == 0:
-        now //= 2
-        ans += 1
-
-print(ans)
-
 整数 N が与えられるので、1 × 2 × ... × (N-1) × N を最大で何回 2 で割ることができるかを求めてください。
 
 入力される値

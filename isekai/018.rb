@@ -11,7 +11,7 @@ OUTPUT = <<"EOS"
 1680 1110 900
 EOS
 
-_,*a=$<.read.split.map &:to_i;s=a.map{|x|a.map{|y|x*y}};puts s.map{|l|l.join " "}
+_,*a=$<.read.split.map &:to_i;s=a.map{|x|a.map{|y|x*y}};puts s.map{|l|l*?\s}
 
 =begin
 配列 A の要素数 N とその要素 A_i (1 ≦ i ≦ N) が与えられるので、A についてのかけ算表 B を出力してください。かけ算表は N * N の二次元配列の形式とし、B の i 行 j 列の要素 B_ij について、B_ij = Ai * Aj (1 ≦ i , j ≦ N) が成り立つものとします。

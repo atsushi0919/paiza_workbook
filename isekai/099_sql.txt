@@ -1,0 +1,18 @@
+注文番号を取得しよう
+
+未
+SELECT orderd_id FROM ordered_menu;
+
+注文内容が、ordered_menu テーブルに保存されています。
+ordered_menu テーブルの形式は次の通りです。
+
+1. orderd_id  int 注文id
+2. menu_id    int メニューid
+3. num        int 注文数
+4. sum        int 小計
+
+注文内容から、注文の通し番号をすべて取得してください。
+
+ヒント
+
+・ SELECT カラム名1, カラム名2, ... FROM テーブル名: テーブル名 テーブルの カラム名1, カラム名2, ... カラムを取得することができる

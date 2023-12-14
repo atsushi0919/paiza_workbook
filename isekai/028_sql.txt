@@ -1,0 +1,23 @@
+入会した順に並べ替えよう
+
+SELECT * FROM customer ORDER BY join_date;
+
+会員のリストが、customer テーブルに保存されています。
+customer テーブルの形式は次の通りです。
+
+1. customer_id  int     会員の通し番号
+2. name         varchar 会員名 漢字
+3. name_yomi    varchar 会員名 フリガナ
+4. join_date    date
+5. residence    varchar 居住地
+
+会員のリストを入会日が早い順にすべて取得してください。
+
+回答形式
+ordered_id    menu_id    num    sum
+
+ordered_id_1  menu_id_1  num_1  sum_1
+
+...
+
+ordered_id_n  menu_id_n  num_n  sum_n

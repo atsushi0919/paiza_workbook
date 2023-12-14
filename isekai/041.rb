@@ -1,4 +1,5 @@
 # 配列の書き換え
+# https://paiza.jp/works/mondai/array_primer/array_primer__elm_rewrite
 
 INPUT1=<<"EOS"
 3 1 5
@@ -12,7 +13,7 @@ OUTPUT1=<<"EOS"
 5
 EOS
 
-a,b,n,*c=$<.read.split;puts c.map{|x|x==a ? b : x}
+a,b,_,*c=$<.read.split;puts c.map{|x|x==a ? b : x}
 
 =begin
 1 行目に整数 A, B, N が与えられます。
