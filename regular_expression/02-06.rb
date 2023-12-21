@@ -1,11 +1,9 @@
-=begin
-文字列の全削除 (paizaランク C 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# 文字列の全削除 (paizaランク C 相当)
+# https://paiza.jp/works/mondai/regular_expression/regular_expression__processing_6
 
-シェア用URL:
-https://paiza.jp/works/mondai/regular_expression/regular_expression__processing_6
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
+puts`dd`.gsub /import [a-zA-Z0-9]+/,""
+
+=begin
 引き続き、正規表現を使って文字列を処理する方法について見ていきます。
 今回は、文字列の全削除をおこないます。
 

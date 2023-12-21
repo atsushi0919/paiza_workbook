@@ -1,9 +1,12 @@
+# 文字列の全置換 (paizaランク C 相当)
+# https://paiza.jp/works/mondai/regular_expression/regular_expression__processing_4
+
+puts`dd`.gsub /raw_input/,"input"
+
 =begin
-文字列の全置換 (paizaランク C 相当)
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
 
 シェア用URL:
-https://paiza.jp/works/mondai/regular_expression/regular_expression__processing_4
 問題文のURLをコピーする
  下記の問題をプログラミングしてみよう！
 引き続き、正規表現を使って文字列を処理する方法について見ていきます。
