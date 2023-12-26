@@ -46,25 +46,13 @@ r
 #
 EOS
 
-t=INPUT1.split ?\n
-# t=`dd`.split ?\n
-# n,q=t.shift.split.map &:to_i
-# s,*query=t
-# trie=Array.new(n+1){(?a..?z).map{|k|[k,?#]}.to_h}
-# query.each do |q|
-#   n,c=q.split
-#   trie[n.to_i][c]=c
-# end
+# ※ 入力例2: Q=10 に対して query_1~11 まで入力あり
 
-# pp trie
+n,q,s,*r=`dd`.split
+t=[];c=?a;(0..n.to_i).each{|i|t<<=s[i]?{c=>s[i]}:{};c=s[i]}
+q.to_i.times{i,j=r.shift 2;puts t[i.to_i][j]||?#}
 
 =begin
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
-
-シェア用URL:
-
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
 このメニューではトライ木というデータ構造を実装します。トライ木は有向木の一種で主に文字列を記録するためのデータ構造です。
 トライ木では頂点とラベル付き有向辺に文字を割り当てて文字列を記録します。
 また、トライ木の根 (空白となっている頂点) からラベル付き有向辺をたどることで記録された文字列を取り出すことができます。

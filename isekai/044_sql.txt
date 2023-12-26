@@ -1,0 +1,22 @@
+メニューを安い順に並べ替えよう
+
+SELECT * FROM menu ORDER BY price;
+
+メニューが、menu テーブルに保存されています。
+menu テーブルの形式は次の通りです。
+
+menu_id     int     メニュー番号
+categoly_id int     カテゴリ番号
+name        varchar メニュー名
+price       int     価格
+
+メニューを価格の安い順にすべて取得してください。
+
+回答形式
+menu_id    category_id    name    price
+
+menu_id_1  category_id_1  name_1  price_1
+
+...
+
+menu_id_n  category_id_n  name_n  price_n

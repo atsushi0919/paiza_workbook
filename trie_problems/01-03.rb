@@ -1,7 +1,8 @@
 # プレフィックスの次の文字 (paizaランク C 相当)
 # https://paiza.jp/works/mondai/trie_problems/trie_problems__whats_next_character
 
-_,*a,t=`dd`.split;puts a.map{|s|r=p;(1..s.size).each{|i|if s[0,i]==t;r=s[i]||?#;break;end};r||?/}
+_,*a,t=`dd`.split
+puts a.map{|s|r=p;(1..s.size).each{|i|if s[0,i]==t;r=s[i]||?#;break;end};r||?/}
 
 =begin
 N 個の文字列 S_1, ..., S_N と文字列 P が与えられます。S の i 番目の文字列を S_i とします。

@@ -1,11 +1,45 @@
-=begin
-トライ木の文字列検索 (paizaランク B 相当)
-問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！
+# トライ木の文字列検索 (paizaランク B 相当)
+# https://paiza.jp/works/mondai/trie_problems/trie_problems__array_search
 
-シェア用URL:
-https://paiza.jp/works/mondai/trie_problems/trie_problems__array_search
-問題文のURLをコピーする
- 下記の問題をプログラミングしてみよう！
+INPUT1=<<"EOS"
+4
+0 a t
+1 t r
+2 r e
+3 e e
+4 e #
+EOS
+OUTPUT1=<<"EOS"
+tree
+EOS
+
+INPUT2=<<"EOS"
+5
+5 d #
+4 b d
+3 c b
+2 b c
+1 a b
+0 a a
+EOS
+OUTPUT2=<<"EOS"
+abcbd
+EOS
+
+INPUT3=<<"EOS"
+1
+0 a f
+1 f #
+EOS
+OUTPUT3=<<"EOS"
+f
+EOS
+
+n,*a=`dd`.split($/).map &:split
+t=[];a.each{|x,y,z|t[x.to_i]={y=>z}}
+i=0;j=?a;while t[i][j]!=?#;$><<j=t[i][j];i+=1;end
+
+=begin
 長さ N の小文字のアルファベットの文字列 S が格納されたトライ木の有向グラフが与えられます。
 グラフは二次元配列 trie を用いて表されています。trie は次のような配列です。
 

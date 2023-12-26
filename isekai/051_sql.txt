@@ -1,0 +1,21 @@
+合計金額の高い順に並べ替えよう
+
+SELECT * FROM ordered ORDER BY bill DESC;
+
+注文履歴が、ordered テーブルに保存されています。
+ordered テーブルの形式は次の通りです。
+
+ordered_id int
+datetime  datetime
+bill      int
+
+注文履歴を「注文の合計金額」の高い順にすべて取得してください。
+
+回答形式
+ordered_id    datetime    bill
+
+ordered_id_1  datetime_1  bill_1
+
+...
+
+ordered_id_n  datetime_n  bill_n

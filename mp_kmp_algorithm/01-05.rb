@@ -38,7 +38,7 @@ while i + j < t_len
   end
 end
 
-puts partial_match ? "Yes" : "No"
+puts partial_match ? :Yes : :No
 
 =begin
 問題にチャレンジして、ユーザー同士で解答を教え合ったり、コードを公開してみよう！

@@ -132,12 +132,6 @@ apply
 EOS
 
 puts`dd`.split[1..].map{|s|(1..s.size).map{|i|s[0,i]}}.flatten.uniq.sort
-# puts`dd`.split[1..].map{|s|(1..s.strip.size).map{|i|s[0,i]}}.flatten|[].sort
-# n, *b = INPUT2.split
-# y=b.map{|s|(1..s.strip.size).map{|i|s[0,i]}}.flatten.sort|[]
-
-# puts y==x
-
 
 =begin
 N 個のアルファベット小文字の文字列 S_1, ..., S_N が与えられます。
