@@ -63,32 +63,6 @@ t.shift(n.to_i).map{|w|trie.insert w}
 puts t.shift(q.to_i).map{|w|trie.search(w)?:Yes: :No}
 
 =begin
-class Trie
-  attr_accessor :root
-  class Node
-    attr_accessor :child, :is_end
-    def initialize
-      @child={}
-      @is_end=false
-    end
-  end
-  def initialize
-    @root=Node.new
-  end
-  def insert(s)
-    n=@root
-    s.each_char{|c|n.child[c]=Node.new if !n.child[c];n=n.child[c]}
-    n.is_end=true
-  end
-end
-
-trie=Trie.new;n,q,*t=`dd`.split.map{|x|x=~/\d+/?x.to_i: x}
-n.times.map{trie.insert x=t.shift;x}
-puts q.times.map{
-  f=true;n=trie.root;t.shift.each_char{|c|if !n.child[c];f=!f;break;end;n=n.child[c]}
-  f&&n.is_end ? :Yes: :No
-}
-
 この問題では与えられた文字列 word がトライ木に格納された文字列であるかを確認し, 
 格納された文字列であるなら true 、そうでないなら false を返すメソッド search(word: string): bool を作成してください。
 詳しい手順は述べませんが、word の対応する頂点が存在し、かつその頂点のメンバ変数 is_end が true であるなら word はトライ木に格納された文字列です。
